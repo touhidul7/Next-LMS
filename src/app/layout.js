@@ -1,0 +1,25 @@
+import { Inter } from 'next/font/google';
+import { Toaster } from 'sonner';
+import "./globals.css";
+
+const inter = Inter({
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-sans',
+});
+
+export const metadata = {
+  title: "Frontend Development LMS — 4-Month Flagship Program",
+  description: "Master modern frontend web development from fundamentals to professional React & Next.js projects with mentor feedback and private video access.",
+};
+
+export default function RootLayout({ children }) {
+  return (
+    <html lang="en" className={`dark h-full antialiased ${inter.variable}`} suppressHydrationWarning>
+      <body className="min-h-full flex flex-col bg-[#090d16] text-slate-100 font-sans font-normal" suppressHydrationWarning>
+        {children}
+        <Toaster position="top-right" theme="dark" richColors />
+      </body>
+    </html>
+  );
+}
