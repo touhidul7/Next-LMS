@@ -9,7 +9,7 @@ const checkoutSchema = z.object({
   fullName: z.string().min(2, 'Full name is required'),
   email: z.string().email('Invalid email address'),
   phone: z.string().min(11, 'Valid phone number is required'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
+  password: z.string().optional(),
   senderPhone: z.string().min(11, 'Valid sender bKash phone number is required'),
   transactionId: z.string().min(6, 'Transaction ID must be at least 6 characters'),
   amount: z.number().min(100, 'Invalid amount'),
@@ -47,39 +47,34 @@ export async function submitCheckoutAction(formData) {
   const supabase = await createClient();
   const adminSupabase = await createAdminClient();
 
-  // 1. Check if user already exists or sign up new account
+  // 1. Check if user already exists or sign in
   let userId = null;
   const { data: { user } } = await supabase.auth.getUser();
 
   if (user) {
     userId = user.id;
+    // Update phone/name if provided
+    await adminSupabase
+      .from('profiles')
+      .update({
+        full_name: fullName,
+        phone: phone,
+      })
+      .eq('id', user.id);
   } else {
-    // Attempt registration
-    const { data: authData, error: authError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: {
-          full_name: fullName,
-          phone: phone,
-        },
-      },
-    });
+    // Look up existing user by email
+    const { data: existingProfile } = await adminSupabase
+      .from('profiles')
+      .select('id')
+      .ilike('email', email.trim().toLowerCase())
+      .maybeSingle();
 
-    if (authError) {
-      // If user already registered, attempt login
-      const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({
-        email,
-        password,
-      });
-
-      if (loginError) {
-        return { error: 'An account with this email exists. Please sign in first or enter correct password.' };
-      }
-
-      userId = loginData.user.id;
+    if (existingProfile) {
+      userId = existingProfile.id;
     } else {
-      userId = authData.user.id;
+      return {
+        error: 'Please click "Continue with Google" above to sign in before submitting your enrollment.',
+      };
     }
   }
 

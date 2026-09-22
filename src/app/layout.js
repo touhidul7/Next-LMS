@@ -9,8 +9,13 @@ const inter = Inter({
 });
 
 export const metadata = {
-  title: "Frontend Development LMS — 4-Month Flagship Program",
+  title: "Next LMS — 4-Month Frontend Development Program",
   description: "Master modern frontend web development from fundamentals to professional React & Next.js projects with mentor feedback and private video access.",
+  icons: {
+    icon: "/logo.png",
+    shortcut: "/logo.png",
+    apple: "/logo.png",
+  },
 };
 
 export default function RootLayout({ children }) {

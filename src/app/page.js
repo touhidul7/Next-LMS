@@ -1,9 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import { createClient } from '@/lib/supabase/client';
 import {
-  Code2,
   BookOpen,
   ShieldCheck,
   Video,
@@ -18,12 +18,32 @@ import {
   Users,
   Award,
   HelpCircle,
-  Laptop
+  Laptop,
+  LayoutDashboard
 } from 'lucide-react';
 
 export default function Home() {
   const [openWeek, setOpenWeek] = useState(null);
   const [openFaq, setOpenFaq] = useState(null);
+  const [sessionUser, setSessionUser] = useState(null);
+  const [userRole, setUserRole] = useState(null);
+
+  useEffect(() => {
+    const supabase = createClient();
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      if (user) {
+        setSessionUser(user);
+        supabase
+          .from('profiles')
+          .select('role, full_name')
+          .eq('id', user.id)
+          .maybeSingle()
+          .then(({ data: profile }) => {
+            if (profile) setUserRole(profile.role);
+          });
+      }
+    });
+  }, []);
 
   const toggleWeek = (id) => setOpenWeek(openWeek === id ? null : id);
   const toggleFaq = (id) => setOpenFaq(openFaq === id ? null : id);
@@ -78,11 +98,9 @@ export default function Home() {
       <header className="border-b border-slate-800/80 bg-[#090d16]/90 backdrop-blur sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
           <Link href="/" className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-bold text-slate-950 text-xl shadow-lg shadow-cyan-500/20">
-              <Code2 className="w-6 h-6 text-slate-950" />
-            </div>
+            <img src="/logo.png" alt="Next LMS" className="w-10 h-10 rounded-xl shadow-lg shadow-indigo-500/30" />
             <span className="text-lg font-bold tracking-tight text-white">
-              Frontend LMS
+              Next LMS
             </span>
           </Link>
 
@@ -95,18 +113,30 @@ export default function Home() {
           </nav>
 
           <div className="flex items-center space-x-4">
-            <Link
-              href="/login"
-              className="text-sm font-semibold text-slate-300 hover:text-white transition-colors"
-            >
-              Sign In
-            </Link>
-            <Link
-              href="/checkout"
-              className="text-sm font-bold px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
-            >
-              Enroll Now
-            </Link>
+            {sessionUser ? (
+              <Link
+                href={userRole === 'admin' || userRole === 'super_admin' ? '/admin' : '/dashboard'}
+                className="text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/20 transition-all flex items-center gap-1.5"
+              >
+                <LayoutDashboard className="w-4 h-4" />
+                {userRole === 'admin' || userRole === 'super_admin' ? 'Admin Panel' : 'My Dashboard'}
+              </Link>
+            ) : (
+              <>
+                <Link
+                  href="/login"
+                  className="text-sm font-semibold text-slate-300 hover:text-white transition-colors"
+                >
+                  Sign In
+                </Link>
+                <Link
+                  href="/checkout"
+                  className="text-sm font-bold px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
+                >
+                  Enroll Now
+                </Link>
+              </>
+            )}
           </div>
         </div>
       </header>
@@ -129,12 +159,21 @@ export default function Home() {
           </p>
 
           <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            <Link
-              href="/checkout"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold hover:shadow-xl hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 text-base"
-            >
-              Enroll Now (৳12,000 BDT) <ArrowRight className="w-5 h-5" />
-            </Link>
+            {sessionUser ? (
+              <Link
+                href={userRole === 'admin' || userRole === 'super_admin' ? '/admin' : '/dashboard'}
+                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold hover:shadow-xl hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 text-base"
+              >
+                Go to {userRole === 'admin' || userRole === 'super_admin' ? 'Admin Panel' : 'Dashboard'} <ArrowRight className="w-5 h-5" />
+              </Link>
+            ) : (
+              <Link
+                href="/checkout"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold hover:shadow-xl hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 text-base"
+              >
+                Enroll Now (৳12,000 BDT) <ArrowRight className="w-5 h-5" />
+              </Link>
+            )}
             <a
               href="#curriculum"
               className="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-semibold hover:border-slate-700 transition-all text-base"
@@ -335,7 +374,7 @@ export default function Home() {
       {/* Footer */}
       <footer className="border-t border-slate-800/80 py-8 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4">
-          Frontend Development LMS &copy; {new Date().getFullYear()} — Built strictly according to MASTER_SYSTEM_SPEC.md
+          Next LMS &copy; {new Date().getFullYear()} — All rights reserved.
         </div>
       </footer>
     </div>

@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import { logoutAction } from '@/app/actions/auth';
-import { Code2, LogOut, User, ShieldAlert, LayoutDashboard, CreditCard, BookOpen } from 'lucide-react';
+import { LogOut, User, ShieldAlert, LayoutDashboard, CreditCard, BookOpen, Users } from 'lucide-react';
 
 export default function HeaderNav({ profile }) {
   return (
@@ -11,11 +11,9 @@ export default function HeaderNav({ profile }) {
         {/* Brand Logo & Context Links */}
         <div className="flex items-center space-x-6">
           <Link href="/dashboard" className="flex items-center space-x-3">
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-cyan-500 to-blue-600 flex items-center justify-center font-medium text-slate-950 text-xl shadow-lg shadow-cyan-500/20">
-              <Code2 className="w-6 h-6 text-slate-950" />
-            </div>
+            <img src="/logo.png" alt="Next LMS" className="w-10 h-10 rounded-xl shadow-lg shadow-indigo-500/30" />
             <span className="text-base font-semibold text-white tracking-tight">
-              Frontend LMS
+              Next LMS
             </span>
           </Link>
 
@@ -34,6 +32,12 @@ export default function HeaderNav({ profile }) {
                   className="px-3 py-1.5 rounded-lg bg-cyan-950/80 border border-cyan-800/80 text-cyan-300 hover:text-white transition-colors flex items-center gap-1.5"
                 >
                   <ShieldAlert className="w-4 h-4 text-cyan-400" /> Admin
+                </Link>
+                <Link
+                  href="/admin/users"
+                  className="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-200 hover:text-white transition-colors flex items-center gap-1.5"
+                >
+                  <Users className="w-4 h-4 text-emerald-400" /> Users & Admins
                 </Link>
                 <Link
                   href="/admin/payments"

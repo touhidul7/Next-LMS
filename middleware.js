@@ -27,6 +27,14 @@ export async function middleware(request) {
     }
   );
 
+  function redirectWithCookies(url) {
+    const redirectResponse = NextResponse.redirect(url);
+    supabaseResponse.cookies.getAll().forEach(({ name, value, ...options }) => {
+      redirectResponse.cookies.set(name, value, options);
+    });
+    return redirectResponse;
+  }
+
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -38,14 +46,24 @@ export async function middleware(request) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
     url.searchParams.set('redirect', pathname);
-    return NextResponse.redirect(url);
+    return redirectWithCookies(url);
   }
 
   // Redirect authenticated users away from /login and /register
   if (user && (pathname === '/login' || pathname === '/register')) {
     const url = request.nextUrl.clone();
-    url.pathname = '/dashboard';
-    return NextResponse.redirect(url);
+    const { data: profile } = await supabase
+      .from('profiles')
+      .select('role')
+      .eq('id', user.id)
+      .maybeSingle();
+
+    if (profile?.role === 'admin' || profile?.role === 'super_admin') {
+      url.pathname = '/admin';
+    } else {
+      url.pathname = '/dashboard';
+    }
+    return redirectWithCookies(url);
   }
 
   return supabaseResponse;
