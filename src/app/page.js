@@ -1,8 +1,7 @@
-'use client';
-
-import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { createClient } from '@/lib/supabase/client';
+import { getCurrentProfile } from '@/lib/auth/server';
+import CurriculumAccordion from '@/components/home/CurriculumAccordion';
+import FaqAccordion from '@/components/home/FaqAccordion';
 import {
   BookOpen,
   ShieldCheck,
@@ -10,8 +9,6 @@ import {
   CreditCard,
   ArrowRight,
   CheckCircle2,
-  ChevronDown,
-  ChevronUp,
   Sparkles,
   Layers,
   Terminal,
@@ -22,31 +19,10 @@ import {
   LayoutDashboard
 } from 'lucide-react';
 
-export default function Home() {
-  const [openWeek, setOpenWeek] = useState(null);
-  const [openFaq, setOpenFaq] = useState(null);
-  const [sessionUser, setSessionUser] = useState(null);
-  const [userRole, setUserRole] = useState(null);
-
-  useEffect(() => {
-    const supabase = createClient();
-    supabase.auth.getUser().then(({ data: { user } }) => {
-      if (user) {
-        setSessionUser(user);
-        supabase
-          .from('profiles')
-          .select('role, full_name')
-          .eq('id', user.id)
-          .maybeSingle()
-          .then(({ data: profile }) => {
-            if (profile) setUserRole(profile.role);
-          });
-      }
-    });
-  }, []);
-
-  const toggleWeek = (id) => setOpenWeek(openWeek === id ? null : id);
-  const toggleFaq = (id) => setOpenFaq(openFaq === id ? null : id);
+export default async function Home() {
+  const profile = await getCurrentProfile();
+  const sessionUser = Boolean(profile);
+  const userRole = profile?.role;
 
   const weeksData = [
     { id: 1, month: 'Month 1', title: 'Week 1 — Introduction to the Web', summary: 'How the web works, client-server model, HTTP/HTTPS, browser devtools & editor setup.', topics: ['What is a website', 'HTTP/HTTPS protocol', 'VS Code setup', 'First HTML page'] },
@@ -143,50 +119,47 @@ export default function Home() {
 
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="relative pt-20 pb-20 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto text-center">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-800/80 text-xs text-cyan-400 font-semibold mb-6">
-            <Sparkles className="w-3.5 h-3.5" />
-            Flagship 4-Month Frontend Development Course
-          </div>
+        <section className="relative pt-20 pb-24 overflow-hidden border-b border-slate-800/80">
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-cyan-500/10 via-blue-600/10 to-indigo-500/10 blur-3xl rounded-full pointer-events-none" />
 
-          <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-tight">
-            Learn Web Development <br />
-            <span className="gradient-text text-blue-500">Master Professional Frontend Development.</span>
-          </h1>
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-800/60 text-xs text-cyan-400 font-medium mb-6">
+              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
+              <span>Flagship 4-Month Frontend Engineering Program</span>
+            </div>
 
-          <p className="mt-6 text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed font-normal">
-            From absolute web fundamentals to React 19, Next.js, Framer Motion, and Capstone projects. Guided by private video streaming, structured assignments, and mentor code review.
-          </p>
+            <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-[1.1]">
+              Become a Production-Ready{' '}
+              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
+                Frontend Developer
+              </span>
+            </h1>
 
-          <div className="mt-8 flex flex-col sm:flex-row items-center justify-center gap-4">
-            {sessionUser ? (
-              <Link
-                href={userRole === 'admin' || userRole === 'super_admin' ? '/admin' : '/dashboard'}
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold hover:shadow-xl hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 text-base"
-              >
-                Go to {userRole === 'admin' || userRole === 'super_admin' ? 'Admin Panel' : 'Dashboard'} <ArrowRight className="w-5 h-5" />
-              </Link>
-            ) : (
+            <p className="mt-6 text-base sm:text-lg text-slate-400 max-w-2xl mx-auto font-normal leading-relaxed">
+              From web fundamentals and modern JavaScript to React 19, Next.js, and animated SaaS interfaces. Build 14 real-world projects with personalized mentor code reviews.
+            </p>
+
+            <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/checkout"
                 className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold hover:shadow-xl hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 text-base"
               >
-                Enroll Now (৳12,000 BDT) <ArrowRight className="w-5 h-5" />
+                Enroll Now <ArrowRight className="w-5 h-5" />
               </Link>
-            )}
-            <a
-              href="#curriculum"
-              className="w-full sm:w-auto px-8 py-4 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 font-semibold hover:border-slate-700 transition-all text-base"
-            >
-              Explore 16-Week Curriculum
-            </a>
+              <a
+                href="#curriculum"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel border border-slate-800 text-white font-medium hover:bg-slate-900/60 transition-all flex items-center justify-center gap-2 text-base"
+              >
+                View Curriculum
+              </a>
+            </div>
           </div>
 
-          {/* Quick Badges */}
-          <div className="mt-12 pt-8 border-t border-slate-800/60 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          {/* Quick Metrics */}
+          <div className="max-w-4xl mx-auto px-4 mt-16 grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
             <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
               <div className="text-2xl font-black text-white">16 Weeks</div>
-              <div className="text-xs text-slate-400 mt-1">Structured Program</div>
+              <div className="text-xs text-slate-400 mt-1">Structured Roadmap</div>
             </div>
             <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
               <div className="text-2xl font-black text-cyan-400">14 Projects</div>
@@ -231,44 +204,7 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="space-y-3">
-            {weeksData.map((week) => (
-              <div
-                key={week.id}
-                className="glass-panel rounded-xl border border-slate-800 overflow-hidden transition-all"
-              >
-                <button
-                  onClick={() => toggleWeek(week.id)}
-                  className="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-slate-900/50 transition-colors"
-                >
-                  <div className="flex items-center space-x-4">
-                    <span className="text-xs font-medium px-2.5 py-1 rounded-md bg-slate-800 text-cyan-400 border border-slate-700">
-                      {week.month}
-                    </span>
-                    <span className="text-base font-medium text-white">{week.title}</span>
-                  </div>
-                  {openWeek === week.id ? (
-                    <ChevronUp className="w-5 h-5 text-cyan-400" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-slate-400" />
-                  )}
-                </button>
-
-                {openWeek === week.id && (
-                  <div className="px-5 pb-5 pt-1 border-t border-slate-800/80 bg-slate-950/40 space-y-3">
-                    <p className="text-xs text-slate-300 leading-relaxed font-normal">{week.summary}</p>
-                    <div className="flex flex-wrap gap-2 pt-2">
-                      {week.topics.map((topic) => (
-                        <span key={topic} className="text-[11px] font-normal px-2.5 py-0.5 rounded-full bg-cyan-950/60 border border-cyan-800/60 text-cyan-300">
-                          ✓ {topic}
-                        </span>
-                      ))}
-                    </div>
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <CurriculumAccordion weeksData={weeksData} />
         </section>
 
         {/* Projects Showcase */}
@@ -350,24 +286,7 @@ export default function Home() {
             <h2 className="text-2xl sm:text-3xl font-semibold text-white">Frequently Asked Questions</h2>
           </div>
 
-          <div className="space-y-3">
-            {faqsData.map((faq, idx) => (
-              <div key={idx} className="glass-panel rounded-xl border border-slate-800 overflow-hidden">
-                <button
-                  onClick={() => toggleFaq(idx)}
-                  className="w-full p-4 flex items-center justify-between text-left font-medium text-sm text-white hover:bg-slate-900/50 transition-colors"
-                >
-                  <span>{faq.q}</span>
-                  {openFaq === idx ? <ChevronUp className="w-4 h-4 text-cyan-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
-                </button>
-                {openFaq === idx && (
-                  <div className="px-4 pb-4 pt-1 border-t border-slate-800 text-xs text-slate-300 leading-relaxed font-normal">
-                    {faq.a}
-                  </div>
-                )}
-              </div>
-            ))}
-          </div>
+          <FaqAccordion faqsData={faqsData} />
         </section>
       </main>
 

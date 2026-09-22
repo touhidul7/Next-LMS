@@ -20,81 +20,85 @@ import {
 import { formatBDT, slugify } from '@/lib/utils';
 
 export default async function StudentDashboardPage() {
-  const profile = await getCurrentProfile();
-  const user = await requireAuth();
-  const supabase = await createClient();
-  const adminSupabase = await createAdminClient();
+  const [user, profile, supabase, adminSupabase] = await Promise.all([
+    requireAuth(),
+    getCurrentProfile(),
+    createClient(),
+    createAdminClient(),
+  ]);
 
-  // Fetch enrollment status for flagship course
-  const { data: course } = await supabase
-    .from('courses')
-    .select('*')
-    .eq('slug', 'frontend-development')
-    .single();
+  const courseId = 'a1b2c3d4-e5f6-7890-abcd-111111111111';
 
-  const courseId = course?.id || 'a1b2c3d4-e5f6-7890-abcd-111111111111';
-
-  const { data: enrollment } = await supabase
-    .from('enrollments')
-    .select('*, payments(*)')
-    .eq('user_id', user.id)
-    .eq('course_id', courseId)
-    .single();
-
-  const { data: latestPayment } = await supabase
-    .from('payments')
-    .select('*')
-    .eq('user_id', user.id)
-    .order('created_at', { ascending: false })
-    .limit(1)
-    .single();
-
-  const isActive = enrollment?.status === 'active';
-  const isPending = enrollment?.status === 'pending' || latestPayment?.status === 'pending' || latestPayment?.status === 'under_review';
-
-  // Fetch modules for the course via admin client to accurately count all published lessons
-  const { data: modules } = await adminSupabase
-    .from('modules')
-    .select('*, lessons(count)')
-    .eq('course_id', courseId)
-    .order('month_number', { ascending: true });
-
-  const { data: announcements } = await supabase
-    .from('announcements')
-    .select('*')
-    .order('created_at', { ascending: false })
-    .limit(3);
-
-  // Fetch student's assignment submissions & reviews
-  const { data: studentSubmissions, error: subErr } = await adminSupabase
-    .from('submissions')
-    .select(`
-      id,
-      lesson_id,
-      status,
-      created_at,
-      lessons:lesson_id (
+  // Run all independent queries simultaneously in parallel to eliminate database waterfall latency
+  const [
+    { data: course },
+    { data: enrollment },
+    { data: latestPayment },
+    { data: modules },
+    { data: announcements },
+    { data: studentSubmissions, error: subErr },
+  ] = await Promise.all([
+    supabase.from('courses').select('*').eq('slug', 'frontend-development').maybeSingle(),
+    supabase
+      .from('enrollments')
+      .select('*, payments(*)')
+      .eq('user_id', user.id)
+      .eq('course_id', courseId)
+      .maybeSingle(),
+    supabase
+      .from('payments')
+      .select('*')
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false })
+      .limit(1)
+      .maybeSingle(),
+    adminSupabase
+      .from('modules')
+      .select('*, lessons(count)')
+      .eq('course_id', courseId)
+      .order('month_number', { ascending: true }),
+    supabase
+      .from('announcements')
+      .select('*')
+      .order('created_at', { ascending: false })
+      .limit(3),
+    adminSupabase
+      .from('submissions')
+      .select(`
         id,
-        title,
-        task_marks,
-        module_id,
-        modules (
+        lesson_id,
+        status,
+        created_at,
+        lessons:lesson_id (
           id,
           title,
-          month_number
+          task_marks,
+          module_id,
+          modules (
+            id,
+            title,
+            month_number
+          )
+        ),
+        submission_reviews (
+          id,
+          score,
+          feedback,
+          status_assigned,
+          created_at,
+          profiles:reviewer_id (full_name)
         )
-      ),
-      submission_reviews (
-        id,
-        score,
-        feedback,
-        status_assigned,
-        created_at,
-        profiles:reviewer_id (full_name)
-      )
-    `)
-    .eq('user_id', user.id)
-    .order('created_at', { ascending: false });
+      `)
+      .eq('user_id', user.id)
+      .order('created_at', { ascending: false }),
+  ]);
+
+  const resolvedCourseId = course?.id || courseId;
+  const isActive = enrollment?.status === 'active';
+  const isPending =
+    enrollment?.status === 'pending' ||
+    latestPayment?.status === 'pending' ||
+    latestPayment?.status === 'under_review';
 
   if (subErr) {
     console.error('Error fetching studentSubmissions on dashboard:', subErr);

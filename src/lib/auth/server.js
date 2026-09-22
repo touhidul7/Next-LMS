@@ -1,10 +1,12 @@
+import { cache } from 'react';
 import { createClient } from '../supabase/server.js';
 import { redirect } from 'next/navigation';
 
 /**
  * Ensures user is authenticated. Returns user object or redirects to /login.
+ * Cached per request to eliminate duplicate network calls.
  */
-export async function requireAuth() {
+export const requireAuth = cache(async () => {
   const supabase = await createClient();
   const { data: { user }, error } = await supabase.auth.getUser();
 
@@ -13,27 +15,32 @@ export async function requireAuth() {
   }
 
   return user;
-}
+});
 
 /**
  * Retrieves the profile record for the authenticated user.
+ * Cached per request to eliminate duplicate network calls.
  */
-export async function getCurrentProfile() {
-  const user = await requireAuth();
+export const getCurrentProfile = cache(async () => {
   const supabase = await createClient();
+  const { data: { user }, error: userError } = await supabase.auth.getUser();
+
+  if (userError || !user) {
+    return null;
+  }
 
   const { data: profile, error } = await supabase
     .from('profiles')
     .select('*')
     .eq('id', user.id)
-    .single();
+    .maybeSingle();
 
   if (error || !profile) {
     return null;
   }
 
   return profile;
-}
+});
 
 /**
  * Requires user to have an active enrollment for the given course.

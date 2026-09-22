@@ -10,7 +10,8 @@
     "lint": "eslint",
     "seed": "node scripts/seed-db.js",
     "migrate": "node scripts/migrate-db.js",
-    "create-admin": "node scripts/create-admin.js"
+    "create-admin": "node scripts/create-admin.js",
+    "set-super-admin": "node scripts/set-super-admin.js"
   },
   "dependencies": {
     "@supabase/ssr": "^0.12.7",

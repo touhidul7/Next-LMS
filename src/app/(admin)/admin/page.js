@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 export const metadata = {
-  title: 'Admin Dashboard — Frontend Development LMS',
+  title: 'Admin Dashboard — Next LMS',
 };
 
 export default async function AdminDashboardPage() {

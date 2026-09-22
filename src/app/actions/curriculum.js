@@ -276,12 +276,18 @@ export async function getLessonViewerDataAction(lessonIdentifier, moduleIdentifi
 
   const isUuid = (str) => /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(str || '');
 
-  // 1. Fetch published lessons
-  const { data: allLessons, error: lErr } = await supabase
-    .from('lessons')
-    .select('*')
-    .eq('is_published', true)
-    .order('position', { ascending: true });
+  // 1. Fetch published lessons and modules in parallel
+  const [{ data: allLessons, error: lErr }, { data: allMods }] = await Promise.all([
+    supabase
+      .from('lessons')
+      .select('*')
+      .eq('is_published', true)
+      .order('position', { ascending: true }),
+    supabase
+      .from('modules')
+      .select('*, courses(*)')
+      .order('month_number', { ascending: true }),
+  ]);
 
   if (lErr || !allLessons) {
     console.error('Error fetching lessons:', lErr);
@@ -301,12 +307,6 @@ export async function getLessonViewerDataAction(lessonIdentifier, moduleIdentifi
   if (!targetLesson) {
     return { error: 'Lesson not found' };
   }
-
-  // 2. Fetch modules for the course
-  const { data: allMods } = await supabase
-    .from('modules')
-    .select('*, courses(*)')
-    .order('month_number', { ascending: true });
 
   let targetModule = null;
   const rawMod = moduleIdentifier || targetLesson.module_id;
