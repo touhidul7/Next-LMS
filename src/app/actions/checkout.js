@@ -9,7 +9,6 @@ const checkoutSchema = z.object({
   fullName: z.string().min(2, 'Full name is required'),
   email: z.string().email('Invalid email address'),
   phone: z.string().min(11, 'Valid phone number is required'),
-  password: z.string().optional(),
   senderPhone: z.string().min(11, 'Valid sender bKash phone number is required'),
   transactionId: z.string().min(6, 'Transaction ID must be at least 6 characters'),
   amount: z.number().min(100, 'Invalid amount'),
@@ -19,22 +18,20 @@ const checkoutSchema = z.object({
  * Handle manual bKash checkout & account creation
  */
 export async function submitCheckoutAction(formData) {
-  const fullName = formData.get('fullName');
-  const email = formData.get('email');
-  const phone = formData.get('phone');
-  const password = formData.get('password');
-  const senderPhone = formData.get('senderPhone');
-  const transactionId = formData.get('transactionId');
+  const fullName = (formData.get('fullName') || '').toString().trim();
+  const email = (formData.get('email') || '').toString().trim();
+  const phone = (formData.get('phone') || '').toString().trim();
+  const senderPhone = (formData.get('senderPhone') || '').toString().trim();
+  const transactionId = (formData.get('transactionId') || '').toString().trim();
   const amountStr = formData.get('amount') || '8000';
   const screenshotUrl = formData.get('screenshotUrl') || null;
 
-  const amount = parseFloat(amountStr);
+  const amount = parseFloat(amountStr) || 8000;
 
   const parse = checkoutSchema.safeParse({
     fullName,
     email,
     phone,
-    password,
     senderPhone,
     transactionId,
     amount,
@@ -49,24 +46,28 @@ export async function submitCheckoutAction(formData) {
 
   // 1. Check if user already exists or sign in
   let userId = null;
-  const { data: { user } } = await supabase.auth.getUser();
+  const {
+    data: { user },
+  } = await supabase.auth.getUser();
 
   if (user) {
     userId = user.id;
-    // Update phone/name if provided
-    await adminSupabase
-      .from('profiles')
-      .update({
+    // Update/upsert profile phone and name
+    await adminSupabase.from('profiles').upsert(
+      {
+        id: user.id,
+        email: user.email || email,
         full_name: fullName,
         phone: phone,
-      })
-      .eq('id', user.id);
+      },
+      { onConflict: 'id' }
+    );
   } else {
     // Look up existing user by email
     const { data: existingProfile } = await adminSupabase
       .from('profiles')
       .select('id')
-      .ilike('email', email.trim().toLowerCase())
+      .ilike('email', email.toLowerCase())
       .maybeSingle();
 
     if (existingProfile) {
@@ -79,11 +80,11 @@ export async function submitCheckoutAction(formData) {
   }
 
   // 2. Fetch Flagship Course ID
-  const { data: course, error: courseError } = await adminSupabase
+  const { data: course } = await adminSupabase
     .from('courses')
     .select('id')
     .eq('slug', 'frontend-development')
-    .single();
+    .maybeSingle();
 
   const courseId = course?.id || 'a1b2c3d4-e5f6-7890-abcd-111111111111';
 
@@ -94,7 +95,7 @@ export async function submitCheckoutAction(formData) {
       user_id: userId,
       course_id: courseId,
       sender_phone: normalizeBkashPhone(senderPhone),
-      transaction_id: transactionId.trim().toUpperCase(),
+      transaction_id: transactionId.toUpperCase(),
       amount_bdt: amount,
       screenshot_url: screenshotUrl,
       status: 'pending',
@@ -103,6 +104,9 @@ export async function submitCheckoutAction(formData) {
     .single();
 
   if (paymentError) {
+    if (paymentError.code === '23505') {
+      return { error: 'This Transaction ID has already been submitted. Please check your dashboard or contact support.' };
+    }
     return { error: `Failed to create payment record: ${paymentError.message}` };
   }
 
