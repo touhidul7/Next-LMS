@@ -61,7 +61,7 @@ export default function HeaderNav({ profile }) {
               <div className="text-xs font-medium text-white">{profile?.full_name || profile?.email}</div>
               <div className="text-[10px] text-slate-400 uppercase font-medium flex items-center justify-end gap-1">
                 {profile?.role === 'admin' || profile?.role === 'super_admin' ? (
-                  <span className="text-cyan-400 flex items-center gap-1"><ShieldAlert className="w-3 h-3" /> Admin</span>
+                  <span className="text-[#fa8b98] flex items-center gap-1"><ShieldAlert className="w-3 h-3" /> Admin</span>
                 ) : profile?.role === 'mentor' ? (
                   <span className="text-purple-400">Mentor</span>
                 ) : (

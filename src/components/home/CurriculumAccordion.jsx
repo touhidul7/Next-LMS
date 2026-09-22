@@ -20,13 +20,13 @@ export default function CurriculumAccordion({ weeksData }) {
             className="w-full p-4 sm:p-5 flex items-center justify-between text-left hover:bg-slate-900/50 transition-colors cursor-pointer"
           >
             <div className="flex items-center space-x-4">
-              <span className="text-xs font-medium px-2.5 py-1 rounded-md bg-slate-800 text-cyan-400 border border-slate-700">
+              <span className="text-xs font-medium px-2.5 py-1 rounded-md bg-slate-800 text-[#fa8b98] border border-slate-700">
                 {week.month}
               </span>
               <span className="text-base font-medium text-white">{week.title}</span>
             </div>
             {openWeek === week.id ? (
-              <ChevronUp className="w-5 h-5 text-cyan-400 shrink-0" />
+              <ChevronUp className="w-5 h-5 text-[#fa8b98] shrink-0" />
             ) : (
               <ChevronDown className="w-5 h-5 text-slate-400 shrink-0" />
             )}
@@ -41,7 +41,7 @@ export default function CurriculumAccordion({ weeksData }) {
                     key={i}
                     className="inline-flex items-center gap-1.5 px-3 py-1 rounded-md bg-slate-900 border border-slate-800 text-xs text-slate-300 font-normal"
                   >
-                    <BookOpen className="w-3 h-3 text-cyan-400" /> {topic}
+                    <BookOpen className="w-3 h-3 text-[#175cff]" /> {topic}
                   </span>
                 ))}
               </div>

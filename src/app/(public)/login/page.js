@@ -12,28 +12,37 @@ export default function LoginPage() {
   const router = useRouter();
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
-  const [checkingSession, setCheckingSession] = useState(true);
 
-  // If already authenticated, redirect to appropriate destination immediately
+  // If already authenticated, redirect in background without blocking initial render
   useEffect(() => {
-    const supabase = createClient();
-    supabase.auth.getUser().then(async ({ data: { user } }) => {
-      if (user) {
-        const { data: profile } = await supabase
-          .from('profiles')
-          .select('role')
-          .eq('id', user.id)
-          .maybeSingle();
+    let mounted = true;
+    const checkSession = async () => {
+      try {
+        const supabase = createClient();
+        const { data: { user } } = await supabase.auth.getUser();
+        if (user && mounted) {
+          const { data: profile } = await supabase
+            .from('profiles')
+            .select('role')
+            .eq('id', user.id)
+            .maybeSingle();
 
-        if (profile?.role === 'admin' || profile?.role === 'super_admin') {
-          router.replace('/admin');
-        } else {
-          router.replace('/dashboard');
+          if (!mounted) return;
+          if (profile?.role === 'admin' || profile?.role === 'super_admin') {
+            router.replace('/admin');
+          } else {
+            router.replace('/dashboard');
+          }
         }
-      } else {
-        setCheckingSession(false);
+      } catch (err) {
+        console.error('Session check error:', err);
       }
-    });
+    };
+
+    checkSession();
+    return () => {
+      mounted = false;
+    };
   }, [router]);
 
   async function handleGoogleSignIn() {
@@ -66,21 +75,10 @@ export default function LoginPage() {
     }
   }
 
-  if (checkingSession) {
-    return (
-      <div className="min-h-screen flex flex-col justify-center items-center px-4 bg-[#090d16] text-slate-100">
-        <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
-          <p className="text-xs text-slate-400">Verifying session...</p>
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-[#090d16] text-slate-100 relative overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] bg-gradient-to-tr from-indigo-500/10 via-cyan-500/10 to-transparent blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] bg-gradient-to-tr from-[#175cff]/10 via-[#fa8b98]/10 to-transparent blur-3xl rounded-full pointer-events-none" />
 
       {/* Top back navigation */}
       <div className="w-full max-w-md mb-4 flex items-center justify-between z-10">
@@ -88,12 +86,12 @@ export default function LoginPage() {
           href="/"
           className="inline-flex items-center gap-2 text-xs font-medium text-slate-400 hover:text-white transition-colors py-1 px-2 rounded-lg hover:bg-slate-900/60"
         >
-          <ArrowLeft className="w-4 h-4 text-cyan-400" />
+          <ArrowLeft className="w-4 h-4 text-[#fa8b98]" />
           Back to Home
         </Link>
 
         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-[11px] font-medium text-slate-400">
-          <Sparkles className="w-3 h-3 text-cyan-400" /> Secure Portal
+          <Sparkles className="w-3 h-3 text-[#fa8b98]" /> Secure Portal
         </span>
       </div>
 
@@ -170,7 +168,7 @@ export default function LoginPage() {
             New to the course?{' '}
             <Link
               href="/checkout"
-              className="text-cyan-400 font-medium hover:underline hover:text-cyan-300 ml-1"
+              className="text-[#fa8b98] font-medium hover:underline hover:text-[#f09fa1] ml-1"
             >
               Enroll via bKash Checkout
             </Link>

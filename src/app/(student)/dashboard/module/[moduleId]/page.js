@@ -95,7 +95,7 @@ export default async function ModuleDetailPage({ params }) {
           </Link>
 
           <div>
-            <span className="text-xs font-mono font-medium text-cyan-400 uppercase tracking-wider">
+            <span className="text-xs font-mono font-medium text-[#fa8b98] uppercase tracking-wider">
               MODULE {moduleData.month_number}
             </span>
             <h1 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight mt-1">{moduleData.title}</h1>
@@ -108,7 +108,7 @@ export default async function ModuleDetailPage({ params }) {
         {/* Lessons List */}
         <div className="space-y-4">
           <h3 className="text-base sm:text-lg font-medium text-white flex items-center gap-2">
-            <BookOpen className="w-5 h-5 text-cyan-400" /> Module Lessons ({lessonsWithProgress?.length || 0})
+            <BookOpen className="w-5 h-5 text-[#175cff]" /> Module Lessons ({lessonsWithProgress?.length || 0})
           </h3>
 
           {!lessonsWithProgress || lessonsWithProgress.length === 0 ? (
@@ -125,14 +125,14 @@ export default async function ModuleDetailPage({ params }) {
                   <Link
                     key={lsn.id}
                     href={`/dashboard/module/${moduleSlug}/lesson/${lessonSlug}`}
-                    className="glass-panel p-4 rounded-xl border border-slate-800 hover:border-cyan-500/50 transition-all flex items-center justify-between gap-4 group"
+                    className="glass-panel p-4 rounded-xl border border-slate-800 hover:border-[#fa8b98]/60 transition-all flex items-center justify-between gap-4 group"
                   >
                     <div className="flex items-center gap-4 min-w-0">
                       <div
                         className={`w-9 h-9 rounded-xl flex items-center justify-center font-medium text-xs shrink-0 ${
                           isCompleted
                             ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
-                            : 'bg-slate-900 text-cyan-400 border border-slate-800'
+                            : 'bg-slate-900 text-[#fa8b98] border border-slate-800'
                         }`}
                       >
                         {isCompleted ? <CheckCircle2 className="w-5 h-5 text-emerald-400" /> : idx + 1}
@@ -140,7 +140,7 @@ export default async function ModuleDetailPage({ params }) {
 
                       <div className="min-w-0">
                         <div className="flex items-center gap-2">
-                          <h4 className="text-sm font-medium text-white group-hover:text-cyan-400 transition-colors truncate">
+                          <h4 className="text-sm font-medium text-white group-hover:text-[#fa8b98] transition-colors truncate">
                             {lsn.title}
                           </h4>
                           {lsn.lesson_type === 'live_class' && (
@@ -195,7 +195,7 @@ export default async function ModuleDetailPage({ params }) {
                         {formatDuration(lsn.video_duration_seconds)}
                       </span>
 
-                      <span className="px-3 py-1.5 rounded-lg bg-slate-900 group-hover:bg-cyan-500 group-hover:text-slate-950 text-cyan-400 font-medium text-xs transition-all flex items-center gap-1">
+                      <span className="px-3 py-1.5 rounded-lg bg-slate-900 group-hover:bg-[#175cff] group-hover:text-white text-[#fa8b98] font-medium text-xs transition-all flex items-center gap-1">
                         {isCompleted ? 'Review' : 'Start'} <ChevronRight className="w-4 h-4" />
                       </span>
                     </div>

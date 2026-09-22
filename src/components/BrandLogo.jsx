@@ -7,7 +7,7 @@ import Image from 'next/image';
 export default function BrandLogo({ className = 'h-7 sm:h-8', wrapperClassName = '' }) {
   return (
     <div
-      className={`bg-white px-3.5 py-1.5 rounded-xl shadow-md border border-slate-200/40 inline-flex items-center justify-center hover:shadow-lg transition-all ${wrapperClassName}`}
+      className={` shadow-md inline-flex items-center justify-center hover:shadow-lg transition-all ${wrapperClassName}`}
     >
       <img
         src="/logo.png"

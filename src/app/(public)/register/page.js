@@ -70,7 +70,7 @@ export default function RegisterPage() {
     return (
       <div className="min-h-screen flex flex-col justify-center items-center px-4 bg-[#090d16] text-slate-100">
         <div className="flex flex-col items-center gap-3">
-          <Loader2 className="w-8 h-8 text-cyan-400 animate-spin" />
+          <Loader2 className="w-8 h-8 text-[#fa8b98] animate-spin" />
           <p className="text-xs text-slate-400">Verifying session...</p>
         </div>
       </div>
@@ -80,7 +80,7 @@ export default function RegisterPage() {
   return (
     <div className="min-h-screen flex flex-col justify-center items-center px-4 py-12 bg-[#090d16] text-slate-100 relative overflow-hidden">
       {/* Background ambient lighting */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] bg-gradient-to-tr from-cyan-500/10 via-blue-600/10 to-transparent blur-3xl rounded-full pointer-events-none" />
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[500px] h-[400px] bg-gradient-to-tr from-[#175cff]/10 via-[#fa8b98]/10 to-transparent blur-3xl rounded-full pointer-events-none" />
 
       {/* Top back navigation */}
       <div className="w-full max-w-md mb-4 flex items-center justify-between z-10">
@@ -88,12 +88,12 @@ export default function RegisterPage() {
           href="/"
           className="inline-flex items-center gap-2 text-xs font-medium text-slate-400 hover:text-white transition-colors py-1 px-2 rounded-lg hover:bg-slate-900/60"
         >
-          <ArrowLeft className="w-4 h-4 text-cyan-400" />
+          <ArrowLeft className="w-4 h-4 text-[#fa8b98]" />
           Back to Home
         </Link>
 
         <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-slate-900 border border-slate-800 text-[11px] font-medium text-slate-400">
-          <Sparkles className="w-3 h-3 text-cyan-400" /> 1-Click Signup
+          <Sparkles className="w-3 h-3 text-[#fa8b98]" /> 1-Click Signup
         </span>
       </div>
 
@@ -170,7 +170,7 @@ export default function RegisterPage() {
             Already have an account?{' '}
             <Link
               href="/login"
-              className="text-cyan-400 font-medium hover:underline hover:text-cyan-300 ml-1"
+              className="text-[#fa8b98] font-medium hover:underline hover:text-[#f09fa1] ml-1"
             >
               Sign in to your account
             </Link>

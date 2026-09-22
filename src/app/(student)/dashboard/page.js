@@ -111,7 +111,7 @@ export default async function StudentDashboardPage() {
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
         {/* Welcome Header */}
         <div className="mb-8 pb-6 border-b border-slate-800">
-          <div className="inline-flex items-center gap-2 text-xs font-medium text-cyan-400 uppercase tracking-wider mb-1">
+          <div className="inline-flex items-center gap-2 text-xs font-medium text-[#fa8b98] uppercase tracking-wider mb-1">
             <Sparkles className="w-3.5 h-3.5" /> Student Learning Portal
           </div>
           <h1 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
@@ -171,7 +171,7 @@ export default async function StudentDashboardPage() {
         {isActive && (
           <div className="space-y-10">
             {/* Active Course Banner */}
-            <div className="glass-panel p-8 rounded-3xl border border-cyan-800/60 bg-gradient-to-b from-cyan-950/20 to-slate-950/80">
+            <div className="glass-panel p-8 rounded-3xl border border-[#175cff]/30 bg-gradient-to-b from-[#175cff]/10 to-slate-950/80">
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div>
                   <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 text-xs font-medium mb-3">
@@ -185,11 +185,11 @@ export default async function StudentDashboardPage() {
                   </p>
                 </div>
 
-                <div className="p-6 rounded-2xl bg-slate-950/90 border border-cyan-900/50 text-center shrink-0 w-full md:w-auto">
+                <div className="p-6 rounded-2xl bg-slate-950/90 border border-[#fa8b98]/30 text-center shrink-0 w-full md:w-auto">
                   <div className="text-xs text-slate-400 font-normal">Current Progress</div>
-                  <div className="text-2xl font-semibold text-cyan-400 mt-1">Week 1</div>
+                  <div className="text-2xl font-semibold text-[#fa8b98] mt-1">Week 1</div>
                   <div className="w-36 h-1.5 rounded-full bg-slate-800 mt-3 mx-auto overflow-hidden">
-                    <div className="h-full bg-cyan-400 w-[6%]" />
+                    <div className="h-full bg-[#fa8b98] w-[6%]" />
                   </div>
                 </div>
               </div>
@@ -199,7 +199,7 @@ export default async function StudentDashboardPage() {
             <div>
               <div className="flex items-center justify-between mb-6">
                 <h3 className="text-lg font-medium text-white flex items-center gap-2">
-                  <BookOpen className="w-5 h-5 text-cyan-400" /> Course Modules
+                  <BookOpen className="w-5 h-5 text-[#175cff]" /> Course Modules
                 </h3>
               </div>
 
@@ -211,23 +211,23 @@ export default async function StudentDashboardPage() {
                       <Link
                         key={m.id}
                         href={`/dashboard/module/${modSlug}`}
-                        className="glass-panel p-5 rounded-2xl border border-slate-800 hover:border-cyan-500/50 transition-all flex flex-col justify-between group"
+                        className="glass-panel p-5 rounded-2xl border border-slate-800 hover:border-[#fa8b98]/60 transition-all flex flex-col justify-between group"
                       >
                       <div>
                         <div className="flex items-center justify-between mb-2">
-                          <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 font-mono">
+                          <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-[#1c2f3d]/60 text-[#fa8b98] border border-[#fa8b98]/40 font-mono">
                             Module {m.month_number}
                           </span>
                         </div>
-                        <h4 className="text-sm font-medium text-white mb-1.5 line-clamp-1 group-hover:text-cyan-400 transition-colors">{m.title}</h4>
+                        <h4 className="text-sm font-medium text-white mb-1.5 line-clamp-1 group-hover:text-[#fa8b98] transition-colors">{m.title}</h4>
                         <p className="text-xs text-slate-400 line-clamp-2 leading-relaxed font-normal">{m.description || 'Module curriculum contents.'}</p>
                       </div>
 
                       <div className="mt-4 pt-3 border-t border-slate-800/80 flex items-center justify-between">
                         <span className="text-[11px] text-slate-400 flex items-center gap-1 font-mono font-normal">
-                          <PlayCircle className="w-3.5 h-3.5 text-cyan-400" /> {m.lessons?.[0]?.count || 0} Lessons
+                          <PlayCircle className="w-3.5 h-3.5 text-[#175cff]" /> {m.lessons?.[0]?.count || 0} Lessons
                         </span>
-                        <span className="text-xs font-medium text-cyan-400 group-hover:translate-x-1 transition-transform flex items-center gap-1">
+                        <span className="text-xs font-medium text-[#fa8b98] group-hover:translate-x-1 transition-transform flex items-center gap-1">
                           Open <ArrowRight className="w-3.5 h-3.5" />
                         </span>
                       </div>
@@ -348,14 +348,14 @@ export default async function StudentDashboardPage() {
         {/* CONDITION 3: UNENROLLED VISITOR */}
         {!isPending && !isActive && (
           <div className="glass-panel p-10 rounded-3xl border border-slate-800 text-center max-w-2xl mx-auto space-y-6">
-            <CreditCard className="w-12 h-12 text-cyan-400 mx-auto" />
+            <CreditCard className="w-12 h-12 text-[#fa8b98] mx-auto" />
             <h2 className="text-2xl font-bold text-white">Enrollment Required</h2>
             <p className="text-sm text-slate-400 leading-relaxed">
               You are currently signed in, but you haven&apos;t completed checkout for the Frontend Development flagship program yet.
             </p>
             <Link
               href="/checkout"
-              className="inline-flex px-8 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/20 transition-all gap-2 text-sm"
+              className="inline-flex px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-bold hover:shadow-lg hover:shadow-[#175cff]/25 transition-all gap-2 text-sm"
             >
               Proceed to bKash Checkout <ArrowRight className="w-4 h-4" />
             </Link>

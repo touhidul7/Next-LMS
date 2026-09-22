@@ -1,5 +1,25 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-coral: #fa8b98;
+  --color-brand-rose: #f09fa1;
+  --color-brand-blue: #175cff;
+  --color-brand-navy: #1c2f3d;
+
+  /* Remap cyan to GenSolve Academy's signature coral-rose palette */
+  --color-cyan-50: #fff1f2;
+  --color-cyan-100: #ffe4e6;
+  --color-cyan-200: #fecdd3;
+  --color-cyan-300: #fda4af;
+  --color-cyan-400: #fa8b98;
+  --color-cyan-500: #f47285;
+  --color-cyan-600: #e11d48;
+  --color-cyan-700: #be123c;
+  --color-cyan-800: #9f1239;
+  --color-cyan-900: #881337;
+  --color-cyan-950: #3b111e;
+}
+
 @layer base {
   :root {
     --background: #090d16;

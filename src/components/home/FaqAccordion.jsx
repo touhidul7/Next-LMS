@@ -18,7 +18,7 @@ export default function FaqAccordion({ faqsData }) {
           >
             <span>{faq.q}</span>
             {openFaq === idx ? (
-              <ChevronUp className="w-4 h-4 text-cyan-400 shrink-0" />
+              <ChevronUp className="w-4 h-4 text-[#fa8b98] shrink-0" />
             ) : (
               <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />
             )}

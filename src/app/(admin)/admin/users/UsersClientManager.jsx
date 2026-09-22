@@ -171,15 +171,15 @@ export default function UsersClientManager({
           </div>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border border-cyan-900/40 bg-gradient-to-br from-cyan-950/20 to-slate-950/80">
-          <div className="flex items-center justify-between text-cyan-400 text-xs font-semibold uppercase">
+        <div className="glass-panel p-5 rounded-2xl border border-[#175cff]/30 bg-gradient-to-br from-[#175cff]/10 to-slate-950/80">
+          <div className="flex items-center justify-between text-[#93c5fd] text-xs font-semibold uppercase">
             <span>Active Admins</span>
-            <ShieldAlert className="w-4 h-4 text-cyan-400" />
+            <ShieldAlert className="w-4 h-4 text-[#60a5fa]" />
           </div>
           <div className="text-3xl font-extrabold text-white mt-2">
             {adminsList.length}
           </div>
-          <div className="text-[11px] text-cyan-300/70 mt-1">
+          <div className="text-[11px] text-[#93c5fd]/70 mt-1">
             Users with administrative privileges
           </div>
         </div>
@@ -261,7 +261,7 @@ export default function UsersClientManager({
           <button
             type="button"
             onClick={() => setShowAddModal(true)}
-            className="px-4 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 text-xs font-bold hover:shadow-lg hover:shadow-cyan-500/20 transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white text-xs font-bold hover:shadow-lg hover:shadow-[#175cff]/25 transition-all flex items-center gap-1.5 shrink-0 cursor-pointer"
           >
             <UserPlus className="w-4 h-4" /> Add Admin by Gmail
           </button>
@@ -276,13 +276,13 @@ export default function UsersClientManager({
             <div className="px-6 py-4 border-b border-slate-800 bg-slate-900/40 flex items-center justify-between">
               <div>
                 <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                  <ShieldCheck className="w-4 h-4 text-cyan-400" /> Active Administrators
+                  <ShieldCheck className="w-4 h-4 text-[#60a5fa]" /> Active Administrators
                 </h3>
                 <p className="text-xs text-slate-400 mt-0.5">
                   Users who have active full admin privileges over the LMS
                 </p>
               </div>
-              <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-cyan-950 text-cyan-400 border border-cyan-800">
+              <span className="px-2.5 py-1 rounded-full text-xs font-mono font-bold bg-[#1c2f3d]/60 text-[#fa8b98] border border-[#fa8b98]/40">
                 {filteredAdmins.length} Admins
               </span>
             </div>

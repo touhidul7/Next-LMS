@@ -106,7 +106,7 @@ export default function CheckoutPage() {
           <div className="lg:col-span-5 space-y-6">
             {/* Course Summary Box */}
             <div className="glass-panel p-6 rounded-2xl border border-slate-800">
-              <span className="text-xs font-medium text-cyan-400 uppercase tracking-wider block mb-1">
+              <span className="text-xs font-medium text-[#fa8b98] uppercase tracking-wider block mb-1">
                 Selected Course
               </span>
               <h2 className="text-lg font-semibold text-white leading-tight">
@@ -118,12 +118,12 @@ export default function CheckoutPage() {
 
               <div className="mt-6 pt-4 border-t border-slate-800 flex items-center justify-between">
                 <span className="text-xs text-slate-400 font-medium">Course Fee:</span>
-                <span className="text-2xl font-black text-cyan-400">৳{coursePriceBDT.toLocaleString()} BDT</span>
+                <span className="text-2xl font-black text-[#fa8b98]">৳{coursePriceBDT.toLocaleString()} BDT</span>
               </div>
             </div>
 
             {/* bKash Payment Instructions Card */}
-            <div className="glass-panel p-6 rounded-2xl border border-cyan-900/50 bg-gradient-to-b from-pink-950/20 to-slate-950/80">
+            <div className="glass-panel p-6 rounded-2xl border border-pink-900/50 bg-gradient-to-b from-pink-950/20 to-slate-950/80">
               <div className="flex items-center gap-3 mb-4">
                 <div className="w-10 h-10 rounded-xl bg-pink-600/20 border border-pink-500/40 flex items-center justify-center text-pink-400">
                   <CreditCard className="w-5 h-5" />
@@ -183,7 +183,7 @@ export default function CheckoutPage() {
                 {/* Account Details Group */}
                 <div className="p-4 rounded-xl bg-slate-900/60 border border-slate-800 space-y-4">
                   <div className="flex items-center justify-between">
-                    <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider">
+                    <div className="text-xs font-bold text-[#fa8b98] uppercase tracking-wider">
                       Step 1: Student Google Account & Contact
                     </div>
                     {currentUser && (
@@ -194,9 +194,9 @@ export default function CheckoutPage() {
                   </div>
 
                   {!currentUser && (
-                    <div className="p-3.5 rounded-xl bg-cyan-950/40 border border-cyan-800/60 space-y-2">
-                      <div className="text-xs text-cyan-300 flex items-center gap-2">
-                        <Sparkles className="w-4 h-4 text-cyan-400 shrink-0" />
+                    <div className="p-3.5 rounded-xl bg-[#1c2f3d]/60 border border-[#175cff]/40 space-y-2">
+                      <div className="text-xs text-[#93c5fd] flex items-center gap-2">
+                        <Sparkles className="w-4 h-4 text-[#fa8b98] shrink-0" />
                         <span>Sign in with Google to link your course enrollment:</span>
                       </div>
                       <button
@@ -310,7 +310,7 @@ export default function CheckoutPage() {
                 <button
                   type="submit"
                   disabled={loading}
-                  className="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold hover:shadow-lg hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 text-base disabled:opacity-50 mt-4"
+                  className="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold hover:shadow-lg hover:shadow-[#175cff]/25 transition-all flex items-center justify-center gap-2 text-base disabled:opacity-50 mt-4 cursor-pointer"
                 >
                   {loading ? (
                     <span>Submitting Payment Proof...</span>

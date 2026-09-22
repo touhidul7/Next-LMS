@@ -140,13 +140,13 @@ export default async function Home() {
             <div className="mt-10 flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link
                 href="/checkout"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold hover:shadow-xl hover:shadow-cyan-500/25 transition-all flex items-center justify-center gap-2 text-base"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold hover:shadow-xl hover:shadow-[#175cff]/25 transition-all flex items-center justify-center gap-2 text-base"
               >
                 Enroll Now <ArrowRight className="w-5 h-5" />
               </Link>
               <a
                 href="#curriculum"
-                className="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel border border-slate-800 text-white font-medium hover:bg-slate-900/60 transition-all flex items-center justify-center gap-2 text-base"
+                className="w-full sm:w-auto px-8 py-4 rounded-xl glass-panel border border-slate-800 text-white font-medium hover:bg-slate-900/60 hover:border-[#fa8b98]/40 transition-all flex items-center justify-center gap-2 text-base"
               >
                 View Curriculum
               </a>
@@ -160,11 +160,11 @@ export default async function Home() {
               <div className="text-xs text-slate-400 mt-1">Structured Roadmap</div>
             </div>
             <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
-              <div className="text-2xl font-black text-cyan-400">14 Projects</div>
+              <div className="text-2xl font-black text-[#fa8b98]">14 Projects</div>
               <div className="text-xs text-slate-400 mt-1">+ Final Capstone</div>
             </div>
             <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
-              <div className="text-2xl font-black text-purple-400">Mentor Review</div>
+              <div className="text-2xl font-black text-[#818cf8]">Mentor Review</div>
               <div className="text-xs text-slate-400 mt-1">GitHub & Live Feedback</div>
             </div>
             <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
@@ -184,7 +184,7 @@ export default async function Home() {
 
             <div className="mt-10 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {['HTML5', 'CSS3', 'Bootstrap 5', 'Tailwind CSS', 'JavaScript ES6+', 'DOM Manipulation', 'REST APIs', 'Axios', 'React 19', 'Next.js', 'Framer Motion', 'Lenis Scroll'].map((tech) => (
-                <div key={tech} className="p-4 rounded-xl glass-panel border border-slate-800 flex items-center justify-center font-medium text-sm text-slate-200 hover:border-cyan-500/50 hover:text-cyan-400 transition-all">
+                <div key={tech} className="p-4 rounded-xl glass-panel border border-slate-800 flex items-center justify-center font-medium text-sm text-slate-200 hover:border-[#fa8b98]/60 hover:text-[#fa8b98] transition-all">
                   {tech}
                 </div>
               ))}
@@ -195,7 +195,7 @@ export default async function Home() {
         {/* 16-Week Curriculum Accordion */}
         <section id="curriculum" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-xs font-medium text-cyan-400 uppercase tracking-widest">Module Breakdown</span>
+            <span className="text-xs font-medium text-[#fa8b98] uppercase tracking-widest">Module Breakdown</span>
             <h2 className="text-2xl sm:text-3xl font-semibold text-white mt-2">16-Week Learning Path</h2>
             <p className="text-sm text-slate-400 mt-2 font-normal">
               Click any week to view lesson topics and assignments.
@@ -209,7 +209,7 @@ export default async function Home() {
         <section id="projects" className="py-16 bg-slate-950/80 border-t border-slate-800">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <span className="text-xs font-medium text-purple-400 uppercase tracking-widest">Portfolio First</span>
+              <span className="text-xs font-medium text-[#fa8b98] uppercase tracking-widest">Portfolio First</span>
               <h2 className="text-2xl sm:text-3xl font-semibold text-white mt-2">14 Milestone Projects + Final Capstone</h2>
               <p className="text-sm text-slate-400 mt-2 max-w-xl mx-auto font-normal">
                 You build real applications every step of the way, submitted via GitHub for mentor code review.
@@ -218,16 +218,16 @@ export default async function Home() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {projectsData.map((proj) => (
-                <div key={proj.number} className="glass-panel p-6 rounded-2xl border border-slate-800 relative group hover:border-cyan-500/50 transition-all">
+                <div key={proj.number} className="glass-panel p-6 rounded-2xl border border-slate-800 relative group hover:border-[#175cff]/60 transition-all">
                   <div className="flex items-center justify-between mb-3">
                     <span className="text-[10px] font-medium px-2 py-0.5 rounded bg-slate-800 text-slate-300">
                       Project #{proj.number}
                     </span>
-                    <span className="text-[10px] font-medium text-cyan-400">{proj.month}</span>
+                    <span className="text-[10px] font-medium text-[#fa8b98]">{proj.month}</span>
                   </div>
                   <h3 className="text-base font-semibold text-white mb-2">{proj.title}</h3>
                   <p className="text-xs text-slate-400 mb-4 leading-relaxed font-normal">{proj.description}</p>
-                  <div className="text-[11px] font-mono font-medium text-purple-300 border-t border-slate-800/80 pt-3">
+                  <div className="text-[11px] font-mono font-medium text-[#93c5fd] border-t border-slate-800/80 pt-3">
                     Stack: {proj.tech}
                   </div>
                 </div>
@@ -238,39 +238,39 @@ export default async function Home() {
 
         {/* Pricing */}
         <section id="pricing" className="py-20 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-cyan-800/50 relative overflow-hidden bg-gradient-to-b from-slate-900 to-slate-950">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-800/60 text-xs text-cyan-400 font-medium mb-4">
+          <div className="glass-panel p-8 sm:p-12 rounded-3xl border border-[#175cff]/30 relative overflow-hidden bg-gradient-to-b from-slate-900 to-slate-950">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1c2f3d]/70 border border-[#fa8b98]/40 text-xs text-[#fa8b98] font-medium mb-4">
               <CreditCard className="w-3.5 h-3.5" /> One-Time Enrollment Fee
             </div>
 
             <h2 className="text-2xl sm:text-3xl font-semibold text-white">Simple, All-Inclusive Pricing</h2>
             <div className="mt-6 flex items-baseline justify-center gap-2">
-              <span className="text-4xl sm:text-5xl font-bold text-cyan-400">৳8,000</span>
+              <span className="text-4xl sm:text-5xl font-bold text-[#fa8b98]">৳8,000</span>
               <span className="text-slate-400 font-normal text-sm">BDT / One-time</span>
             </div>
 
             <ul className="mt-8 max-w-md mx-auto space-y-3 text-left text-xs text-slate-300 font-normal">
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" /> Full 16-Week Curriculum Access
+                <CheckCircle2 className="w-4 h-4 text-[#175cff] shrink-0" /> Full 16-Week Curriculum Access
               </li>
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" /> Private Google Drive Video Streaming
+                <CheckCircle2 className="w-4 h-4 text-[#175cff] shrink-0" /> Private Google Drive Video Streaming
               </li>
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" /> 14 Milestone Projects + Final Capstone
+                <CheckCircle2 className="w-4 h-4 text-[#175cff] shrink-0" /> 14 Milestone Projects + Final Capstone
               </li>
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" /> Direct Mentor Code Review on GitHub
+                <CheckCircle2 className="w-4 h-4 text-[#175cff] shrink-0" /> Direct Mentor Code Review on GitHub
               </li>
               <li className="flex items-center gap-2">
-                <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" /> Fast Account Activation After Verification
+                <CheckCircle2 className="w-4 h-4 text-[#175cff] shrink-0" /> Fast Account Activation After Verification
               </li>
             </ul>
 
             <div className="mt-10">
               <Link
                 href="/checkout"
-                className="w-full sm:w-auto inline-flex px-8 py-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold hover:shadow-xl hover:shadow-cyan-500/25 transition-all items-center justify-center gap-2 text-base"
+                className="w-full sm:w-auto inline-flex px-8 py-4 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold hover:shadow-xl hover:shadow-[#175cff]/25 transition-all items-center justify-center gap-2 text-base"
               >
                 Enroll Now <ArrowRight className="w-5 h-5" />
               </Link>
