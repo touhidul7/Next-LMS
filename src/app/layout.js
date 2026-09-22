@@ -1,5 +1,7 @@
+import { Suspense } from 'react';
 import { Inter } from 'next/font/google';
 import { Toaster } from 'sonner';
+import NavigationProgress from '@/components/NavigationProgress';
 import "./globals.css";
 
 const inter = Inter({
@@ -22,6 +24,9 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en" className={`dark h-full antialiased ${inter.variable}`} suppressHydrationWarning>
       <body className="min-h-full flex flex-col bg-[#090d16] text-slate-100 font-sans font-normal" suppressHydrationWarning>
+        <Suspense fallback={null}>
+          <NavigationProgress />
+        </Suspense>
         {children}
         <Toaster position="top-right" theme="dark" richColors />
       </body>
