@@ -4,17 +4,17 @@
   :root {
     --background: #090d16;
     --foreground: #f1f5f9;
-    --card: #111827;
+    --card: #0f1726;
     --card-foreground: #f8fafc;
-    --primary: #00f2fe;
-    --primary-foreground: #090d16;
-    --secondary: #1e293b;
-    --secondary-foreground: #cbd5e1;
-    --muted: #1e293b;
+    --primary: #175cff;
+    --primary-foreground: #ffffff;
+    --secondary: #1c2f3d;
+    --secondary-foreground: #e2e8f0;
+    --muted: #131e2d;
     --muted-foreground: #94a3b8;
-    --accent: #38bdf8;
-    --accent-foreground: #0f172a;
-    --border: #334155;
+    --accent: #fa8b98;
+    --accent-foreground: #090d16;
+    --border: #1c2f3d;
     --radius: 0.5rem;
   }
 
@@ -27,26 +27,30 @@
   body {
     background-color: var(--background);
     color: var(--foreground);
-    font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    font-family: var(--font-sans), system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     font-weight: 400;
     min-height: 100vh;
     overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-sora), var(--font-sans), system-ui, sans-serif;
   }
 }
 
 /* Custom LMS Styling Utilities */
 .glass-panel {
-  background: rgba(17, 24, 39, 0.75);
-  backdrop-filter: blur(12px);
+  background: rgba(15, 23, 38, 0.8);
+  backdrop-filter: blur(14px);
   border: 1px solid rgba(255, 255, 255, 0.08);
 }
 
 .glow-effect {
-  box-shadow: 0 0 35px -5px rgba(0, 242, 254, 0.25);
+  box-shadow: 0 0 35px -5px rgba(250, 139, 152, 0.25);
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, #00f2fe 0%, #4facfe 100%);
+  background: linear-gradient(135deg, #fa8b98 0%, #818cf8 50%, #175cff 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }

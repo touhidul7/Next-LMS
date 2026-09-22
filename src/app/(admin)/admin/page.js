@@ -19,7 +19,7 @@ import {
 } from 'lucide-react';
 
 export const metadata = {
-  title: 'Admin Dashboard — Next LMS',
+  title: 'Admin Dashboard — GenSolve Academy',
 };
 
 export default async function AdminDashboardPage() {

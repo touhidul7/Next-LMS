@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { logoutAction } from '@/app/actions/auth';
+import BrandLogo from '@/components/BrandLogo';
 import { LogOut, User, ShieldAlert, LayoutDashboard, CreditCard, BookOpen, Users } from 'lucide-react';
 
 export default function HeaderNav({ profile }) {
@@ -10,11 +11,8 @@ export default function HeaderNav({ profile }) {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         {/* Brand Logo & Context Links */}
         <div className="flex items-center space-x-6">
-          <Link href="/dashboard" className="flex items-center space-x-3">
-            <img src="/logo.png" alt="Next LMS" className="w-10 h-10 rounded-xl shadow-lg shadow-indigo-500/30" />
-            <span className="text-base font-semibold text-white tracking-tight">
-              Next LMS
-            </span>
+          <Link href="/dashboard" className="flex items-center">
+            <BrandLogo className="h-6 sm:h-7" />
           </Link>
 
           <nav className="hidden md:flex items-center space-x-4 text-xs font-medium">
@@ -22,16 +20,16 @@ export default function HeaderNav({ profile }) {
               href="/dashboard"
               className="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-200 hover:text-white transition-colors flex items-center gap-1.5"
             >
-              <LayoutDashboard className="w-4 h-4 text-cyan-400" /> Dashboard
+              <LayoutDashboard className="w-4 h-4 text-[#fa8b98]" /> Dashboard
             </Link>
 
             {(profile?.role === 'admin' || profile?.role === 'super_admin') && (
               <>
                 <Link
                   href="/admin"
-                  className="px-3 py-1.5 rounded-lg bg-cyan-950/80 border border-cyan-800/80 text-cyan-300 hover:text-white transition-colors flex items-center gap-1.5"
+                  className="px-3 py-1.5 rounded-lg bg-[#175cff]/20 border border-[#175cff]/40 text-[#93c5fd] hover:text-white transition-colors flex items-center gap-1.5"
                 >
-                  <ShieldAlert className="w-4 h-4 text-cyan-400" /> Admin
+                  <ShieldAlert className="w-4 h-4 text-[#60a5fa]" /> Admin
                 </Link>
                 <Link
                   href="/admin/users"

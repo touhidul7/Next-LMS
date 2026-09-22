@@ -6,6 +6,7 @@ import { useRouter } from 'next/navigation';
 import { AlertCircle, Loader2, ArrowLeft, ShieldCheck, Sparkles } from 'lucide-react';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
+import BrandLogo from '@/components/BrandLogo';
 
 export default function RegisterPage() {
   const router = useRouter();
@@ -101,12 +102,8 @@ export default function RegisterPage() {
         <div className="glass-panel p-8 sm:p-10 rounded-3xl border border-slate-800/90 shadow-2xl relative overflow-hidden bg-gradient-to-b from-slate-900/80 to-slate-950/90 backdrop-blur-xl">
           {/* Brand Header */}
           <div className="text-center mb-8">
-            <Link href="/" className="inline-flex items-center space-x-3 mb-4 group">
-              <img
-                src="/logo.png"
-                alt="Next LMS"
-                className="w-14 h-14 rounded-2xl shadow-xl shadow-indigo-500/30 group-hover:scale-105 transition-transform"
-              />
+            <Link href="/" className="inline-flex items-center mb-4 group">
+              <BrandLogo className="h-9 sm:h-10" />
             </Link>
             <h1 className="text-2xl font-bold text-white tracking-tight">
               Create Student Account

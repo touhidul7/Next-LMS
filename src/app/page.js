@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { getCurrentProfile } from '@/lib/auth/server';
 import CurriculumAccordion from '@/components/home/CurriculumAccordion';
 import FaqAccordion from '@/components/home/FaqAccordion';
+import BrandLogo from '@/components/BrandLogo';
 import {
   BookOpen,
   ShieldCheck,
@@ -73,26 +74,23 @@ export default async function Home() {
       {/* Navigation Bar */}
       <header className="border-b border-slate-800/80 bg-[#090d16]/90 backdrop-blur sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center space-x-3">
-            <img src="/logo.png" alt="Next LMS" className="w-10 h-10 rounded-xl shadow-lg shadow-indigo-500/30" />
-            <span className="text-lg font-bold tracking-tight text-white">
-              Next LMS
-            </span>
+          <Link href="/" className="flex items-center">
+            <BrandLogo className="h-7 sm:h-8" />
           </Link>
 
           <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-            <a href="#curriculum" className="hover:text-cyan-400 transition-colors">Curriculum</a>
-            <a href="#projects" className="hover:text-cyan-400 transition-colors">Projects</a>
-            <a href="#tech" className="hover:text-cyan-400 transition-colors">Stack</a>
-            <a href="#pricing" className="hover:text-cyan-400 transition-colors">Pricing</a>
-            <a href="#faq" className="hover:text-cyan-400 transition-colors">FAQ</a>
+            <a href="#curriculum" className="hover:text-[#fa8b98] transition-colors">Curriculum</a>
+            <a href="#projects" className="hover:text-[#fa8b98] transition-colors">Projects</a>
+            <a href="#tech" className="hover:text-[#fa8b98] transition-colors">Stack</a>
+            <a href="#pricing" className="hover:text-[#fa8b98] transition-colors">Pricing</a>
+            <a href="#faq" className="hover:text-[#fa8b98] transition-colors">FAQ</a>
           </nav>
 
           <div className="flex items-center space-x-4">
             {sessionUser ? (
               <Link
                 href={userRole === 'admin' || userRole === 'super_admin' ? '/admin' : '/dashboard'}
-                className="text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg bg-cyan-500/10 text-cyan-400 border border-cyan-500/30 hover:bg-cyan-500/20 transition-all flex items-center gap-1.5"
+                className="text-xs sm:text-sm font-semibold px-4 py-2 rounded-lg bg-[#175cff]/10 text-[#60a5fa] border border-[#175cff]/30 hover:bg-[#175cff]/20 transition-all flex items-center gap-1.5"
               >
                 <LayoutDashboard className="w-4 h-4" />
                 {userRole === 'admin' || userRole === 'super_admin' ? 'Admin Panel' : 'My Dashboard'}
@@ -107,7 +105,7 @@ export default async function Home() {
                 </Link>
                 <Link
                   href="/checkout"
-                  className="text-sm font-bold px-4 py-2 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
+                  className="text-sm font-bold px-4 py-2 rounded-lg bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white hover:shadow-lg hover:shadow-[#175cff]/25 transition-all"
                 >
                   Enroll Now
                 </Link>
@@ -120,17 +118,17 @@ export default async function Home() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="relative pt-20 pb-24 overflow-hidden border-b border-slate-800/80">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-cyan-500/10 via-blue-600/10 to-indigo-500/10 blur-3xl rounded-full pointer-events-none" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-[#175cff]/15 via-[#fa8b98]/10 to-indigo-500/10 blur-3xl rounded-full pointer-events-none" />
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
-            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-cyan-950/60 border border-cyan-800/60 text-xs text-cyan-400 font-medium mb-6">
-              <Sparkles className="w-3.5 h-3.5 text-cyan-400" />
-              <span>Flagship 4-Month Frontend Engineering Program</span>
+            <div className="inline-flex items-center space-x-2 px-3.5 py-1.5 rounded-full bg-[#1c2f3d]/60 border border-[#fa8b98]/40 text-xs text-[#fa8b98] font-medium mb-6">
+              <Sparkles className="w-3.5 h-3.5 text-[#fa8b98]" />
+              <span>GenSolve Academy — Flagship 4-Month Frontend Engineering Program</span>
             </div>
 
             <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-[1.1]">
               Become a Production-Ready{' '}
-              <span className="bg-gradient-to-r from-cyan-400 via-blue-400 to-indigo-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-[#fa8b98] via-[#818cf8] to-[#175cff] bg-clip-text text-transparent">
                 Frontend Developer
               </span>
             </h1>
@@ -292,8 +290,21 @@ export default async function Home() {
 
       {/* Footer */}
       <footer className="border-t border-slate-800/80 py-8 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4">
-          Next LMS &copy; {new Date().getFullYear()} — All rights reserved.
+        <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <Link href="/" className="inline-flex items-center">
+            <BrandLogo className="h-6 sm:h-7" />
+          </Link>
+          <p>
+            GenSolve Academy &copy; {new Date().getFullYear()} — All rights reserved.
+          </p>
+          <a
+            href="http://gensolveacademy.site/"
+            target="_blank"
+            rel="noreferrer"
+            className="text-slate-400 hover:text-white transition-colors"
+          >
+            Main Website &rarr;
+          </a>
         </div>
       </footer>
     </div>

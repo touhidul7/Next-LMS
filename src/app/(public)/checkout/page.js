@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { submitCheckoutAction } from '@/app/actions/checkout';
+import BrandLogo from '@/components/BrandLogo';
 import { CreditCard, Copy, Check, ShieldCheck, ArrowLeft, AlertCircle, Sparkles, UserCheck } from 'lucide-react';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
@@ -88,9 +89,8 @@ export default function CheckoutPage() {
       <div className="max-w-4xl mx-auto">
         {/* Header */}
         <div className="flex items-center justify-between mb-8 pb-6 border-b border-slate-800">
-          <Link href="/" className="inline-flex items-center space-x-3">
-            <img src="/logo.png" alt="Next LMS" className="w-10 h-10 rounded-xl shadow-lg shadow-indigo-500/30" />
-            <span className="text-lg font-bold text-white tracking-tight">Next LMS</span>
+          <Link href="/" className="inline-flex items-center">
+            <BrandLogo className="h-7 sm:h-8" />
           </Link>
 
           <Link

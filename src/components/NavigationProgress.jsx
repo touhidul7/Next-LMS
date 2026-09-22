@@ -82,9 +82,9 @@ export default function NavigationProgress() {
       <div
         style={{
           height: '100%',
-          background: 'linear-gradient(90deg, #06b6d4, #818cf8, #06b6d4)',
+          background: 'linear-gradient(90deg, #175cff, #fa8b98, #175cff)',
           backgroundSize: '200% 100%',
-          boxShadow: '0 0 8px 1px rgba(6,182,212,0.6)',
+          boxShadow: '0 0 10px 1px rgba(250,139,152,0.6)',
           borderRadius: '0 2px 2px 0',
           animation:
             state === 'loading'
