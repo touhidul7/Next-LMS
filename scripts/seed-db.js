@@ -36,7 +36,7 @@ async function seed() {
     slug: 'frontend-development',
     title: 'Frontend Development — Complete 4-Month Flagship Program',
     description: 'Master modern web development from absolute fundamentals (HTML/CSS) to advanced JavaScript, React, Next.js, Framer Motion, and capstone deployment.',
-    price_bdt: 12000.00,
+    price_bdt: 8000.00,
     bkash_number: '01700000000',
     is_published: true,
   };

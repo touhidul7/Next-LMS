@@ -247,7 +247,7 @@ export default async function Home() {
 
             <h2 className="text-2xl sm:text-3xl font-semibold text-white">Simple, All-Inclusive Pricing</h2>
             <div className="mt-6 flex items-baseline justify-center gap-2">
-              <span className="text-4xl sm:text-5xl font-bold text-cyan-400">৳12,000</span>
+              <span className="text-4xl sm:text-5xl font-bold text-cyan-400">৳8,000</span>
               <span className="text-slate-400 font-normal text-sm">BDT / One-time</span>
             </div>
 

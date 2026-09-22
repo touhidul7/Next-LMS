@@ -25,7 +25,7 @@ export async function submitCheckoutAction(formData) {
   const password = formData.get('password');
   const senderPhone = formData.get('senderPhone');
   const transactionId = formData.get('transactionId');
-  const amountStr = formData.get('amount') || '12000';
+  const amountStr = formData.get('amount') || '8000';
   const screenshotUrl = formData.get('screenshotUrl') || null;
 
   const amount = parseFloat(amountStr);

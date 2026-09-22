@@ -9,7 +9,7 @@ VALUES (
   'frontend-development',
   'Frontend Development — Complete 4-Month Flagship Program',
   'Master modern web development from absolute fundamentals (HTML/CSS) to advanced JavaScript, React, Next.js, Framer Motion, and capstone deployment.',
-  12000.00,
+  8000.00,
   '01700000000',
   true
 )

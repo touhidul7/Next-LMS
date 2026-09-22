@@ -16,7 +16,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
   const [title, setTitle] = useState('');
   const [slug, setSlug] = useState('');
   const [description, setDescription] = useState('');
-  const [priceBdt, setPriceBdt] = useState('12000');
+  const [priceBdt, setPriceBdt] = useState('8000');
   const [bkashNumber, setBkashNumber] = useState('01700000000');
   const [isPublished, setIsPublished] = useState(true);
   const [deletingId, setDeletingId] = useState(null);
@@ -26,7 +26,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
     setTitle('');
     setSlug('');
     setDescription('');
-    setPriceBdt('12000');
+    setPriceBdt('8000');
     setBkashNumber('01700000000');
     setIsPublished(true);
     setShowModal(true);

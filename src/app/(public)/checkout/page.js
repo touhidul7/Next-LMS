@@ -13,7 +13,7 @@ export default function CheckoutPage() {
   const [copied, setCopied] = useState(false);
 
   const bkashNumber = '01700000000';
-  const coursePriceBDT = 12000;
+  const coursePriceBDT = 8000;
 
   const [currentUser, setCurrentUser] = useState(null);
   const [currentProfile, setCurrentProfile] = useState(null);
@@ -135,9 +135,9 @@ export default function CheckoutPage() {
               <ol className="text-xs text-slate-300 space-y-2.5 list-decimal pl-4 leading-relaxed">
                 <li>Open bKash App or dial <code className="text-pink-300 font-mono">*247#</code>.</li>
                 <li>Choose <strong className="text-white">Send Money</strong> option.</li>
-                <li>Enter recipient number: <code className="text-pink-300 font-mono">{bkashNumber}</code>.</li>
-                <li>Enter exact amount: <strong className="text-white">৳12,000 BDT</strong>.</li>
-                <li>Enter reference: <strong className="text-white">LMS</strong>.</li>
+                <li>Enter recipient number: <code className="text-pink-300 font-mono">{bkashNumber}</code></li>
+                <li>Enter exact amount: <strong className="text-white">৳8,000 BDT</strong></li>
+                <li>Enter reference: <strong className="text-white">LMS</strong></li>
                 <li>Enter your PIN to complete the transaction.</li>
                 <li>Copy the <strong className="text-pink-300">Transaction ID (TxnID)</strong> and submit the form.</li>
               </ol>
