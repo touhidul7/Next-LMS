@@ -41,7 +41,7 @@ export default function LoginPage() {
     try {
       const supabase = createClient();
       const redirectUrl = `${window.location.origin}/api/auth/callback`;
-      
+
       const { error: oauthError } = await supabase.auth.signInWithOAuth({
         provider: 'google',
         options: {
@@ -102,12 +102,12 @@ export default function LoginPage() {
           )}
 
           <div className="space-y-6">
-            <div className="p-4 rounded-xl bg-cyan-950/30 border border-cyan-800/40 text-xs text-cyan-300 flex items-start gap-2.5">
+            {/* <div className="p-4 rounded-xl bg-cyan-950/30 border border-cyan-800/40 text-xs text-cyan-300 flex items-start gap-2.5">
               <Sparkles className="w-4 h-4 text-cyan-400 shrink-0 mt-0.5" />
               <span>
                 Password authentication is disabled. Please use fast & secure Google Sign-In with your Gmail.
               </span>
-            </div>
+            </div> */}
 
             {/* Google Sign In Button */}
             <button
@@ -153,6 +153,9 @@ export default function LoginPage() {
               Enroll via bKash Checkout
             </Link>
           </div>
+          <Link href="/" className="text-cyan-400 font-medium hover:underline text-sm text-center">
+            Back to home
+          </Link>
         </div>
       </div>
     </div>
