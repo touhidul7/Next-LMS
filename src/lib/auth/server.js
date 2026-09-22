@@ -3,14 +3,23 @@ import { createClient } from '../supabase/server.js';
 import { redirect } from 'next/navigation';
 
 /**
+ * Single cached getUser call — shared across requireAuth and getCurrentProfile
+ * so only ONE Supabase auth network round-trip occurs per server request.
+ */
+const getAuthUser = cache(async () => {
+  const supabase = await createClient();
+  const { data: { user }, error } = await supabase.auth.getUser();
+  return { supabase, user: error ? null : user };
+});
+
+/**
  * Ensures user is authenticated. Returns user object or redirects to /login.
  * Cached per request to eliminate duplicate network calls.
  */
 export const requireAuth = cache(async () => {
-  const supabase = await createClient();
-  const { data: { user }, error } = await supabase.auth.getUser();
+  const { user } = await getAuthUser();
 
-  if (error || !user) {
+  if (!user) {
     redirect('/login');
   }
 
@@ -20,12 +29,12 @@ export const requireAuth = cache(async () => {
 /**
  * Retrieves the profile record for the authenticated user.
  * Cached per request to eliminate duplicate network calls.
+ * Reuses the same getUser() call as requireAuth — no extra round-trip.
  */
 export const getCurrentProfile = cache(async () => {
-  const supabase = await createClient();
-  const { data: { user }, error: userError } = await supabase.auth.getUser();
+  const { supabase, user } = await getAuthUser();
 
-  if (userError || !user) {
+  if (!user) {
     return null;
   }
 

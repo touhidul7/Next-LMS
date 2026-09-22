@@ -26,7 +26,7 @@ export default async function AdminUsersPage() {
 
         {/* Page Header */}
         <div className="mb-8 pb-6 border-b border-slate-800">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-[#fa8b98] uppercase tracking-wider mb-2">
             <Users className="w-4 h-4" /> User & Role Management
           </div>
           <h1 className="text-3xl font-extrabold text-white tracking-tight">

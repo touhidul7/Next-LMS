@@ -31,7 +31,7 @@ export default function CourseNavTabs({ courseId }) {
             href={tab.href}
             className={`flex items-center gap-2 px-4 py-2 rounded-lg text-xs font-bold transition-all ${
               isActive
-                ? 'bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 shadow-md shadow-cyan-500/20'
+                ? 'bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white shadow-md shadow-[#fa8b98]/20'
                 : 'text-slate-400 hover:text-white hover:bg-slate-900'
             }`}
           >

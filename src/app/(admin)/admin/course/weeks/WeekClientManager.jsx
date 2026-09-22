@@ -89,7 +89,7 @@ export default function WeekClientManager({ initialModules = [], initialWeeks = 
   return (
     <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
       <div className="mb-8 pb-6 border-b border-slate-800">
-        <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-wider mb-1">
+        <div className="inline-flex items-center gap-2 text-xs font-bold text-[#fa8b98] uppercase tracking-wider mb-1">
           <ShieldCheck className="w-4 h-4" /> Curriculum CMS
         </div>
         <h1 className="text-3xl font-extrabold text-white">Curriculum Weeks Manager</h1>
@@ -102,7 +102,7 @@ export default function WeekClientManager({ initialModules = [], initialWeeks = 
           <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4 sticky top-20">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-cyan-400" />
+                <BookOpen className="w-5 h-5 text-[#fa8b98]" />
                 {editingWeek ? `Edit Week #${editingWeek.week_number}` : 'Create New Week'}
               </h3>
               {editingWeek && (
@@ -123,7 +123,7 @@ export default function WeekClientManager({ initialModules = [], initialWeeks = 
                   value={moduleId}
                   onChange={(e) => setModuleId(e.target.value)}
                   required
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
                 >
                   <option value="">Select Parent Module...</option>
                   {initialModules?.map((m) => (
@@ -143,7 +143,7 @@ export default function WeekClientManager({ initialModules = [], initialWeeks = 
                     value={weekNumber}
                     onChange={(e) => setWeekNumber(parseInt(e.target.value || '1', 10))}
                     required
-                    className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500 font-mono"
+                    className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98] font-mono"
                   />
                 </div>
 
@@ -153,7 +153,7 @@ export default function WeekClientManager({ initialModules = [], initialWeeks = 
                     type="number"
                     value={position}
                     onChange={(e) => setPosition(parseInt(e.target.value || '1', 10))}
-                    className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500 font-mono"
+                    className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98] font-mono"
                   />
                 </div>
               </div>
@@ -166,7 +166,7 @@ export default function WeekClientManager({ initialModules = [], initialWeeks = 
                   onChange={(e) => setTitle(e.target.value)}
                   required
                   placeholder="e.g. Week 1 — Introduction to the Web"
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
                 />
               </div>
 
@@ -177,7 +177,7 @@ export default function WeekClientManager({ initialModules = [], initialWeeks = 
                   onChange={(e) => setSummary(e.target.value)}
                   rows={3}
                   placeholder="Brief description of week contents"
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
                 />
               </div>
 
@@ -185,7 +185,7 @@ export default function WeekClientManager({ initialModules = [], initialWeeks = 
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/20 text-xs flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-bold hover:shadow-lg hover:shadow-[#fa8b98]/20 text-xs flex items-center justify-center gap-2 transition-all disabled:opacity-50"
                 >
                   {isPending ? (
                     <>
@@ -228,13 +228,13 @@ export default function WeekClientManager({ initialModules = [], initialWeeks = 
                     key={w.id}
                     className={`glass-panel p-4 rounded-xl border transition-all flex items-center justify-between gap-4 ${
                       isCurrentEdit
-                        ? 'border-cyan-500 bg-cyan-950/20 shadow-lg shadow-cyan-500/10'
+                        ? 'border-[#fa8b98] bg-[#fa8b98]/10/20 shadow-lg shadow-[#fa8b98]/10'
                         : 'border-slate-800 hover:border-slate-700'
                     }`}
                   >
                     <div>
                       <div className="flex items-center space-x-2">
-                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-cyan-400 font-mono">
+                        <span className="text-[10px] font-bold px-2 py-0.5 rounded bg-slate-800 text-[#fa8b98] font-mono">
                           Week {w.week_number}
                         </span>
                         {w.modules && (
@@ -251,7 +251,7 @@ export default function WeekClientManager({ initialModules = [], initialWeeks = 
                     <div className="flex items-center gap-2 shrink-0">
                       <button
                         onClick={() => startEdit(w)}
-                        className="px-2.5 py-1.5 rounded-lg bg-slate-800 text-cyan-300 font-bold hover:bg-cyan-500 hover:text-slate-950 transition-all text-xs flex items-center gap-1"
+                        className="px-2.5 py-1.5 rounded-lg bg-slate-800 text-[#f09fa1] font-bold hover:bg-[#fa8b98] hover:text-slate-950 transition-all text-xs flex items-center gap-1"
                         title="Edit Week"
                       >
                         <Pencil className="w-3.5 h-3.5" /> Edit

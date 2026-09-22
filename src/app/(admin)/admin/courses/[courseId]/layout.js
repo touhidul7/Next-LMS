@@ -27,14 +27,14 @@ export default async function CourseLayout({ children, params }) {
           <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
             <div>
               <div className="flex items-center gap-2 text-xs text-slate-400 mb-1 font-semibold">
-                <Link href="/admin/courses" className="hover:text-cyan-400 flex items-center gap-1">
+                <Link href="/admin/courses" className="hover:text-[#fa8b98] flex items-center gap-1">
                   <ArrowLeft className="w-3.5 h-3.5" /> All Courses
                 </Link>
                 <span>/</span>
-                <span className="text-cyan-400 font-mono">{course?.title || 'Course Workspace'}</span>
+                <span className="text-[#fa8b98] font-mono">{course?.title || 'Course Workspace'}</span>
               </div>
               <h2 className="text-xl font-extrabold text-white flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-cyan-400" />
+                <BookOpen className="w-5 h-5 text-[#fa8b98]" />
                 {course?.title || 'Manage Course'}
               </h2>
             </div>

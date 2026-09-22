@@ -124,7 +124,7 @@ export default function LoginPage() {
               type="button"
               onClick={handleGoogleSignIn}
               disabled={loading}
-              className="w-full py-3.5 px-5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold shadow-lg hover:shadow-cyan-500/10 transition-all flex items-center justify-center gap-3 text-sm disabled:opacity-60 cursor-pointer active:scale-[0.99] group"
+              className="w-full py-3.5 px-5 rounded-xl bg-white hover:bg-slate-100 text-slate-900 font-semibold shadow-lg hover:shadow-[#fa8b98]/10 transition-all flex items-center justify-center gap-3 text-sm disabled:opacity-60 cursor-pointer active:scale-[0.99] group"
             >
               {loading ? (
                 <>
@@ -158,7 +158,7 @@ export default function LoginPage() {
 
             {/* Trust badge */}
             <div className="flex items-center justify-center gap-1.5 text-[11px] text-slate-400 font-normal pt-1">
-              <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+              <ShieldCheck className="w-3.5 h-3.5 text-[#fa8b98]" />
               <span>Instant 1-click access • No passwords required</span>
             </div>
           </div>

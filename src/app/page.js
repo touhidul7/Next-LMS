@@ -70,7 +70,7 @@ export default async function Home() {
   ];
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#090d16] text-slate-100 selection:bg-cyan-500 selection:text-slate-950">
+    <div className="min-h-screen flex flex-col bg-[#090d16] text-slate-100 selection:bg-[#fa8b98] selection:text-slate-950">
       {/* Navigation Bar */}
       <header className="border-b border-slate-800/80 bg-[#090d16]/90 backdrop-blur sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
@@ -168,7 +168,7 @@ export default async function Home() {
               <div className="text-xs text-slate-400 mt-1">GitHub & Live Feedback</div>
             </div>
             <div className="p-4 rounded-xl bg-slate-900/40 border border-slate-800">
-              <div className="text-2xl font-black text-emerald-400">Instant Access</div>
+              <div className="text-2xl font-black text-[#fa8b98]">Instant Access</div>
               <div className="text-xs text-slate-400 mt-1">After Verification</div>
             </div>
           </div>

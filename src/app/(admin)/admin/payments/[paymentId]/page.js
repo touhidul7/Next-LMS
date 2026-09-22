@@ -72,7 +72,7 @@ export default function AdminPaymentDetailPage() {
     return (
       <div className="min-h-screen bg-[#090d16] text-slate-100 flex items-center justify-center p-6">
         <div className="text-center space-y-3">
-          <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto" />
+          <div className="w-8 h-8 border-2 border-[#fa8b98] border-t-transparent rounded-full animate-spin mx-auto" />
           <p className="text-sm text-slate-400">Loading payment transaction details...</p>
         </div>
       </div>
@@ -109,7 +109,7 @@ export default function AdminPaymentDetailPage() {
 
           <div>
             {payment.status === 'approved' ? (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 text-xs font-bold">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fa8b98]/10 text-[#fa8b98] border border-[#fa8b98]/30 text-xs font-bold">
                 <CheckCircle2 className="w-4 h-4" /> Approved
               </span>
             ) : payment.status === 'rejected' ? (
@@ -127,7 +127,7 @@ export default function AdminPaymentDetailPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {/* Student Info Card */}
           <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
-            <div className="flex items-center gap-3 text-cyan-400 font-bold text-xs uppercase tracking-wider">
+            <div className="flex items-center gap-3 text-[#fa8b98] font-bold text-xs uppercase tracking-wider">
               <User className="w-4 h-4" /> Student Profile Info
             </div>
 
@@ -183,7 +183,7 @@ export default function AdminPaymentDetailPage() {
         {/* Action & Admin Note Controls */}
         <div className="glass-panel p-8 rounded-2xl border border-slate-800 mt-8 space-y-6">
           <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <ShieldCheck className="w-5 h-5 text-cyan-400" /> Admin Action & Transactional Verification
+            <ShieldCheck className="w-5 h-5 text-[#fa8b98]" /> Admin Action & Transactional Verification
           </h3>
 
           <div>
@@ -195,7 +195,7 @@ export default function AdminPaymentDetailPage() {
               value={adminNote}
               onChange={(e) => setAdminNote(e.target.value)}
               placeholder="e.g. bKash TxnID verified on Personal account app"
-              className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 text-sm"
+              className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-[#fa8b98] text-sm"
             />
           </div>
 
@@ -211,7 +211,7 @@ export default function AdminPaymentDetailPage() {
             <button
               onClick={handleApprove}
               disabled={actionLoading || payment.status === 'approved'}
-              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 font-extrabold hover:shadow-lg hover:shadow-emerald-500/20 transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50"
+              className="w-full sm:w-auto px-8 py-3.5 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-extrabold hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all flex items-center justify-center gap-2 text-sm disabled:opacity-50"
             >
               <CheckCircle2 className="w-5 h-5" /> Approve & Activate Course Access
             </button>

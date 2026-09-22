@@ -458,7 +458,7 @@ export default function StudentLessonViewerPage() {
     return (
       <div className="min-h-screen bg-[#090d16] flex items-center justify-center">
         <div className="text-center space-y-3">
-          <div className="w-10 h-10 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin mx-auto" />
+          <div className="w-10 h-10 border-2 border-[#fa8b98] border-t-transparent rounded-full animate-spin mx-auto" />
           <p className="text-sm text-slate-400">Loading lesson...</p>
         </div>
       </div>
@@ -503,14 +503,14 @@ export default function StudentLessonViewerPage() {
 
           <div className="flex items-center gap-3">
             {isCompleted ? (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 text-xs font-bold">
+              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fa8b98]/10 text-[#fa8b98] border border-[#fa8b98]/30 text-xs font-bold">
                 <CheckCircle2 className="w-3.5 h-3.5" /> Completed
               </span>
             ) : (
               <button
                 onClick={handleMarkComplete}
                 disabled={markingComplete}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-emerald-950 text-emerald-300 border border-emerald-800 text-xs font-bold hover:bg-emerald-900 transition-all disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-[#fa8b98]/10 text-[#f09fa1] border border-[#fa8b98]/30 text-xs font-bold hover:bg-[#fa8b98]/20 transition-all disabled:opacity-50"
               >
                 {markingComplete ? (
                   <RefreshCw className="w-3.5 h-3.5 animate-spin" />
@@ -543,7 +543,7 @@ export default function StudentLessonViewerPage() {
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="SEARCH LESSONS..."
-                className="w-full pl-8 pr-3 py-2 rounded-lg bg-slate-950 border border-slate-800/80 text-white font-mono text-[11px] uppercase placeholder:text-slate-600 focus:outline-none focus:border-cyan-500/60"
+                className="w-full pl-8 pr-3 py-2 rounded-lg bg-slate-950 border border-slate-800/80 text-white font-mono text-[11px] uppercase placeholder:text-slate-600 focus:outline-none focus:border-[#fa8b98]/60"
               />
             </div>
           </div>
@@ -600,7 +600,7 @@ export default function StudentLessonViewerPage() {
                       {/* Thin Progress Line under module header */}
                       <div className="w-full h-1 bg-slate-800 rounded-full mt-2 overflow-hidden">
                         <div
-                          className="h-full bg-emerald-500 transition-all"
+                          className="h-full bg-[#fa8b98] transition-all"
                           style={{ width: `${progressRatio}%` }}
                         />
                       </div>
@@ -620,20 +620,20 @@ export default function StudentLessonViewerPage() {
                                 href={`/dashboard/module/${modSlug}/lesson/${lSlug}`}
                                 className={`p-3 flex items-start gap-3 transition-colors ${
                                   isCurrent
-                                    ? 'bg-cyan-500/10 border-l-2 border-cyan-400 text-white'
+                                    ? 'bg-[#fa8b98]/10 border-l-2 border-[#fa8b98] text-white'
                                     : 'text-slate-300 hover:bg-slate-900/60 hover:text-white'
                                 }`}
                               >
                                 <div className="mt-0.5 shrink-0">
                                   {l.isCompleted ? (
-                                    <CheckCircle2 className="w-4 h-4 text-emerald-400 fill-emerald-950" />
+                                    <CheckCircle2 className="w-4 h-4 text-[#fa8b98] fill-[#fa8b98]/20" />
                                   ) : (
                                     <Circle className="w-4 h-4 text-slate-600" />
                                   )}
                                 </div>
 
                                 <div className="min-w-0 flex-1">
-                                  <div className={`text-xs font-medium line-clamp-2 ${isCurrent ? 'text-cyan-300' : 'text-slate-200'}`}>
+                                  <div className={`text-xs font-medium line-clamp-2 ${isCurrent ? 'text-[#fa8b98]' : 'text-slate-200'}`}>
                                     {l.position || idx + 1}. {l.title}
                                   </div>
                                   <div className="text-[10px] text-slate-500 font-mono mt-0.5">
@@ -676,7 +676,7 @@ export default function StudentLessonViewerPage() {
                     {lesson.title}
                   </h2>
                   {lesson.live_meeting_date && (
-                    <p className="text-xs text-cyan-400 font-mono mt-2">
+                    <p className="text-xs text-[#fa8b98] font-mono mt-2">
                       Scheduled Time: {new Date(lesson.live_meeting_date).toLocaleString('en-US', {
                         weekday: 'short',
                         month: 'short',
@@ -699,7 +699,7 @@ export default function StudentLessonViewerPage() {
                       href={lesson.zoom_link}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 text-slate-950 font-extrabold text-sm hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 transition-all flex items-center gap-2"
+                      className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-extrabold text-sm hover:shadow-xl hover:shadow-[#175cff]/25 hover:scale-105 transition-all flex items-center gap-2"
                     >
                       <Video className="w-5 h-5" /> Join Live Class on Zoom ↗
                     </a>
@@ -761,11 +761,11 @@ export default function StudentLessonViewerPage() {
               {isBuffering && !videoError && (
                 <div className="absolute inset-0 flex flex-col items-center justify-center bg-black/60 backdrop-blur-[2px] z-20 pointer-events-none transition-all">
                   <div className="relative flex items-center justify-center mb-3">
-                    <div className="w-14 h-14 border-4 border-cyan-500/30 border-t-cyan-400 rounded-full animate-spin" />
-                    <PlayCircle className="w-6 h-6 text-cyan-400 absolute opacity-80" />
+                    <div className="w-14 h-14 border-4 border-[#fa8b98]/30 border-t-[#fa8b98] rounded-full animate-spin" />
+                    <PlayCircle className="w-6 h-6 text-[#fa8b98] absolute opacity-80" />
                   </div>
-                  <div className="px-3.5 py-1.5 rounded-full bg-slate-950/90 border border-cyan-900/60 text-xs font-bold text-cyan-300 flex items-center gap-2 shadow-2xl">
-                    <RefreshCw className="w-3.5 h-3.5 animate-spin text-cyan-400" />
+                  <div className="px-3.5 py-1.5 rounded-full bg-slate-950/90 border border-[#fa8b98]/30 text-xs font-bold text-[#fa8b98] flex items-center gap-2 shadow-2xl">
+                    <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#fa8b98]" />
                     <span>Loading video stream...</span>
                   </div>
                 </div>
@@ -801,10 +801,10 @@ export default function StudentLessonViewerPage() {
                     className="w-full h-1.5 bg-slate-700/80 cursor-pointer hover:h-2.5 transition-all relative overflow-hidden group/bar"
                   >
                     {isBuffering && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-emerald-500/30 via-emerald-400/60 to-emerald-500/30 animate-pulse" />
+                      <div className="absolute inset-0 bg-gradient-to-r from-[#fa8b98]/30 via-[#fa8b98]/60 to-[#fa8b98]/30 animate-pulse" />
                     )}
                     <div
-                      className="h-full bg-emerald-500 transition-all relative"
+                      className="h-full bg-[#fa8b98] transition-all relative"
                       style={{ width: duration ? `${(currentTime / duration) * 100}%` : '0%' }}
                     >
                       <div className="absolute right-0 top-1/2 -translate-y-1/2 w-3 h-3 bg-white rounded-full shadow-lg" />
@@ -859,10 +859,10 @@ export default function StudentLessonViewerPage() {
                         <div
                           ref={volumeBarRef}
                           onMouseDown={handleVolumeMouseDown}
-                          className="w-14 sm:w-16 h-3 rounded-full border border-emerald-500/60 bg-slate-900/90 p-[2px] cursor-pointer flex items-center relative overflow-hidden"
+                          className="w-14 sm:w-16 h-3 rounded-full border border-[#fa8b98]/60 bg-slate-900/90 p-[2px] cursor-pointer flex items-center relative overflow-hidden"
                         >
                           <div
-                            className="h-full bg-emerald-500 rounded-full transition-all"
+                            className="h-full bg-[#fa8b98] rounded-full transition-all"
                             style={{ width: `${isMuted ? 0 : volume * 100}%` }}
                           />
                         </div>
@@ -896,7 +896,7 @@ export default function StudentLessonViewerPage() {
                                 key={rate}
                                 onClick={() => handleSpeedChange(rate)}
                                 className={`w-full text-left px-3 py-1.5 hover:bg-slate-800 transition-colors ${
-                                  playbackRate === rate ? 'text-emerald-400 font-bold' : 'text-slate-300'
+                                  playbackRate === rate ? 'text-[#fa8b98] font-bold' : 'text-slate-300'
                                 }`}
                               >
                                 {rate}x
@@ -1065,7 +1065,7 @@ export default function StudentLessonViewerPage() {
                                   approved: {
                                     label: 'Approved & Graded',
                                     icon: CheckCircle2,
-                                    cls: 'bg-emerald-950/70 text-emerald-400 border-emerald-800',
+                                    cls: 'bg-[#fa8b98]/10/70 text-[#fa8b98] border-[#fa8b98]/30',
                                   },
                                   rejected: {
                                     label: 'Revision Requested',
@@ -1104,7 +1104,7 @@ export default function StudentLessonViewerPage() {
                             return (
                               <div className="p-5 rounded-xl bg-gradient-to-r from-slate-950 to-slate-900/90 border border-slate-800 space-y-4">
                                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-                                  <div className="flex items-center gap-2 text-cyan-400 font-semibold text-sm">
+                                  <div className="flex items-center gap-2 text-[#fa8b98] font-semibold text-sm">
                                     <Award className="w-5 h-5 text-yellow-400" />
                                     <span>Mentor Evaluation & Marks</span>
                                   </div>
@@ -1157,7 +1157,7 @@ export default function StudentLessonViewerPage() {
                                   href={submission.live_deploy_url}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-cyan-950/60 hover:bg-cyan-900/60 border border-cyan-800/70 text-xs text-cyan-300 font-medium transition-colors"
+                                  className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-[#fa8b98]/10 hover:bg-[#fa8b98]/20 border border-[#fa8b98]/30 text-xs text-[#fa8b98] font-medium transition-colors"
                                 >
                                   <ExternalLink className="w-4 h-4" /> Live Deployment ↗
                                 </a>
@@ -1184,7 +1184,7 @@ export default function StudentLessonViewerPage() {
                         <form onSubmit={handleTaskSubmit} className="p-6 rounded-xl bg-slate-900/80 border border-slate-800 space-y-4">
                           <div className="flex items-center justify-between">
                             <div className="text-sm font-semibold text-white flex items-center gap-2">
-                              <FileCode className="w-4 h-4 text-cyan-400" /> {submission ? 'Update Your Assignment Submission' : 'Submit Assignment Requirements'}
+                              <FileCode className="w-4 h-4 text-[#fa8b98]" /> {submission ? 'Update Your Assignment Submission' : 'Submit Assignment Requirements'}
                             </div>
                             {submission && (
                               <button
@@ -1205,7 +1205,7 @@ export default function StudentLessonViewerPage() {
                                 onChange={(e) => setGithubUrl(e.target.value)}
                                 required
                                 placeholder="https://github.com/username/repository"
-                                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-cyan-500"
+                                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-[#fa8b98]"
                               />
                             </div>
                             <div>
@@ -1215,7 +1215,7 @@ export default function StudentLessonViewerPage() {
                                 value={liveUrl}
                                 onChange={(e) => setLiveUrl(e.target.value)}
                                 placeholder="https://my-app.vercel.app"
-                                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-cyan-500"
+                                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-[#fa8b98]"
                               />
                             </div>
                           </div>
@@ -1232,7 +1232,7 @@ export default function StudentLessonViewerPage() {
                             <button
                               type="submit"
                               disabled={submittingTask}
-                              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold text-xs hover:shadow-lg hover:shadow-cyan-500/20 transition-all disabled:opacity-50"
+                              className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold text-xs hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all disabled:opacity-50"
                             >
                               {submittingTask ? 'Submitting...' : submission ? 'Update Submission' : 'Submit Assignment'}
                             </button>
@@ -1299,7 +1299,7 @@ export default function StudentLessonViewerPage() {
               {nextLesson ? (
                 <Link
                   href={`/dashboard/module/${currentModSlug}/lesson/${nextLesson.slug || slugify(nextLesson.title) || nextLesson.id}`}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold hover:shadow-lg hover:shadow-cyan-500/20 transition-all text-sm"
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all text-sm"
                 >
                   <span className="truncate max-w-[150px]">{nextLesson.title}</span>
                   <ArrowRight className="w-4 h-4 shrink-0" />
@@ -1307,7 +1307,7 @@ export default function StudentLessonViewerPage() {
               ) : (
                 <Link
                   href={`/dashboard/module/${activeModuleSlug}`}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 text-slate-950 font-semibold hover:shadow-lg hover:shadow-emerald-500/20 transition-all text-sm"
+                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all text-sm"
                 >
                   <CheckCircle2 className="w-4 h-4" /> Finish Module
                 </Link>

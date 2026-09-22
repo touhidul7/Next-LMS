@@ -31,7 +31,7 @@ export default async function AdminPaymentsPage({ searchParams }) {
         {/* Header Title */}
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-8 pb-6 border-b border-slate-800 gap-4">
           <div>
-            <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-wider mb-1">
+            <div className="inline-flex items-center gap-2 text-xs font-bold text-[#fa8b98] uppercase tracking-wider mb-1">
               <ShieldCheck className="w-4 h-4" /> Admin Financial Control
             </div>
             <h1 className="text-3xl font-extrabold text-white tracking-tight">bKash Payment Verification</h1>
@@ -54,7 +54,7 @@ export default async function AdminPaymentsPage({ searchParams }) {
               href={`/admin/payments${tab.id === 'all' ? '' : `?status=${tab.id}`}`}
               className={`px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
                 filterStatus === tab.id
-                  ? 'bg-cyan-500 text-slate-950 shadow-md shadow-cyan-500/20'
+                  ? 'bg-[#fa8b98] text-slate-950 shadow-md shadow-[#fa8b98]/20'
                   : 'bg-slate-900 text-slate-400 hover:text-white hover:bg-slate-800'
               }`}
             >
@@ -116,7 +116,7 @@ export default async function AdminPaymentsPage({ searchParams }) {
                       </td>
                       <td className="p-4">
                         {pmt.status === 'approved' ? (
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 text-[11px] font-bold">
+                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[#fa8b98]/10 text-[#fa8b98] border border-[#fa8b98]/30 text-[11px] font-bold">
                             <CheckCircle2 className="w-3.5 h-3.5" /> Approved
                           </span>
                         ) : pmt.status === 'rejected' ? (
@@ -132,7 +132,7 @@ export default async function AdminPaymentsPage({ searchParams }) {
                       <td className="p-4 text-right">
                         <Link
                           href={`/admin/payments/${pmt.id}`}
-                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-800 text-cyan-400 font-bold hover:bg-cyan-500 hover:text-slate-950 transition-all text-xs"
+                          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-800 text-[#fa8b98] font-bold hover:bg-[#fa8b98] hover:text-slate-950 transition-all text-xs"
                         >
                           Review <ArrowRight className="w-3.5 h-3.5" />
                         </Link>

@@ -131,11 +131,11 @@ export default async function ModuleDetailPage({ params }) {
                       <div
                         className={`w-9 h-9 rounded-xl flex items-center justify-center font-medium text-xs shrink-0 ${
                           isCompleted
-                            ? 'bg-emerald-950 text-emerald-400 border border-emerald-800'
+                            ? 'bg-[#fa8b98]/10 text-[#fa8b98] border border-[#fa8b98]/30'
                             : 'bg-slate-900 text-[#fa8b98] border border-slate-800'
                         }`}
                       >
-                        {isCompleted ? <CheckCircle2 className="w-5 h-5 text-emerald-400" /> : idx + 1}
+                        {isCompleted ? <CheckCircle2 className="w-5 h-5 text-[#fa8b98]" /> : idx + 1}
                       </div>
 
                       <div className="min-w-0">
@@ -161,7 +161,7 @@ export default async function ModuleDetailPage({ params }) {
                         const latestReview = sub.submission_reviews?.[0];
                         if (sub.status === 'approved') {
                           return (
-                            <span className="px-2.5 py-1 rounded-lg bg-emerald-950/80 border border-emerald-800/80 text-emerald-400 font-mono text-[11px] font-semibold flex items-center gap-1">
+                            <span className="px-2.5 py-1 rounded-lg bg-[#fa8b98]/10/80 border border-[#fa8b98]/30/80 text-[#fa8b98] font-mono text-[11px] font-semibold flex items-center gap-1">
                               <Award className="w-3.5 h-3.5 text-yellow-400" />
                               {latestReview?.score !== null && latestReview?.score !== undefined
                                 ? `${latestReview.score} Marks`

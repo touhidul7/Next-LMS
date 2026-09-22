@@ -174,7 +174,7 @@ export default async function StudentDashboardPage() {
             <div className="glass-panel p-8 rounded-3xl border border-[#175cff]/30 bg-gradient-to-b from-[#175cff]/10 to-slate-950/80">
               <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-6">
                 <div>
-                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-950 text-emerald-400 border border-emerald-800 text-xs font-medium mb-3">
+                  <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fa8b98]/10 text-[#fa8b98] border border-[#fa8b98]/30 text-xs font-medium mb-3">
                     <CheckCircle2 className="w-4 h-4" /> Active Student Access
                   </span>
                   <h2 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">
@@ -266,7 +266,7 @@ export default async function StudentDashboardPage() {
                     const statusCfg = {
                       submitted: { label: 'Awaiting Review', cls: 'bg-amber-950/70 text-amber-400 border-amber-800', icon: Clock },
                       under_review: { label: 'Under Review', cls: 'bg-blue-950/70 text-blue-400 border-blue-800', icon: RefreshCw },
-                      approved: { label: 'Approved & Graded', cls: 'bg-emerald-950/70 text-emerald-400 border-emerald-800', icon: CheckCircle2 },
+                      approved: { label: 'Approved & Graded', cls: 'bg-[#fa8b98]/10/70 text-[#fa8b98] border-[#fa8b98]/30', icon: CheckCircle2 },
                       rejected: { label: 'Revision Needed', cls: 'bg-red-950/70 text-red-400 border-red-800', icon: XCircle },
                     }[sub.status] || { label: 'Submitted', cls: 'bg-amber-950 text-amber-400 border-amber-800', icon: Clock };
                     const StatusIcon = statusCfg.icon;
@@ -313,7 +313,7 @@ export default async function StudentDashboardPage() {
                           {lesson && (
                             <Link
                               href={`/dashboard/module/${modSlug}/lesson/${lessonSlug}`}
-                              className="text-cyan-400 hover:text-cyan-300 font-medium flex items-center gap-1 transition-colors"
+                              className="text-[#fa8b98] hover:text-[#f09fa1] font-medium flex items-center gap-1 transition-colors"
                             >
                               View Lesson & Feedback <ArrowRight className="w-3.5 h-3.5" />
                             </Link>

@@ -35,7 +35,7 @@ export default function HeaderNav({ profile }) {
                   href="/admin/users"
                   className="px-3 py-1.5 rounded-lg bg-slate-900 text-slate-200 hover:text-white transition-colors flex items-center gap-1.5"
                 >
-                  <Users className="w-4 h-4 text-emerald-400" /> Users & Admins
+                  <Users className="w-4 h-4 text-[#fa8b98]" /> Users & Admins
                 </Link>
                 <Link
                   href="/admin/payments"
@@ -65,7 +65,7 @@ export default function HeaderNav({ profile }) {
                 ) : profile?.role === 'mentor' ? (
                   <span className="text-purple-400">Mentor</span>
                 ) : (
-                  <span className="text-emerald-400">Student</span>
+                  <span className="text-[#fa8b98]">Student</span>
                 )}
               </div>
             </div>

@@ -88,7 +88,7 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
     <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
       {/* Header */}
       <div className="mb-8 pb-6 border-b border-slate-800">
-        <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-wider mb-1">
+        <div className="inline-flex items-center gap-2 text-xs font-bold text-[#fa8b98] uppercase tracking-wider mb-1">
           <ShieldCheck className="w-4 h-4" /> Curriculum CMS
         </div>
         <h1 className="text-3xl font-extrabold text-white">Modules Manager</h1>
@@ -103,7 +103,7 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
           <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4 sticky top-20">
             <div className="flex items-center justify-between">
               <h3 className="text-base font-bold text-white flex items-center gap-2">
-                <Layers className="w-5 h-5 text-cyan-400" />
+                <Layers className="w-5 h-5 text-[#fa8b98]" />
                 {editingModule ? `Edit Module #${editingModule.month_number}` : 'Create New Module'}
               </h3>
               {editingModule && (
@@ -127,7 +127,7 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
                   onChange={(e) => setMonthNumber(e.target.value === '' ? '' : Math.max(1, parseInt(e.target.value, 10) || 1))}
                   required
                   placeholder="e.g. 2"
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500 font-mono"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98] font-mono"
                 />
               </div>
 
@@ -139,7 +139,7 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
                   onChange={(e) => setTitle(e.target.value)}
                   required
                   placeholder="e.g. Module 1 — Web Fundamentals"
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
                 />
               </div>
 
@@ -150,7 +150,7 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
                   onChange={(e) => setDescription(e.target.value)}
                   rows={3}
                   placeholder="Overview of module learning objectives"
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
                 />
               </div>
 
@@ -158,7 +158,7 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold hover:shadow-lg hover:shadow-cyan-500/20 text-xs flex items-center justify-center gap-2 transition-all disabled:opacity-50"
+                  className="flex-1 py-3 px-4 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-bold hover:shadow-lg hover:shadow-[#fa8b98]/20 text-xs flex items-center justify-center gap-2 transition-all disabled:opacity-50"
                 >
                   {isPending ? (
                     <>
@@ -201,13 +201,13 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
                     key={m.id}
                     className={`glass-panel p-6 rounded-2xl border transition-all ${
                       isCurrentEdit
-                        ? 'border-cyan-500 bg-cyan-950/20 shadow-lg shadow-cyan-500/10'
+                        ? 'border-[#fa8b98] bg-[#fa8b98]/10/20 shadow-lg shadow-[#fa8b98]/10'
                         : 'border-slate-800 hover:border-slate-700'
                     }`}
                   >
                     <div className="flex items-start justify-between gap-4">
                       <div>
-                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 uppercase font-mono">
+                        <span className="text-[10px] font-bold px-2.5 py-0.5 rounded bg-[#fa8b98]/10 text-[#fa8b98] border border-[#fa8b98]/30 uppercase font-mono">
                           Module {m.month_number}
                         </span>
                         <h4 className="text-lg font-bold text-white mt-2">{m.title}</h4>
@@ -218,7 +218,7 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
                       <div className="flex items-center gap-2 shrink-0">
                         <button
                           onClick={() => startEdit(m)}
-                          className="px-3 py-1.5 rounded-lg bg-slate-800 text-cyan-300 font-bold hover:bg-cyan-500 hover:text-slate-950 transition-all text-xs flex items-center gap-1.5"
+                          className="px-3 py-1.5 rounded-lg bg-slate-800 text-[#f09fa1] font-bold hover:bg-[#fa8b98] hover:text-slate-950 transition-all text-xs flex items-center gap-1.5"
                           title="Edit Module"
                         >
                           <Pencil className="w-3.5 h-3.5" /> Edit

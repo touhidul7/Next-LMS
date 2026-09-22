@@ -101,7 +101,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
       {/* Top Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8 pb-6 border-b border-slate-800">
         <div>
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-wider mb-1">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-[#fa8b98] uppercase tracking-wider mb-1">
             <ShieldCheck className="w-4 h-4" /> Multi-Course Platform CMS
           </div>
           <h1 className="text-3xl font-extrabold text-white">All Courses</h1>
@@ -112,7 +112,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
 
         <button
           onClick={openCreate}
-          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-extrabold hover:shadow-lg hover:shadow-cyan-500/20 text-xs flex items-center gap-2 shrink-0 self-start sm:self-auto"
+          className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-extrabold hover:shadow-lg hover:shadow-[#fa8b98]/20 text-xs flex items-center gap-2 shrink-0 self-start sm:self-auto"
         >
           <Plus className="w-4 h-4" /> Add New Course
         </button>
@@ -133,18 +133,18 @@ export default function CoursesClientManager({ initialCourses = [] }) {
                     <span
                       className={`text-[10px] font-bold px-2.5 py-0.5 rounded border uppercase ${
                         crs.is_published
-                          ? 'bg-emerald-950 text-emerald-400 border-emerald-800'
+                          ? 'bg-[#fa8b98]/10 text-[#fa8b98] border-[#fa8b98]/30'
                           : 'bg-amber-950 text-amber-400 border-amber-800'
                       }`}
                     >
                       {crs.is_published ? 'Published' : 'Draft'}
                     </span>
-                    <span className="text-xs font-mono font-bold text-cyan-400">
+                    <span className="text-xs font-mono font-bold text-[#fa8b98]">
                       ৳{parseFloat(crs.price_bdt || 0).toLocaleString()} BDT
                     </span>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white group-hover:text-cyan-400 transition-colors">
+                  <h3 className="text-xl font-bold text-white group-hover:text-[#fa8b98] transition-colors">
                     {crs.title}
                   </h3>
                   <p className="text-xs text-slate-400 mt-2 line-clamp-3 leading-relaxed">
@@ -153,7 +153,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
 
                   <div className="flex items-center gap-4 text-xs text-slate-400 font-mono mt-4 pt-3 border-t border-slate-800/80">
                     <div className="flex items-center gap-1.5">
-                      <Layers className="w-3.5 h-3.5 text-cyan-400" />
+                      <Layers className="w-3.5 h-3.5 text-[#fa8b98]" />
                       <span>{crs.modules?.[0]?.count || 0} Modules</span>
                     </div>
                   </div>
@@ -184,7 +184,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
 
                   <Link
                     href={`/admin/courses/${crs.id}/modules`}
-                    className="px-4 py-2 rounded-xl bg-cyan-500/10 border border-cyan-500/30 text-cyan-300 font-bold text-xs hover:bg-cyan-500 hover:text-slate-950 transition-all flex items-center gap-1.5"
+                    className="px-4 py-2 rounded-xl bg-[#fa8b98]/10 border border-[#fa8b98]/30 text-[#f09fa1] font-bold text-xs hover:bg-[#fa8b98] hover:text-slate-950 transition-all flex items-center gap-1.5"
                   >
                     Manage Course <ArrowRight className="w-3.5 h-3.5" />
                   </Link>
@@ -207,7 +207,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
           <div className="glass-panel w-full max-w-lg p-6 rounded-2xl border border-slate-800 space-y-4 relative">
             <div className="flex items-center justify-between border-b border-slate-800 pb-3">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <BookOpen className="w-5 h-5 text-cyan-400" />
+                <BookOpen className="w-5 h-5 text-[#fa8b98]" />
                 {editingCourse ? 'Edit Course Details' : 'Create New Course'}
               </h3>
               <button onClick={closeModal} className="text-slate-400 hover:text-white p-1">
@@ -224,7 +224,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
                   onChange={(e) => setTitle(e.target.value)}
                   required
                   placeholder="e.g. Frontend Development — Flagship Program"
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
                 />
               </div>
 
@@ -235,7 +235,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
                   value={slug}
                   onChange={(e) => setSlug(e.target.value)}
                   placeholder="frontend-development"
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-[#fa8b98]"
                 />
               </div>
 
@@ -246,7 +246,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
                   onChange={(e) => setDescription(e.target.value)}
                   rows={3}
                   placeholder="Detailed course overview..."
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
                 />
               </div>
 
@@ -257,7 +257,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
                     type="number"
                     value={priceBdt}
                     onChange={(e) => setPriceBdt(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-[#fa8b98]"
                   />
                 </div>
 
@@ -267,7 +267,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
                     type="text"
                     value={bkashNumber}
                     onChange={(e) => setBkashNumber(e.target.value)}
-                    className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-cyan-500"
+                    className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-[#fa8b98]"
                   />
                 </div>
               </div>
@@ -278,7 +278,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
                   id="isPublished"
                   checked={isPublished}
                   onChange={(e) => setIsPublished(e.target.checked)}
-                  className="w-4 h-4 accent-cyan-500 rounded"
+                  className="w-4 h-4 accent-[#fa8b98] rounded"
                 />
                 <label htmlFor="isPublished" className="text-xs font-semibold text-slate-200 cursor-pointer">
                   Publish Course (visible to students)
@@ -296,7 +296,7 @@ export default function CoursesClientManager({ initialCourses = [] }) {
                 <button
                   type="submit"
                   disabled={isPending}
-                  className="px-6 py-2 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-bold text-xs hover:shadow-lg hover:shadow-cyan-500/20 transition-all disabled:opacity-50 flex items-center gap-2"
+                  className="px-6 py-2 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-bold text-xs hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all disabled:opacity-50 flex items-center gap-2"
                 >
                   {isPending ? <RefreshCw className="w-4 h-4 animate-spin" /> : null}
                   {editingCourse ? 'Update Course' : 'Create Course'}

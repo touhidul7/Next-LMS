@@ -103,7 +103,7 @@ export default function EditLessonPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#090d16] text-slate-100 flex items-center justify-center p-6">
-        <div className="w-8 h-8 border-2 border-cyan-400 border-t-transparent rounded-full animate-spin" />
+        <div className="w-8 h-8 border-2 border-[#fa8b98] border-t-transparent rounded-full animate-spin" />
       </div>
     );
   }
@@ -136,7 +136,7 @@ export default function EditLessonPage() {
                   name="weekId"
                   defaultValue={lesson?.week_id || ''}
                   required
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
                 >
                   <option value="">Select Week...</option>
                   {weeks.map((w) => (
@@ -152,7 +152,7 @@ export default function EditLessonPage() {
                 <select
                   name="lessonType"
                   defaultValue={lesson?.lesson_type || 'video'}
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
                 >
                   <option value="video">Video Lesson</option>
                   <option value="live_class">Live Class (Zoom Meeting)</option>
@@ -171,7 +171,7 @@ export default function EditLessonPage() {
                 defaultValue={lesson?.title || ''}
                 required
                 placeholder="e.g. Assignment 6 Requirements - Batch 4 - CoderFlix"
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
               />
             </div>
 
@@ -194,7 +194,7 @@ export default function EditLessonPage() {
                   name="isPublished"
                   value="true"
                   defaultChecked={lesson ? lesson.is_published : true}
-                  className="w-4 h-4 rounded border-slate-700 bg-slate-900 text-cyan-500 focus:ring-cyan-500"
+                  className="w-4 h-4 rounded border-slate-700 bg-slate-900 text-[#fa8b98] focus:ring-[#fa8b98]"
                 />
                 <div>
                   <div className="text-xs font-bold text-white">Publish Lesson to Students</div>
@@ -208,7 +208,7 @@ export default function EditLessonPage() {
                   name="isPreview"
                   value="true"
                   defaultChecked={lesson ? lesson.is_preview : false}
-                  className="w-4 h-4 rounded border-slate-700 bg-slate-900 text-cyan-500 focus:ring-cyan-500"
+                  className="w-4 h-4 rounded border-slate-700 bg-slate-900 text-[#fa8b98] focus:ring-[#fa8b98]"
                 />
                 <div>
                   <div className="text-xs font-bold text-white">Free Preview Lesson</div>
@@ -344,8 +344,8 @@ export default function EditLessonPage() {
           </div>
 
           {/* Video Provider & Verification Section (Section 28 & 29 of Spec) */}
-          <div className="glass-panel p-6 rounded-2xl border border-cyan-900/40 bg-gradient-to-b from-cyan-950/10 to-slate-950/80 space-y-4">
-            <div className="flex items-center gap-2 text-cyan-400 font-bold text-xs uppercase tracking-wider">
+          <div className="glass-panel p-6 rounded-2xl border border-[#fa8b98]/30 bg-gradient-to-b from-[#fa8b98]/5 to-slate-950/80 space-y-4">
+            <div className="flex items-center gap-2 text-[#fa8b98] font-bold text-xs uppercase tracking-wider">
               <Video className="w-4 h-4" /> Google Drive Private Video Integration
             </div>
 
@@ -355,7 +355,7 @@ export default function EditLessonPage() {
                 <select
                   name="videoProvider"
                   defaultValue={lesson?.video_provider || 'google_drive'}
-                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
                 >
                   <option value="google_drive">Google Drive</option>
                   <option value="bunny_stream">Bunny Stream (CDN)</option>
@@ -373,13 +373,13 @@ export default function EditLessonPage() {
                     value={videoInput}
                     onChange={(e) => setVideoInput(e.target.value)}
                     placeholder="e.g. https://drive.google.com/file/d/1A2B3C4D5E6F/view"
-                    className="flex-1 px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-cyan-500"
+                    className="flex-1 px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-[#fa8b98]"
                   />
                   <button
                     type="button"
                     onClick={handleVerifyVideo}
                     disabled={verifying}
-                    className="px-4 py-2.5 rounded-lg bg-cyan-950 border border-cyan-800 text-cyan-300 font-bold text-xs hover:bg-cyan-900 transition-all flex items-center gap-1.5 shrink-0"
+                    className="px-4 py-2.5 rounded-lg bg-[#fa8b98]/10 border border-[#fa8b98]/30 text-[#f09fa1] font-bold text-xs hover:bg-[#fa8b98]/20 transition-all flex items-center gap-1.5 shrink-0"
                   >
                     {verifying ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
                     {verifying ? 'Verifying...' : 'Verify Video'}
@@ -390,14 +390,14 @@ export default function EditLessonPage() {
 
             {/* Verification Result Feedback */}
             {verificationResult && (
-              <div className={`p-4 rounded-xl text-xs border ${verificationResult.valid ? 'bg-emerald-950/60 border-emerald-800 text-emerald-300' : 'bg-red-950/60 border-red-800 text-red-300'}`}>
+              <div className={`p-4 rounded-xl text-xs border ${verificationResult.valid ? 'bg-[#fa8b98]/10/60 border-[#fa8b98]/30 text-[#f09fa1]' : 'bg-red-950/60 border-red-800 text-red-300'}`}>
                 {verificationResult.valid ? (
                   <div className="space-y-1">
                     <div className="font-bold flex items-center gap-1.5 text-sm">
-                      <CheckCircle2 className="w-4 h-4 text-emerald-400" /> Video Verified Successfully!
+                      <CheckCircle2 className="w-4 h-4 text-[#fa8b98]" /> Video Verified Successfully!
                     </div>
                     <div>Filename: <strong className="text-white">{verificationResult.filename}</strong></div>
-                    <div>Normalized Drive ID: <code className="font-mono text-emerald-300">{verificationResult.fileId}</code></div>
+                    <div>Normalized Drive ID: <code className="font-mono text-[#f09fa1]">{verificationResult.fileId}</code></div>
                     <div>Account: <span className="text-slate-300">{verificationResult.connectedAccount}</span></div>
                   </div>
                 ) : (
@@ -417,7 +417,7 @@ export default function EditLessonPage() {
             <button
               type="submit"
               disabled={saving}
-              className="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-extrabold hover:shadow-lg hover:shadow-cyan-500/20 text-sm flex items-center gap-2"
+              className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-extrabold hover:shadow-lg hover:shadow-[#fa8b98]/20 text-sm flex items-center gap-2"
             >
               <Save className="w-4 h-4" /> {saving ? 'Saving Lesson...' : 'Save Lesson'}
             </button>

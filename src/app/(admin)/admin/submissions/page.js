@@ -45,7 +45,7 @@ export default async function AdminSubmissionsPage() {
           >
             <ArrowLeft className="w-3.5 h-3.5" /> Back to Admin
           </Link>
-          <div className="inline-flex items-center gap-2 text-xs font-medium text-cyan-400 uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 text-xs font-medium text-[#fa8b98] uppercase tracking-wider mb-2">
             <ClipboardList className="w-3.5 h-3.5" /> Assignment Submissions & Grading
           </div>
           <h1 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">

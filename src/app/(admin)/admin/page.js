@@ -79,9 +79,9 @@ export default async function AdminDashboardPage() {
       label: 'Active Enrollments',
       value: activeEnrollments ?? 0,
       icon: CheckCircle2,
-      color: 'text-emerald-400',
-      bg: 'bg-emerald-950/50',
-      border: 'border-emerald-900/50',
+      color: 'text-[#fa8b98]',
+      bg: 'bg-[#fa8b98]/10/50',
+      border: 'border-[#fa8b98]/30/50',
       href: null,
     },
     {
@@ -98,9 +98,9 @@ export default async function AdminDashboardPage() {
       label: 'Approved Payments',
       value: approvedPayments ?? 0,
       icon: TrendingUp,
-      color: 'text-cyan-400',
-      bg: 'bg-cyan-950/50',
-      border: 'border-cyan-900/50',
+      color: 'text-[#fa8b98]',
+      bg: 'bg-[#fa8b98]/10/50',
+      border: 'border-[#fa8b98]/30/50',
       href: '/admin/payments?status=approved',
     },
     {
@@ -157,7 +157,7 @@ export default async function AdminDashboardPage() {
       icon: Settings,
       badge: isDriveConnected ? 'Connected' : 'Setup Required',
       badgeColor: isDriveConnected
-        ? 'bg-emerald-950 text-emerald-400 border-emerald-800'
+        ? 'bg-[#fa8b98]/10 text-[#fa8b98] border-[#fa8b98]/30'
         : 'bg-red-950 text-red-400 border-red-800',
     },
   ];
@@ -169,7 +169,7 @@ export default async function AdminDashboardPage() {
       <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
         {/* Page Header */}
         <div className="mb-10 pb-6 border-b border-slate-800">
-          <div className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 uppercase tracking-wider mb-2">
+          <div className="inline-flex items-center gap-2 text-xs font-bold text-[#fa8b98] uppercase tracking-wider mb-2">
             <ShieldCheck className="w-4 h-4" /> Admin Control Center
           </div>
           <h1 className="text-4xl font-extrabold text-white tracking-tight">
@@ -233,7 +233,7 @@ export default async function AdminDashboardPage() {
           {/* Quick Links */}
           <div className="lg:col-span-5">
             <h2 className="text-base font-bold text-white mb-4 flex items-center gap-2">
-              <ShieldCheck className="w-4 h-4 text-cyan-400" /> Admin Quick Actions
+              <ShieldCheck className="w-4 h-4 text-[#fa8b98]" /> Admin Quick Actions
             </h2>
             <div className="space-y-3">
               {quickLinks.map((link) => {
@@ -242,10 +242,10 @@ export default async function AdminDashboardPage() {
                   <Link
                     key={link.href}
                     href={link.href}
-                    className="glass-panel p-4 rounded-xl border border-slate-800 flex items-center gap-4 hover:border-cyan-500/50 hover:bg-slate-900/50 transition-all group"
+                    className="glass-panel p-4 rounded-xl border border-slate-800 flex items-center gap-4 hover:border-[#fa8b98]/50 hover:bg-slate-900/50 transition-all group"
                   >
-                    <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center shrink-0 group-hover:bg-cyan-950 transition-colors">
-                      <Icon className="w-5 h-5 text-slate-400 group-hover:text-cyan-400 transition-colors" />
+                    <div className="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center shrink-0 group-hover:bg-[#fa8b98]/10 transition-colors">
+                      <Icon className="w-5 h-5 text-slate-400 group-hover:text-[#fa8b98] transition-colors" />
                     </div>
                     <div className="flex-1 min-w-0">
                       <div className="flex items-center gap-2 flex-wrap">
@@ -258,7 +258,7 @@ export default async function AdminDashboardPage() {
                       </div>
                       <p className="text-xs text-slate-400 mt-0.5 truncate">{link.description}</p>
                     </div>
-                    <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-cyan-400 group-hover:translate-x-1 transition-all shrink-0" />
+                    <ArrowRight className="w-4 h-4 text-slate-500 group-hover:text-[#fa8b98] group-hover:translate-x-1 transition-all shrink-0" />
                   </Link>
                 );
               })}
@@ -273,7 +273,7 @@ export default async function AdminDashboardPage() {
               </h2>
               <Link
                 href="/admin/payments"
-                className="text-xs text-cyan-400 hover:text-cyan-300 flex items-center gap-1 font-semibold"
+                className="text-xs text-[#fa8b98] hover:text-[#f09fa1] flex items-center gap-1 font-semibold"
               >
                 View All <ArrowRight className="w-3.5 h-3.5" />
               </Link>
@@ -282,7 +282,7 @@ export default async function AdminDashboardPage() {
             <div className="glass-panel rounded-2xl border border-slate-800 overflow-hidden">
               {!recentPayments || recentPayments.length === 0 ? (
                 <div className="p-10 text-center">
-                  <CheckCircle2 className="w-10 h-10 text-emerald-500 mx-auto mb-3" />
+                  <CheckCircle2 className="w-10 h-10 text-[#fa8b98] mx-auto mb-3" />
                   <p className="text-sm font-semibold text-white">All Caught Up!</p>
                   <p className="text-xs text-slate-400 mt-1">No pending bKash payments require review.</p>
                 </div>

@@ -145,7 +145,7 @@ export default function CheckoutPage() {
                   type="button"
                   className="px-3 py-1.5 rounded-lg bg-pink-950 border border-pink-800 text-pink-300 text-xs font-semibold hover:bg-pink-900 transition-all flex items-center gap-1.5"
                 >
-                  {copied ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
+                  {copied ? <Check className="w-3.5 h-3.5 text-[#fa8b98]" /> : <Copy className="w-3.5 h-3.5" />}
                   {copied ? 'Copied' : 'Copy'}
                 </button>
               </div>
@@ -187,7 +187,7 @@ export default function CheckoutPage() {
                       Step 1: Student Google Account & Contact
                     </div>
                     {currentUser && (
-                      <span className="text-[11px] font-medium text-emerald-400 flex items-center gap-1">
+                      <span className="text-[11px] font-medium text-[#fa8b98] flex items-center gap-1">
                         <UserCheck className="w-3.5 h-3.5" /> Google Verified
                       </span>
                     )}
@@ -237,7 +237,7 @@ export default function CheckoutPage() {
                       defaultValue={currentProfile?.full_name || currentUser?.user_metadata?.full_name || currentUser?.user_metadata?.name || ''}
                       required
                       placeholder="Tanvir Ahmed"
-                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 text-sm"
+                      className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-[#fa8b98] text-sm"
                     />
                   </div>
 
@@ -252,7 +252,7 @@ export default function CheckoutPage() {
                         defaultValue={currentUser?.email || ''}
                         required
                         placeholder="name@example.com"
-                        className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 text-sm"
+                        className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-[#fa8b98] text-sm"
                       />
                     </div>
 
@@ -266,7 +266,7 @@ export default function CheckoutPage() {
                         defaultValue={currentProfile?.phone || ''}
                         required
                         placeholder="01712345678"
-                        className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-cyan-500 text-sm"
+                        className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white placeholder-slate-500 focus:outline-none focus:border-[#fa8b98] text-sm"
                       />
                     </div>
                   </div>

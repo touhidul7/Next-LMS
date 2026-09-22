@@ -37,8 +37,8 @@ const STATUS_CONFIG = {
   approved: {
     label: 'Approved',
     icon: CheckCircle2,
-    badgeCls: 'bg-emerald-950/70 text-emerald-400 border-emerald-800/80',
-    dotCls: 'bg-emerald-400',
+    badgeCls: 'bg-[#fa8b98]/10/70 text-[#fa8b98] border-[#fa8b98]/30/80',
+    dotCls: 'bg-[#fa8b98]',
   },
   rejected: {
     label: 'Rejected',
@@ -154,7 +154,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
           onClick={() => setFilterStatus('all')}
           className={`px-3.5 py-2 rounded-xl text-xs font-medium border transition-all ${
             filterStatus === 'all'
-              ? 'bg-cyan-950/60 text-cyan-400 border-cyan-800 shadow-sm'
+              ? 'bg-[#fa8b98]/10 text-[#fa8b98] border-[#fa8b98]/30 shadow-sm'
               : 'bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700'
           }`}
         >
@@ -176,11 +176,11 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
           onClick={() => setFilterStatus('approved')}
           className={`px-3.5 py-2 rounded-xl text-xs font-medium border transition-all ${
             filterStatus === 'approved'
-              ? 'bg-emerald-950/70 text-emerald-400 border-emerald-700'
+              ? 'bg-[#fa8b98]/10/70 text-[#fa8b98] border-[#fa8b98]/40'
               : 'bg-slate-900/80 text-slate-300 border-slate-800 hover:border-slate-700'
           }`}
         >
-          Approved <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-emerald-950 text-emerald-400 font-mono text-[11px]">{countApproved}</span>
+          Approved <span className="ml-1.5 px-1.5 py-0.5 rounded-full bg-[#fa8b98]/10 text-[#fa8b98] font-mono text-[11px]">{countApproved}</span>
         </button>
 
         <button
@@ -214,7 +214,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
           placeholder="Search student, email, or lesson..."
-          className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-cyan-500 transition-colors"
+          className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/90 border border-slate-800 text-sm text-slate-200 placeholder-slate-500 focus:outline-none focus:border-[#fa8b98] transition-colors"
         />
         {searchQuery && (
           <button
@@ -277,7 +277,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                         </span>
                       </div>
                       <div className="flex items-center gap-2 mt-1 flex-wrap text-xs">
-                        <span className="text-cyan-400 font-medium flex items-center gap-1">
+                        <span className="text-[#fa8b98] font-medium flex items-center gap-1">
                           <BookOpen className="w-3.5 h-3.5 shrink-0" />
                           {sub.lessons?.title || 'Unknown Lesson'}
                         </span>
@@ -314,7 +314,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                           href={sub.live_deploy_url}
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-cyan-300 font-medium transition-colors"
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-[#f09fa1] font-medium transition-colors"
                           title="Open Live Deployment"
                         >
                           <ExternalLink className="w-3.5 h-3.5" />
@@ -334,7 +334,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                     {/* Grade / Review Button */}
                     <button
                       onClick={() => handleOpenReview(sub)}
-                      className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold text-xs hover:shadow-lg hover:shadow-cyan-500/20 transition-all"
+                      className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold text-xs hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all"
                     >
                       <Award className="w-3.5 h-3.5" />
                       {latestReview ? 'Update Grade' : 'Grade Assignment'}
@@ -346,8 +346,8 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                 {latestReview && (
                   <div className="mt-3 pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row sm:items-start gap-3 text-xs bg-slate-950/40 p-3.5 rounded-xl border border-slate-800/60">
                     <div className="flex items-center gap-2 shrink-0">
-                      <div className="px-2.5 py-1 rounded-lg bg-cyan-950/80 border border-cyan-800/70 text-cyan-300 font-mono font-semibold text-xs flex items-center gap-1">
-                        <Award className="w-3 h-3 text-cyan-400" />
+                      <div className="px-2.5 py-1 rounded-lg bg-[#fa8b98]/10/80 border border-[#fa8b98]/30/70 text-[#f09fa1] font-mono font-semibold text-xs flex items-center gap-1">
+                        <Award className="w-3 h-3 text-[#fa8b98]" />
                         Score:{' '}
                         {latestReview.score !== null && latestReview.score !== undefined
                           ? `${latestReview.score} / ${maxMarks}`
@@ -378,7 +378,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
             {/* Modal Header */}
             <div className="px-6 py-4 border-b border-slate-800 flex items-center justify-between">
               <div className="flex items-center gap-2">
-                <Award className="w-5 h-5 text-cyan-400" />
+                <Award className="w-5 h-5 text-[#fa8b98]" />
                 <h3 className="text-base font-semibold text-white">Grade Assignment Submission</h3>
               </div>
               <button
@@ -405,7 +405,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                   </div>
                   <div className="text-right">
                     <div className="text-xs text-slate-400 font-mono uppercase tracking-wider">Assignment</div>
-                    <div className="text-sm font-semibold text-cyan-300 mt-0.5">
+                    <div className="text-sm font-semibold text-[#f09fa1] mt-0.5">
                       {selectedSubmission.lessons?.title || 'Unknown Lesson'}
                     </div>
                     <div className="text-xs text-slate-400 font-mono">
@@ -431,7 +431,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                       href={selectedSubmission.live_deploy_url}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-cyan-300 font-medium transition-colors"
+                      className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 border border-slate-700 text-xs text-[#f09fa1] font-medium transition-colors"
                     >
                       <ExternalLink className="w-3.5 h-3.5" /> View Live Deployment ↗
                     </a>
@@ -448,7 +448,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                   </label>
                   <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
                     {[
-                      { id: 'approved', label: 'Approve', icon: CheckCircle2, cls: 'text-emerald-400 hover:border-emerald-500' },
+                      { id: 'approved', label: 'Approve', icon: CheckCircle2, cls: 'text-[#fa8b98] hover:border-[#fa8b98]' },
                       { id: 'under_review', label: 'Under Review', icon: RefreshCw, cls: 'text-blue-400 hover:border-blue-500' },
                       { id: 'rejected', label: 'Request Changes', icon: XCircle, cls: 'text-red-400 hover:border-red-500' },
                       { id: 'submitted', label: 'Submitted', icon: Clock, cls: 'text-amber-400 hover:border-amber-500' },
@@ -462,7 +462,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                           onClick={() => setReviewStatus(opt.id)}
                           className={`flex items-center justify-center gap-1.5 p-2.5 rounded-xl border text-xs font-semibold transition-all ${
                             active
-                              ? 'bg-slate-800 border-cyan-500 shadow-sm text-white ring-1 ring-cyan-500/50'
+                              ? 'bg-slate-800 border-[#fa8b98] shadow-sm text-white ring-1 ring-[#fa8b98]/50'
                               : `bg-slate-950/80 border-slate-800 ${opt.cls}`
                           }`}
                         >
@@ -491,7 +491,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                     value={score}
                     onChange={(e) => setScore(e.target.value)}
                     placeholder={`e.g. 85`}
-                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono text-sm focus:outline-none focus:border-cyan-500 transition-colors"
+                    className="w-full px-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white font-mono text-sm focus:outline-none focus:border-[#fa8b98] transition-colors"
                   />
                 </div>
 
@@ -505,7 +505,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                     value={feedback}
                     onChange={(e) => setFeedback(e.target.value)}
                     placeholder="Provide constructive feedback, suggestions for improvement, or commend strengths in the code..."
-                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 text-xs sm:text-sm focus:outline-none focus:border-cyan-500 transition-colors resize-none leading-relaxed"
+                    className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-slate-200 text-xs sm:text-sm focus:outline-none focus:border-[#fa8b98] transition-colors resize-none leading-relaxed"
                   />
                 </div>
               </form>
@@ -524,7 +524,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                       >
                         <div className="flex items-center justify-between text-[11px] text-slate-400 font-mono">
                           <span>Status: <strong className="text-white">{rev.status_assigned}</strong></span>
-                          <span>Score: <strong className="text-cyan-400">{rev.score !== null ? rev.score : 'N/A'}</strong></span>
+                          <span>Score: <strong className="text-[#fa8b98]">{rev.score !== null ? rev.score : 'N/A'}</strong></span>
                           <span>
                             {new Date(rev.created_at).toLocaleDateString('en-GB', {
                               day: '2-digit',
@@ -557,7 +557,7 @@ export default function SubmissionsClient({ initialSubmissions = [] }) {
                 type="submit"
                 form="review-form"
                 disabled={saving}
-                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-semibold text-xs hover:shadow-lg hover:shadow-cyan-500/20 transition-all disabled:opacity-50"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold text-xs hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all disabled:opacity-50"
               >
                 {saving ? (
                   <>

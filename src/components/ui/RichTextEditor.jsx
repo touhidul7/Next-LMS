@@ -26,7 +26,7 @@ export default function RichTextEditor({ name, defaultValue = '', placeholder = 
   }
 
   return (
-    <div className="rounded-xl bg-slate-950 border border-slate-800 overflow-hidden focus-within:border-cyan-500 transition-all">
+    <div className="rounded-xl bg-slate-950 border border-slate-800 overflow-hidden focus-within:border-[#fa8b98] transition-all">
       {/* Toolbar */}
       <div className="flex items-center justify-between px-3 py-2 bg-slate-900/80 border-b border-slate-800 text-xs">
         <div className="flex items-center gap-1">
@@ -85,7 +85,7 @@ export default function RichTextEditor({ name, defaultValue = '', placeholder = 
             type="button"
             onClick={() => setMode('edit')}
             className={`px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1 transition-all ${
-              mode === 'edit' ? 'bg-cyan-500 text-slate-950' : 'text-slate-400 hover:text-white'
+              mode === 'edit' ? 'bg-[#fa8b98] text-slate-950' : 'text-slate-400 hover:text-white'
             }`}
           >
             <Edit3 className="w-3 h-3" /> Edit
@@ -94,7 +94,7 @@ export default function RichTextEditor({ name, defaultValue = '', placeholder = 
             type="button"
             onClick={() => setMode('preview')}
             className={`px-2 py-1 rounded text-[10px] font-bold flex items-center gap-1 transition-all ${
-              mode === 'preview' ? 'bg-cyan-500 text-slate-950' : 'text-slate-400 hover:text-white'
+              mode === 'preview' ? 'bg-[#fa8b98] text-slate-950' : 'text-slate-400 hover:text-white'
             }`}
           >
             <Eye className="w-3 h-3" /> Preview

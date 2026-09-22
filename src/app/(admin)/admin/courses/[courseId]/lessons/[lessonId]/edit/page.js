@@ -121,7 +121,7 @@ export default function EditCourseLessonPage() {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#090d16] flex items-center justify-center">
-        <RefreshCw className="w-8 h-8 text-cyan-400 animate-spin" />
+        <RefreshCw className="w-8 h-8 text-[#fa8b98] animate-spin" />
       </div>
     );
   }
@@ -137,7 +137,7 @@ export default function EditCourseLessonPage() {
             <ArrowLeft className="w-5 h-5" />
           </Link>
           <div>
-            <div className="text-xs font-bold text-cyan-400 uppercase tracking-wider">Lesson Editor</div>
+            <div className="text-xs font-bold text-[#fa8b98] uppercase tracking-wider">Lesson Editor</div>
             <h1 className="text-2xl font-extrabold text-white">
               {lesson ? `Edit Lesson: ${lesson.title}` : 'Create New Lesson'}
             </h1>
@@ -159,7 +159,7 @@ export default function EditCourseLessonPage() {
                 name="moduleId"
                 defaultValue={lesson?.module_id || ''}
                 required
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
               >
                 <option value="">Select Parent Module...</option>
                 {modules.map((m) => (
@@ -176,7 +176,7 @@ export default function EditCourseLessonPage() {
                 name="lessonType"
                 value={lessonType}
                 onChange={(e) => setLessonType(e.target.value)}
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
               >
                 <option value="video">Recorded Video Lesson (Google Drive)</option>
                 <option value="live_class">Live Class (Zoom + Drive Recording)</option>
@@ -195,7 +195,7 @@ export default function EditCourseLessonPage() {
               defaultValue={lesson?.title || ''}
               required
               placeholder="e.g. Setting up HTML5 Project & Head Tags"
-              className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+              className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
             />
           </div>
 
@@ -206,7 +206,7 @@ export default function EditCourseLessonPage() {
                 type="number"
                 name="position"
                 defaultValue={lesson?.position || 1}
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-cyan-500"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-[#fa8b98]"
               />
             </div>
 
@@ -217,7 +217,7 @@ export default function EditCourseLessonPage() {
                 name="durationSeconds"
                 defaultValue={lesson?.video_duration_seconds || 0}
                 placeholder="e.g. 1347 for 22m 27s"
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-cyan-500"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-[#fa8b98]"
               />
             </div>
           </div>
@@ -277,7 +277,7 @@ export default function EditCourseLessonPage() {
         <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
           <div className="flex items-center justify-between">
             <h3 className="text-base font-bold text-white flex items-center gap-2">
-              <Video className="w-5 h-5 text-cyan-400" />
+              <Video className="w-5 h-5 text-[#fa8b98]" />
               {lessonType === 'live_class'
                 ? 'Live Class Recording (Google Drive) — Optional'
                 : 'Google Drive Video Source'}
@@ -307,13 +307,13 @@ export default function EditCourseLessonPage() {
                 onChange={(e) => setVideoInput(e.target.value)}
                 required={lessonType === 'video'}
                 placeholder="https://drive.google.com/file/d/1A2B3C4D.../view or 1A2B3C4D..."
-                className="flex-1 px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-cyan-500"
+                className="flex-1 px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-[#fa8b98]"
               />
               <button
                 type="button"
                 onClick={handleVerifyVideo}
                 disabled={verifying}
-                className="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-cyan-400 font-bold text-xs flex items-center gap-1.5 transition-all disabled:opacity-50"
+                className="px-4 py-2.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-[#fa8b98] font-bold text-xs flex items-center gap-1.5 transition-all disabled:opacity-50"
               >
                 {verifying ? <RefreshCw className="w-3.5 h-3.5 animate-spin" /> : <CheckCircle2 className="w-3.5 h-3.5" />}
                 Verify Video
@@ -325,16 +325,16 @@ export default function EditCourseLessonPage() {
             <div
               className={`p-4 rounded-xl border text-xs font-mono flex items-center gap-2 ${
                 verificationResult.valid
-                  ? 'bg-emerald-950/60 border-emerald-800 text-emerald-300'
+                  ? 'bg-[#fa8b98]/10/60 border-[#fa8b98]/30 text-[#f09fa1]'
                   : 'bg-red-950/60 border-red-800 text-red-300'
               }`}
             >
               {verificationResult.valid ? (
                 <>
-                  <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                  <CheckCircle2 className="w-4 h-4 text-[#fa8b98] shrink-0" />
                   <div>
                     <div className="font-bold">Verified File: {verificationResult.filename}</div>
-                    <div className="text-[11px] text-emerald-400/80">
+                    <div className="text-[11px] text-[#fa8b98]/80">
                       ID: {verificationResult.fileId} | Size: {Math.round((verificationResult.size || 0) / 1024 / 1024)} MB
                     </div>
                   </div>
@@ -352,7 +352,7 @@ export default function EditCourseLessonPage() {
         {/* Overview / Summary Rich Text */}
         <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-3">
           <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <FileText className="w-5 h-5 text-cyan-400" /> Lesson Summary (Overview Tab)
+            <FileText className="w-5 h-5 text-[#fa8b98]" /> Lesson Summary (Overview Tab)
           </h3>
           <RichTextEditor
             value={summaryMarkdown}
@@ -375,7 +375,7 @@ export default function EditCourseLessonPage() {
                 name="taskTitle"
                 defaultValue={lesson?.task_title || ''}
                 placeholder="e.g. Build semantic HTML layout for intro website"
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98]"
               />
             </div>
             <div>
@@ -384,7 +384,7 @@ export default function EditCourseLessonPage() {
                 type="number"
                 name="taskMarks"
                 defaultValue={lesson?.task_marks || 100}
-                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-cyan-500"
+                className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm font-mono focus:outline-none focus:border-[#fa8b98]"
               />
             </div>
           </div>
@@ -464,7 +464,7 @@ export default function EditCourseLessonPage() {
           <button
             type="submit"
             disabled={saving}
-            className="px-8 py-3 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 font-extrabold text-xs hover:shadow-lg hover:shadow-cyan-500/20 transition-all disabled:opacity-50 flex items-center gap-2"
+            className="px-8 py-3 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-extrabold text-xs hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all disabled:opacity-50 flex items-center gap-2"
           >
             {saving ? <RefreshCw className="w-4 h-4 animate-spin" /> : <Save className="w-4 h-4" />}
             Save Lesson

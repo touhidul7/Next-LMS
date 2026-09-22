@@ -161,7 +161,7 @@ export default function UsersClientManager({
         <div className="glass-panel p-5 rounded-2xl border border-slate-800">
           <div className="flex items-center justify-between text-slate-400 text-xs font-semibold uppercase">
             <span>Total Registered Users</span>
-            <Users className="w-4 h-4 text-cyan-400" />
+            <Users className="w-4 h-4 text-[#fa8b98]" />
           </div>
           <div className="text-3xl font-extrabold text-white mt-2">
             {profiles.length}
@@ -197,10 +197,10 @@ export default function UsersClientManager({
           </div>
         </div>
 
-        <div className="glass-panel p-5 rounded-2xl border border-emerald-900/40 bg-gradient-to-br from-emerald-950/20 to-slate-950/80">
-          <div className="flex items-center justify-between text-emerald-400 text-xs font-semibold uppercase">
+        <div className="glass-panel p-5 rounded-2xl border border-[#fa8b98]/30/40 bg-gradient-to-br from-[#fa8b98]/10/20 to-slate-950/80">
+          <div className="flex items-center justify-between text-[#fa8b98] text-xs font-semibold uppercase">
             <span>Enrolled Students</span>
-            <UserCheck className="w-4 h-4 text-emerald-400" />
+            <UserCheck className="w-4 h-4 text-[#fa8b98]" />
           </div>
           <div className="text-3xl font-extrabold text-white mt-2">
             {
@@ -209,7 +209,7 @@ export default function UsersClientManager({
               ).length
             }
           </div>
-          <div className="text-[11px] text-emerald-300/70 mt-1">
+          <div className="text-[11px] text-[#f09fa1]/70 mt-1">
             Active course access granted
           </div>
         </div>
@@ -224,7 +224,7 @@ export default function UsersClientManager({
             onClick={() => setActiveTab('admins')}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === 'admins'
-                ? 'bg-cyan-500 text-slate-950 shadow-md'
+                ? 'bg-[#fa8b98] text-slate-950 shadow-md'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -236,7 +236,7 @@ export default function UsersClientManager({
             onClick={() => setActiveTab('all')}
             className={`px-4 py-2 rounded-lg text-xs font-semibold transition-all flex items-center gap-2 cursor-pointer ${
               activeTab === 'all'
-                ? 'bg-cyan-500 text-slate-950 shadow-md'
+                ? 'bg-[#fa8b98] text-slate-950 shadow-md'
                 : 'text-slate-400 hover:text-white'
             }`}
           >
@@ -254,7 +254,7 @@ export default function UsersClientManager({
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search by name or email..."
-              className="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-cyan-500 placeholder-slate-500"
+              className="w-full pl-9 pr-4 py-2 rounded-xl bg-slate-950 border border-slate-800 text-white text-xs focus:outline-none focus:border-[#fa8b98] placeholder-slate-500"
             />
           </div>
 
@@ -321,7 +321,7 @@ export default function UsersClientManager({
                                   className="w-8 h-8 rounded-full border border-slate-700 object-cover"
                                 />
                               ) : (
-                                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-cyan-600 to-blue-600 flex items-center justify-center font-bold text-slate-950 text-xs">
+                                <div className="w-8 h-8 rounded-full bg-gradient-to-tr from-[#175cff] to-[#fa8b98] flex items-center justify-center font-bold text-white text-xs">
                                   {(user.full_name || user.email || 'A')[0].toUpperCase()}
                                 </div>
                               )}
@@ -329,7 +329,7 @@ export default function UsersClientManager({
                                 <div className="font-semibold text-white flex items-center gap-1.5">
                                   {user.full_name || 'Unnamed Admin'}
                                   {isSelf && (
-                                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-cyan-950 text-cyan-400 border border-cyan-800">
+                                    <span className="text-[10px] px-1.5 py-0.2 rounded bg-[#fa8b98]/10 text-[#fa8b98] border border-[#fa8b98]/30">
                                       You
                                     </span>
                                   )}
@@ -354,8 +354,8 @@ export default function UsersClientManager({
                                 <Sparkles className="w-3 h-3 text-purple-400" /> Super Admin
                               </span>
                             ) : (
-                              <span className="px-2.5 py-1 rounded-full bg-cyan-950 border border-cyan-800 text-cyan-300 font-semibold text-[10px] uppercase tracking-wider inline-flex items-center gap-1">
-                                <ShieldAlert className="w-3 h-3 text-cyan-400" /> Admin
+                              <span className="px-2.5 py-1 rounded-full bg-[#fa8b98]/10 border border-[#fa8b98]/30 text-[#f09fa1] font-semibold text-[10px] uppercase tracking-wider inline-flex items-center gap-1">
+                                <ShieldAlert className="w-3 h-3 text-[#fa8b98]" /> Admin
                               </span>
                             )}
                           </td>
@@ -473,7 +473,7 @@ export default function UsersClientManager({
           <div className="px-6 py-4 border-b border-slate-800 bg-slate-900/40 flex items-center justify-between">
             <div>
               <h3 className="text-sm font-bold text-white flex items-center gap-2">
-                <Users className="w-4 h-4 text-cyan-400" /> All Registered Course Users
+                <Users className="w-4 h-4 text-[#fa8b98]" /> All Registered Course Users
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
                 Every student and staff member signed in with Google
@@ -547,11 +547,11 @@ export default function UsersClientManager({
                               Super Admin
                             </span>
                           ) : user.role === 'admin' ? (
-                            <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase bg-cyan-950 border border-cyan-800 text-cyan-300">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase bg-[#fa8b98]/10 border border-[#fa8b98]/30 text-[#f09fa1]">
                               Admin
                             </span>
                           ) : (
-                            <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase bg-emerald-950 border border-emerald-800 text-emerald-300">
+                            <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase bg-[#fa8b98]/10 border border-[#fa8b98]/30 text-[#f09fa1]">
                               Student
                             </span>
                           )}
@@ -559,7 +559,7 @@ export default function UsersClientManager({
 
                         <td className="p-4">
                           {hasActiveEnrollment ? (
-                            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-emerald-400">
+                            <span className="inline-flex items-center gap-1 text-[11px] font-medium text-[#fa8b98]">
                               <CheckCircle2 className="w-3.5 h-3.5" /> Enrolled Active
                             </span>
                           ) : (
@@ -610,7 +610,7 @@ export default function UsersClientManager({
                                   );
                                 }
                               }}
-                              className="px-2.5 py-1 rounded bg-cyan-950 hover:bg-cyan-900 border border-cyan-800 text-cyan-300 text-xs font-semibold transition-colors cursor-pointer inline-flex items-center gap-1"
+                              className="px-2.5 py-1 rounded bg-[#fa8b98]/10 hover:bg-[#fa8b98]/20 border border-[#fa8b98]/30 text-[#f09fa1] text-xs font-semibold transition-colors cursor-pointer inline-flex items-center gap-1"
                             >
                               <ShieldAlert className="w-3 h-3" /> Make Admin
                             </button>
@@ -639,8 +639,8 @@ export default function UsersClientManager({
             </button>
 
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center">
-                <UserPlus className="w-5 h-5 text-cyan-400" />
+              <div className="w-10 h-10 rounded-xl bg-[#fa8b98]/10 border border-[#fa8b98]/30 flex items-center justify-center">
+                <UserPlus className="w-5 h-5 text-[#fa8b98]" />
               </div>
               <div>
                 <h3 className="text-lg font-bold text-white">Add Admin by Gmail</h3>
@@ -661,14 +661,14 @@ export default function UsersClientManager({
                     onChange={(e) => setAdminEmailInput(e.target.value)}
                     required
                     placeholder="example@gmail.com"
-                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500 font-mono"
+                    className="w-full pl-9 pr-4 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-[#fa8b98] font-mono"
                   />
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-xl bg-cyan-950/30 border border-cyan-800/40 text-xs text-cyan-300 space-y-1 leading-relaxed">
+              <div className="p-3.5 rounded-xl bg-[#fa8b98]/10/30 border border-[#fa8b98]/30/40 text-xs text-[#f09fa1] space-y-1 leading-relaxed">
                 <div className="font-semibold flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-400" /> How this works:
+                  <Sparkles className="w-3.5 h-3.5 text-[#fa8b98]" /> How this works:
                 </div>
                 <div>
                   • If this Gmail already has an account, they are promoted to <strong>Admin</strong> immediately.
@@ -689,7 +689,7 @@ export default function UsersClientManager({
                 <button
                   type="submit"
                   disabled={submittingAdd || !adminEmailInput.trim()}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500 to-blue-600 text-slate-950 text-xs font-bold hover:shadow-lg hover:shadow-cyan-500/20 transition-all flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
+                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white text-xs font-bold hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all flex items-center gap-1.5 disabled:opacity-50 cursor-pointer"
                 >
                   {submittingAdd ? (
                     <>
