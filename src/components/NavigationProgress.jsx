@@ -40,29 +40,32 @@ export default function NavigationProgress() {
       if (!anchor) return;
       const href = anchor.getAttribute('href');
       if (!href) return;
-      // Only internal links (not hash, mailto, tel, external)
-      if (
-        href.startsWith('/') &&
-        !href.startsWith('//') &&
-        !anchor.target &&
-        !e.metaKey &&
-        !e.ctrlKey &&
-        !e.shiftKey
-      ) {
-        start();
-      }
+
+      // Skip hash-only links (#section) — same page, no navigation
+      if (href.startsWith('#')) return;
+
+      // Skip modifier-key clicks (new tab, etc.)
+      if (anchor.target || e.metaKey || e.ctrlKey || e.shiftKey) return;
+
+      // Only fire for internal absolute paths
+      if (!href.startsWith('/') || href.startsWith('//')) return;
+
+      // Parse the destination to compare pathname only (strip hash/search)
+      const destPathname = href.split('?')[0].split('#')[0] || '/';
+
+      // Skip if we're already on that page (same-page re-navigation)
+      if (destPathname === pathname) return;
+
+      start();
     };
 
     document.addEventListener('click', handleClick);
     return () => document.removeEventListener('click', handleClick);
-  }, [start]);
+  }, [start, pathname]);
 
-  // Also hook into form submissions / programmatic router pushes via popstate
-  useEffect(() => {
-    const handlePopState = () => start();
-    window.addEventListener('popstate', handlePopState);
-    return () => window.removeEventListener('popstate', handlePopState);
-  }, [start]);
+  // NOTE: No popstate listener — hash changes (#section) fire popstate too,
+  // which would falsely trigger the loader. Real route changes are already
+  // detected via the usePathname() + useSearchParams() effect above.
 
   if (state === 'idle') return null;
 

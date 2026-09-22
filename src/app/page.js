@@ -3,6 +3,7 @@ import { getCurrentProfile } from '@/lib/auth/server';
 import CurriculumAccordion from '@/components/home/CurriculumAccordion';
 import FaqAccordion from '@/components/home/FaqAccordion';
 import BrandLogo from '@/components/BrandLogo';
+import LogoHomeLink from '@/components/LogoHomeLink';
 import {
   BookOpen,
   ShieldCheck,
@@ -74,9 +75,9 @@ export default async function Home() {
       {/* Navigation Bar */}
       <header className="border-b border-slate-800/80 bg-[#090d16]/90 backdrop-blur sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-          <Link href="/" className="flex items-center">
+          <LogoHomeLink className="flex items-center">
             <BrandLogo className="h-7 sm:h-8" />
-          </Link>
+          </LogoHomeLink>
 
           <nav className="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
             <a href="#curriculum" className="hover:text-[#fa8b98] transition-colors">Curriculum</a>
@@ -291,9 +292,9 @@ export default async function Home() {
       {/* Footer */}
       <footer className="border-t border-slate-800/80 py-8 text-center text-xs text-slate-500">
         <div className="max-w-7xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
-          <Link href="/" className="inline-flex items-center">
+          <LogoHomeLink className="inline-flex items-center">
             <BrandLogo className="h-6 sm:h-7" />
-          </Link>
+          </LogoHomeLink>
           <p>
             GenSolve Academy &copy; {new Date().getFullYear()} — All rights reserved.
           </p>
