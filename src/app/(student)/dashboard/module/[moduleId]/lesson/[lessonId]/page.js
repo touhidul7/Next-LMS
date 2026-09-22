@@ -36,6 +36,8 @@ import {
   Edit3,
   Radio,
   Video,
+  Menu,
+  X,
 } from 'lucide-react';
 import GithubIcon from '@/components/ui/GithubIcon';
 
@@ -87,6 +89,10 @@ export default function StudentLessonViewerPage() {
   const [submittingTask, setSubmittingTask] = useState(false);
   const [submission, setSubmission] = useState(null);
   const [showResubmitForm, setShowResubmitForm] = useState(false);
+
+  // Mobile responsiveness & touch video controls
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [showControlsOnMobile, setShowControlsOnMobile] = useState(false);
 
   useEffect(() => {
     async function loadLessonData() {
@@ -331,12 +337,13 @@ export default function StudentLessonViewerPage() {
     videoRef.current.currentTime = targetTime;
   }
 
-  // --- MOUSE DRAGGABLE TIMELINE PROGRESS BAR ---
+  // --- TIMELINE PROGRESS BAR (Mouse & Touch Draggable) ---
   const handleProgressSeek = useCallback(
     (e) => {
       if (!progressBarRef.current || !duration) return;
+      const clientX = e.touches && e.touches.length > 0 ? e.touches[0].clientX : e.clientX;
       const rect = progressBarRef.current.getBoundingClientRect();
-      const ratio = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+      const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
       if (videoRef.current) {
         videoRef.current.currentTime = ratio * duration;
       }
@@ -351,16 +358,28 @@ export default function StudentLessonViewerPage() {
 
   useEffect(() => {
     if (!isDraggingProgress) return;
-    const handleMouseMove = (e) => handleProgressSeek(e);
-    const handleMouseUp = () => setIsDraggingProgress(false);
+    const handleMove = (e) => handleProgressSeek(e);
+    const handleUp = () => setIsDraggingProgress(false);
 
-    window.addEventListener('mousemove', handleMouseMove);
-    window.addEventListener('mouseup', handleMouseUp);
+    window.addEventListener('mousemove', handleMove);
+    window.addEventListener('mouseup', handleUp);
+    window.addEventListener('touchmove', handleMove);
+    window.addEventListener('touchend', handleUp);
     return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-      window.removeEventListener('mouseup', handleMouseUp);
+      window.removeEventListener('mousemove', handleMove);
+      window.removeEventListener('mouseup', handleUp);
+      window.removeEventListener('touchmove', handleMove);
+      window.removeEventListener('touchend', handleUp);
     };
   }, [isDraggingProgress, handleProgressSeek]);
+
+  // Auto-hide mobile video controls after inactivity
+  useEffect(() => {
+    if (showControlsOnMobile && isPlaying) {
+      const timer = setTimeout(() => setShowControlsOnMobile(false), 3500);
+      return () => clearTimeout(timer);
+    }
+  }, [showControlsOnMobile, isPlaying]);
 
   // --- MOUSE DRAGGABLE VOLUME SLIDER ---
   const handleVolumeSeek = useCallback((e) => {
@@ -480,61 +499,97 @@ export default function StudentLessonViewerPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#090d16] text-slate-100 flex flex-col h-screen overflow-hidden">
+    <div className="min-h-screen bg-[#090d16] text-slate-100 flex flex-col h-[100dvh] overflow-hidden">
       {/* Top Header */}
-      <header className="border-b border-slate-800/80 bg-[#090d16]/95 backdrop-blur z-50 h-14 flex items-center shrink-0">
-        <div className="max-w-screen-2xl mx-auto px-4 sm:px-6 w-full flex items-center justify-between">
-          <div className="flex items-center gap-3 text-sm">
+      <header className="border-b border-slate-800/80 bg-[#090d16]/95 backdrop-blur z-30 h-14 flex items-center shrink-0">
+        <div className="max-w-screen-2xl mx-auto px-3 sm:px-6 w-full flex items-center justify-between gap-2">
+          <div className="flex items-center gap-2 sm:gap-3 text-sm min-w-0">
+            {/* Mobile Sidebar / Curriculum Drawer Toggle Button */}
+            <button
+              type="button"
+              onClick={() => setSidebarOpen((prev) => !prev)}
+              className="lg:hidden p-1.5 -ml-1 text-slate-300 hover:text-white rounded-lg hover:bg-slate-800 transition-colors shrink-0 flex items-center justify-center"
+              aria-label="Toggle curriculum list"
+              title="Curriculum"
+            >
+              <Menu className="w-5 h-5 text-[#fa8b98]" />
+            </button>
+
             <Link
               href={`/dashboard/module/${activeModuleSlug}`}
-              className="text-slate-400 hover:text-white flex items-center gap-1.5 transition-colors"
+              className="text-slate-400 hover:text-white flex items-center gap-1.5 transition-colors shrink-0"
             >
               <ArrowLeft className="w-4 h-4" />
               <span className="hidden sm:inline">
                 Module {moduleData?.month_number} — {moduleData?.title}
               </span>
-              <span className="sm:hidden">Back</span>
+              <span className="sm:hidden text-xs">Back</span>
             </Link>
-            <ChevronRight className="w-3.5 h-3.5 text-slate-600" />
-            <span className="font-semibold text-white truncate max-w-[200px] sm:max-w-xs">
+            <ChevronRight className="w-3.5 h-3.5 text-slate-600 shrink-0" />
+            <span className="font-semibold text-white truncate text-xs sm:text-sm">
               {lesson.title}
             </span>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex items-center gap-2 shrink-0">
             {isCompleted ? (
-              <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#fa8b98]/10 text-[#fa8b98] border border-[#fa8b98]/30 text-xs font-bold">
-                <CheckCircle2 className="w-3.5 h-3.5" /> Completed
+              <span className="inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-[#fa8b98]/10 text-[#fa8b98] border border-[#fa8b98]/30 text-xs font-bold whitespace-nowrap">
+                <CheckCircle2 className="w-3.5 h-3.5" />
+                <span className="hidden xs:inline">Completed</span>
               </span>
             ) : (
               <button
                 onClick={handleMarkComplete}
                 disabled={markingComplete}
-                className="inline-flex items-center gap-1.5 px-4 py-1.5 rounded-xl bg-[#fa8b98]/10 text-[#f09fa1] border border-[#fa8b98]/30 text-xs font-bold hover:bg-[#fa8b98]/20 transition-all disabled:opacity-50"
+                className="inline-flex items-center gap-1.5 px-3 sm:px-4 py-1.5 rounded-xl bg-[#fa8b98]/10 text-[#f09fa1] border border-[#fa8b98]/30 text-xs font-bold hover:bg-[#fa8b98]/20 transition-all disabled:opacity-50 whitespace-nowrap"
               >
                 {markingComplete ? (
                   <RefreshCw className="w-3.5 h-3.5 animate-spin" />
                 ) : (
                   <CheckCircle2 className="w-3.5 h-3.5" />
                 )}
-                Mark Complete
+                <span>Mark Complete</span>
               </button>
             )}
           </div>
         </div>
       </header>
 
-      <div className="flex flex-1 overflow-hidden max-w-screen-2xl mx-auto w-full">
-        {/* LEFT EXPANDABLE MODULES SIDEBAR (Matching reference screenshot) */}
-        <aside className="w-80 md:w-80 border-r border-slate-800/80 bg-[#090d16] flex flex-col shrink-0 overflow-hidden">
+      <div className="flex flex-1 overflow-hidden max-w-screen-2xl mx-auto w-full relative">
+        {/* Mobile Backdrop for Sidebar Drawer */}
+        {sidebarOpen && (
+          <div
+            className="fixed inset-0 bg-black/75 backdrop-blur-sm z-40 lg:hidden transition-opacity"
+            onClick={() => setSidebarOpen(false)}
+            aria-hidden="true"
+          />
+        )}
+
+        {/* LEFT EXPANDABLE MODULES SIDEBAR (Slide-over drawer on mobile, static on desktop lg+) */}
+        <aside
+          className={`fixed lg:static inset-y-0 left-0 z-50 w-[85vw] max-w-xs sm:w-80 lg:w-80 border-r border-slate-800/80 bg-[#090d16] flex flex-col shrink-0 overflow-hidden shadow-2xl lg:shadow-none transition-transform duration-300 ease-in-out ${
+            sidebarOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
+          }`}
+        >
           {/* Back to Dashboard & Search */}
           <div className="p-3 border-b border-slate-800/80 space-y-2 bg-[#090d16]">
-            <Link
-              href="/dashboard"
-              className="text-[11px] font-bold text-slate-400 hover:text-white uppercase tracking-wider flex items-center gap-1 transition-colors"
-            >
-              ← BACK TO DASHBOARD
-            </Link>
+            <div className="flex items-center justify-between">
+              <Link
+                href="/dashboard"
+                onClick={() => setSidebarOpen(false)}
+                className="text-[11px] font-bold text-slate-400 hover:text-white uppercase tracking-wider flex items-center gap-1 transition-colors"
+              >
+                ← BACK TO DASHBOARD
+              </Link>
+              <button
+                type="button"
+                onClick={() => setSidebarOpen(false)}
+                className="lg:hidden p-1 text-slate-400 hover:text-white rounded-lg hover:bg-slate-800 transition-colors"
+                aria-label="Close curriculum drawer"
+              >
+                <X className="w-4 h-4" />
+              </button>
+            </div>
 
             <div className="relative">
               <Search className="w-3.5 h-3.5 text-slate-500 absolute left-3 top-1/2 -translate-y-1/2" />
@@ -618,6 +673,7 @@ export default function StudentLessonViewerPage() {
                               <Link
                                 key={l.id}
                                 href={`/dashboard/module/${modSlug}/lesson/${lSlug}`}
+                                onClick={() => setSidebarOpen(false)}
                                 className={`p-3 flex items-start gap-3 transition-colors ${
                                   isCurrent
                                     ? 'bg-[#fa8b98]/10 border-l-2 border-[#fa8b98] text-white'
@@ -660,7 +716,7 @@ export default function StudentLessonViewerPage() {
         </aside>
 
         {/* RIGHT MAIN CONTENT AREA */}
-        <main className="flex-1 overflow-y-auto">
+        <main className="flex-1 overflow-y-auto min-w-0 w-full">
           {/* Live Class Session Join Portal (Shown if live class has no recorded video uploaded yet) */}
           {lesson.lesson_type === 'live_class' && !lesson.video_external_id && (
             <div className="relative bg-gradient-to-b from-slate-900 via-slate-950 to-[#090d16] w-full p-8 sm:p-14 border-b border-slate-800 flex flex-col items-center justify-center text-center">
@@ -732,7 +788,8 @@ export default function StudentLessonViewerPage() {
           {(lesson.lesson_type === 'video' || (lesson.lesson_type === 'live_class' && lesson.video_external_id)) && lesson.video_external_id && (
             <div
               id="video-container"
-              className="relative bg-black w-full aspect-video group"
+              className="relative bg-black w-full aspect-video group cursor-pointer"
+              onClick={() => setShowControlsOnMobile((prev) => !prev)}
             >
               <video
                 ref={videoRef}
@@ -752,7 +809,6 @@ export default function StudentLessonViewerPage() {
                 onTimeUpdate={handleTimeUpdate}
                 onLoadedMetadata={handleLoadedMetadata}
                 onError={() => setVideoError('Failed to load video. Please check your connection or contact support.')}
-                onClick={togglePlay}
                 preload="auto"
                 playsInline
               />
@@ -793,12 +849,18 @@ export default function StudentLessonViewerPage() {
 
               {/* Custom Video Controls with Draggable Timeline & Volume Slider */}
               {!videoError && (
-                <div className="absolute bottom-0 left-0 right-0 opacity-0 group-hover:opacity-100 focus-within:opacity-100 transition-opacity duration-200 z-30 flex flex-col select-none">
-                  {/* Full-width Emerald Progress Bar across top of control bar (Mouse Draggable!) */}
+                <div
+                  onClick={(e) => e.stopPropagation()}
+                  className={`absolute bottom-0 left-0 right-0 transition-opacity duration-200 z-30 flex flex-col select-none ${
+                    showControlsOnMobile ? 'opacity-100' : 'opacity-0 lg:group-hover:opacity-100 lg:focus-within:opacity-100'
+                  }`}
+                >
+                  {/* Full-width Progress Bar (Mouse & Touch Draggable!) */}
                   <div
                     ref={progressBarRef}
                     onMouseDown={handleProgressMouseDown}
-                    className="w-full h-1.5 bg-slate-700/80 cursor-pointer hover:h-2.5 transition-all relative overflow-hidden group/bar"
+                    onTouchStart={handleProgressMouseDown}
+                    className="w-full h-1.5 sm:h-2 bg-slate-700/80 cursor-pointer hover:h-2.5 transition-all relative overflow-hidden group/bar"
                   >
                     {isBuffering && (
                       <div className="absolute inset-0 bg-gradient-to-r from-[#fa8b98]/30 via-[#fa8b98]/60 to-[#fa8b98]/30 animate-pulse" />
@@ -812,20 +874,22 @@ export default function StudentLessonViewerPage() {
                   </div>
 
                   {/* Main Control Bar */}
-                  <div className="bg-[#090d16]/95 backdrop-blur-sm px-4 py-2.5 flex items-center justify-between text-slate-200">
+                  <div className="bg-[#090d16]/95 backdrop-blur-sm px-2.5 sm:px-4 py-2 sm:py-2.5 flex items-center justify-between text-slate-200">
                     {/* Left Controls */}
-                    <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="flex items-center gap-1.5 sm:gap-4">
                       {/* Rewind 10s */}
                       <button
+                        type="button"
                         onClick={() => seek(-10)}
                         className="hover:text-white transition-colors p-1"
                         title="Rewind 10 seconds"
                       >
-                        <RotateCcw className="w-4 h-4" />
+                        <RotateCcw className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                       </button>
 
                       {/* Play / Pause Toggle */}
                       <button
+                        type="button"
                         onClick={togglePlay}
                         className="hover:text-white transition-colors p-1"
                         title={isPlaying ? 'Pause' : 'Play'}
@@ -839,16 +903,17 @@ export default function StudentLessonViewerPage() {
 
                       {/* Forward 10s */}
                       <button
+                        type="button"
                         onClick={() => seek(10)}
                         className="hover:text-white transition-colors p-1"
                         title="Forward 10 seconds"
                       >
-                        <RotateCw className="w-4 h-4" />
+                        <RotateCw className="w-3.5 sm:w-4 h-3.5 sm:h-4" />
                       </button>
 
-                      {/* Volume Icon + Draggable Horizontal Emerald Volume Slider */}
-                      <div className="flex items-center gap-2">
-                        <button onClick={toggleMute} className="hover:text-white transition-colors p-1">
+                      {/* Volume Icon + Draggable Horizontal Volume Slider (hidden on small mobile where hardware volume is used) */}
+                      <div className="hidden sm:flex items-center gap-2">
+                        <button type="button" onClick={toggleMute} className="hover:text-white transition-colors p-1">
                           {isMuted || volume === 0 ? (
                             <VolumeX className="w-4 h-4 text-slate-400" />
                           ) : (
@@ -869,21 +934,22 @@ export default function StudentLessonViewerPage() {
                       </div>
 
                       {/* Timestamp */}
-                      <span className="text-xs font-mono text-slate-300 font-medium">
-                        {formatTime(currentTime)}/{formatTime(duration)}
+                      <span className="text-[11px] sm:text-xs font-mono text-slate-300 font-medium whitespace-nowrap ml-1 sm:ml-0">
+                        {formatTime(currentTime)} / {formatTime(duration)}
                       </span>
                     </div>
 
                     {/* Right Controls */}
-                    <div className="flex items-center gap-3 sm:gap-4">
+                    <div className="flex items-center gap-2 sm:gap-4">
                       {/* HD Badge */}
-                      <span className="px-1 py-0.2 border border-slate-300/80 text-[10px] font-black tracking-tight text-white rounded">
+                      <span className="hidden xs:inline-block px-1 py-0.2 border border-slate-300/80 text-[10px] font-black tracking-tight text-white rounded">
                         HD
                       </span>
 
                       {/* Playback Speed Menu */}
                       <div className="relative">
                         <button
+                          type="button"
                           onClick={() => setShowSpeedMenu(!showSpeedMenu)}
                           className="text-xs font-bold hover:text-white transition-colors px-1 py-0.5"
                         >
@@ -894,6 +960,7 @@ export default function StudentLessonViewerPage() {
                             {[0.75, 1, 1.25, 1.5, 2].map((rate) => (
                               <button
                                 key={rate}
+                                type="button"
                                 onClick={() => handleSpeedChange(rate)}
                                 className={`w-full text-left px-3 py-1.5 hover:bg-slate-800 transition-colors ${
                                   playbackRate === rate ? 'text-[#fa8b98] font-bold' : 'text-slate-300'
@@ -908,6 +975,7 @@ export default function StudentLessonViewerPage() {
 
                       {/* Fullscreen Toggle */}
                       <button
+                        type="button"
                         onClick={handleFullscreen}
                         className="hover:text-white transition-colors p-1"
                         title="Fullscreen"
@@ -922,11 +990,11 @@ export default function StudentLessonViewerPage() {
           )}
 
           {/* Lesson Content Area */}
-          <div className="p-6 max-w-4xl">
+          <div className="p-4 sm:p-6 w-full max-w-4xl">
             {/* Header */}
             <div className="mb-6">
               <div className="flex items-center gap-2 mb-1 flex-wrap">
-                <span className="text-xs font-mono font-medium text-red-400 uppercase tracking-wider">
+                <span className="text-[11px] sm:text-xs font-mono font-medium text-red-400 uppercase tracking-wider">
                   {moduleData?.title ? `${moduleData.title.toUpperCase()} / LESSON ${lesson.position}` : `LESSON ${lesson.position}`}
                 </span>
                 {lesson.lesson_type === 'live_class' && (
@@ -936,7 +1004,7 @@ export default function StudentLessonViewerPage() {
                   </span>
                 )}
               </div>
-              <h1 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">{lesson.title}</h1>
+              <h1 className="text-xl sm:text-3xl font-semibold text-white tracking-tight break-words">{lesson.title}</h1>
 
               {lesson.lesson_type === 'live_class' && lesson.zoom_link && (
                 <div className="mt-3 flex items-center gap-2 flex-wrap">
@@ -970,7 +1038,7 @@ export default function StudentLessonViewerPage() {
 
               return (
                 <div>
-                  <div className="flex items-center space-x-6 border-b border-slate-800 mb-6 font-medium text-xs uppercase tracking-wider">
+                  <div className="flex items-center space-x-4 sm:space-x-6 border-b border-slate-800 mb-6 font-medium text-xs uppercase tracking-wider overflow-x-auto no-scrollbar">
                     <button
                       onClick={() => setActiveTab('overview')}
                       className={`pb-3 border-b-2 transition-all ${
@@ -1277,39 +1345,41 @@ export default function StudentLessonViewerPage() {
             })()}
 
             {/* Navigation Buttons */}
-            <div className="flex items-center justify-between mt-8 pt-6 border-t border-slate-800">
+            <div className="flex items-center justify-between gap-3 mt-8 pt-6 border-t border-slate-800">
               {prevLesson ? (
                 <Link
                   href={`/dashboard/module/${currentModSlug}/lesson/${prevLesson.slug || slugify(prevLesson.title) || prevLesson.id}`}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 transition-all text-sm font-medium"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 transition-all text-xs sm:text-sm font-medium min-w-0"
                 >
-                  <ArrowLeft className="w-4 h-4" />
+                  <ArrowLeft className="w-4 h-4 shrink-0" />
                   <span className="hidden sm:inline">Prev:</span>
-                  <span className="truncate max-w-[150px]">{prevLesson.title}</span>
+                  <span className="truncate max-w-[100px] xs:max-w-[140px] sm:max-w-[180px]">{prevLesson.title}</span>
                 </Link>
               ) : (
                 <Link
                   href={`/dashboard/module/${activeModuleSlug}`}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 transition-all text-sm font-medium"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-slate-900 border border-slate-800 text-slate-300 hover:text-white hover:border-slate-600 transition-all text-xs sm:text-sm font-medium min-w-0"
                 >
-                  <ArrowLeft className="w-4 h-4" /> Module Overview
+                  <ArrowLeft className="w-4 h-4 shrink-0" />
+                  <span className="truncate">Overview</span>
                 </Link>
               )}
 
               {nextLesson ? (
                 <Link
                   href={`/dashboard/module/${currentModSlug}/lesson/${nextLesson.slug || slugify(nextLesson.title) || nextLesson.id}`}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all text-sm"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all text-xs sm:text-sm min-w-0"
                 >
-                  <span className="truncate max-w-[150px]">{nextLesson.title}</span>
+                  <span className="truncate max-w-[100px] xs:max-w-[140px] sm:max-w-[180px]">{nextLesson.title}</span>
                   <ArrowRight className="w-4 h-4 shrink-0" />
                 </Link>
               ) : (
                 <Link
                   href={`/dashboard/module/${activeModuleSlug}`}
-                  className="flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all text-sm"
+                  className="flex items-center gap-1.5 sm:gap-2 px-3 sm:px-5 py-2.5 sm:py-3 rounded-xl bg-gradient-to-r from-[#175cff] to-[#fa8b98] text-white font-semibold hover:shadow-lg hover:shadow-[#fa8b98]/20 transition-all text-xs sm:text-sm min-w-0"
                 >
-                  <CheckCircle2 className="w-4 h-4" /> Finish Module
+                  <CheckCircle2 className="w-4 h-4 shrink-0" />
+                  <span className="truncate">Finish Module</span>
                 </Link>
               )}
             </div>
