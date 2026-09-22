@@ -12,15 +12,31 @@ export default function CheckoutPage() {
   const [loading, setLoading] = useState(false);
   const [copied, setCopied] = useState(false);
 
-  const bkashNumber = '01700000000';
-  const coursePriceBDT = 8000;
+  const [bkashNumber, setBkashNumber] = useState('');
+  const [coursePriceBDT, setCoursePriceBDT] = useState(8000);
 
   const [currentUser, setCurrentUser] = useState(null);
   const [currentProfile, setCurrentProfile] = useState(null);
 
   useEffect(() => {
     const supabase = createClient();
-    supabase.auth.getUser().then(async ({ data: { user } }) => {
+
+    // Fetch course data (bkash number + price) alongside user profile
+    const loadData = async () => {
+      const [{ data: { user } }, { data: course }] = await Promise.all([
+        supabase.auth.getUser(),
+        supabase
+          .from('courses')
+          .select('bkash_number, price_bdt')
+          .eq('is_published', true)
+          .maybeSingle(),
+      ]);
+
+      if (course) {
+        if (course.bkash_number) setBkashNumber(course.bkash_number);
+        if (course.price_bdt) setCoursePriceBDT(course.price_bdt);
+      }
+
       if (user) {
         setCurrentUser(user);
         const { data: prof } = await supabase
@@ -30,7 +46,9 @@ export default function CheckoutPage() {
           .maybeSingle();
         if (prof) setCurrentProfile(prof);
       }
-    });
+    };
+
+    loadData();
   }, []);
 
   async function handleGoogleLoginForCheckout() {

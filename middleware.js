@@ -10,13 +10,18 @@ export async function middleware(request) {
     pathname.startsWith('/mentor');
   const isAuthPath = pathname === '/login' || pathname === '/register';
 
-  // Fast-path cookie check: Supabase SSR stores tokens in cookies like sb-<ref>-auth-token
+  // 1. If public route (e.g. /, /checkout, API), bypass middleware instantly in 0ms
+  if (!isProtectedPath && !isAuthPath) {
+    return NextResponse.next({ request });
+  }
+
+  // 2. Fast-path cookie check: Supabase SSR stores tokens in cookies like sb-<ref>-auth-token
   const cookies = request.cookies.getAll();
   const hasAuthCookie = cookies.some(
     (c) => c.name.startsWith('sb-') && c.name.includes('-auth-token')
   );
 
-  // If unauthenticated guest visits a protected route, redirect to /login immediately without network call
+  // If unauthenticated guest visits a protected route, redirect to /login immediately without network call (0ms)
   if (isProtectedPath && !hasAuthCookie) {
     const url = request.nextUrl.clone();
     url.pathname = '/login';
@@ -24,8 +29,8 @@ export async function middleware(request) {
     return NextResponse.redirect(url);
   }
 
-  // If unauthenticated guest visits any public route (e.g. /, /checkout, /login), return in 0ms
-  if (!hasAuthCookie) {
+  // If unauthenticated guest visits /login or /register, allow immediately without network call (0ms)
+  if (isAuthPath && !hasAuthCookie) {
     return NextResponse.next({ request });
   }
 
