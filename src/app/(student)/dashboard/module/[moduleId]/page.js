@@ -3,7 +3,7 @@ import { requireAuth, getCurrentProfile } from '@/lib/auth/server';
 import HeaderNav from '@/components/dashboard/HeaderNav';
 import Link from 'next/link';
 import { redirect } from 'next/navigation';
-import { ArrowLeft, PlayCircle, FileText, CheckCircle2, ChevronRight, BookOpen, Clock, Award } from 'lucide-react';
+import { ArrowLeft, PlayCircle, FileText, CheckCircle2, ChevronRight, BookOpen, Clock, Award, Radio } from 'lucide-react';
 import { slugify } from '@/lib/utils';
 
 export default async function ModuleDetailPage({ params }) {
@@ -143,6 +143,11 @@ export default async function ModuleDetailPage({ params }) {
                           <h4 className="text-sm font-medium text-white group-hover:text-cyan-400 transition-colors truncate">
                             {lsn.title}
                           </h4>
+                          {lsn.lesson_type === 'live_class' && (
+                            <span className="px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wider bg-purple-500/10 text-purple-400 border border-purple-500/30 flex items-center gap-1 shrink-0">
+                              <Radio className="w-3 h-3 text-purple-400 animate-pulse" /> Live Class
+                            </span>
+                          )}
                         </div>
                         {lsn.summary && (
                           <p className="text-xs text-slate-400 truncate mt-0.5 max-w-xl">{lsn.summary}</p>

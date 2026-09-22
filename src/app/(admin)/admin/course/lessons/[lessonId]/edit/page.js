@@ -155,6 +155,7 @@ export default function EditLessonPage() {
                   className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
                 >
                   <option value="video">Video Lesson</option>
+                  <option value="live_class">Live Class (Zoom Meeting)</option>
                   <option value="reading">Reading / Article</option>
                   <option value="practice">Guided Practice</option>
                   <option value="assignment">Assignment</option>

@@ -120,8 +120,8 @@ export default function Home() {
           </div>
 
           <h1 className="text-4xl sm:text-6xl font-bold tracking-tight text-white max-w-4xl mx-auto leading-tight">
-            Learn. Practice. Build. <br />
-            <span className="gradient-text">Master Professional Frontend Development.</span>
+            Learn Web Development <br />
+            <span className="gradient-text text-blue-500">Master Professional Frontend Development.</span>
           </h1>
 
           <p className="mt-6 text-lg text-slate-400 max-w-3xl mx-auto leading-relaxed font-normal">
@@ -167,7 +167,7 @@ export default function Home() {
         {/* Tech Stack Grid */}
         <section id="tech" className="py-16 bg-slate-950/60 border-y border-slate-800/80">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl sm:text-3xl font-semibold text-white">Technologies You Will Master</h2>
+            <h2 className="text-2xl sm:text-3xl font-semibold text-white">Skills You Will Master</h2>
             <p className="text-sm text-slate-400 mt-2 max-w-xl mx-auto font-normal">
               Industry-standard tools and frameworks required by modern software teams.
             </p>
@@ -185,7 +185,7 @@ export default function Home() {
         {/* 16-Week Curriculum Accordion */}
         <section id="curriculum" className="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
-            <span className="text-xs font-medium text-cyan-400 uppercase tracking-widest">Syllabus Breakdown</span>
+            <span className="text-xs font-medium text-cyan-400 uppercase tracking-widest">Module Breakdown</span>
             <h2 className="text-2xl sm:text-3xl font-semibold text-white mt-2">16-Week Learning Path</h2>
             <p className="text-sm text-slate-400 mt-2 font-normal">
               Click any week to view lesson topics and assignments.

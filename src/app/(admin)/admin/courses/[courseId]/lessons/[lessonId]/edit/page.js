@@ -5,7 +5,7 @@ import { useParams, useRouter } from 'next/navigation';
 import Link from 'next/link';
 import { saveLessonAction, getLessonResourcesAction } from '@/app/actions/curriculum';
 import { verifyVideoAction } from '@/app/actions/google-drive';
-import { ArrowLeft, Save, Video, CheckCircle2, AlertCircle, RefreshCw, FileText, Plus, Trash2, FileCode, BookMarked } from 'lucide-react';
+import { ArrowLeft, Save, Video, CheckCircle2, AlertCircle, RefreshCw, FileText, Plus, Trash2, FileCode, BookMarked, Radio, ExternalLink, Calendar, Link as LinkIcon } from 'lucide-react';
 import { toast } from 'sonner';
 import { createClient } from '@/lib/supabase/client';
 import RichTextEditor from '@/components/ui/RichTextEditor';
@@ -25,6 +25,9 @@ export default function EditCourseLessonPage() {
   const [verificationResult, setVerificationResult] = useState(null);
 
   const [videoInput, setVideoInput] = useState('');
+  const [lessonType, setLessonType] = useState('video');
+  const [zoomLink, setZoomLink] = useState('');
+  const [liveMeetingDate, setLiveMeetingDate] = useState('');
   const [summaryMarkdown, setSummaryMarkdown] = useState('');
   const [taskInstructionsMarkdown, setTaskInstructionsMarkdown] = useState('');
 
@@ -42,6 +45,9 @@ export default function EditCourseLessonPage() {
         const { data: lessonData } = await supabase.from('lessons').select('*').eq('id', lessonId).single();
         if (lessonData) {
           setLesson(lessonData);
+          setLessonType(lessonData.lesson_type || 'video');
+          setZoomLink(lessonData.zoom_link || '');
+          setLiveMeetingDate(lessonData.live_meeting_date ? new Date(lessonData.live_meeting_date).toISOString().slice(0, 16) : '');
           setVideoInput(lessonData.video_external_id || '');
           setSummaryMarkdown(lessonData.summary || '');
           setTaskInstructionsMarkdown(lessonData.task_instructions || '');
@@ -165,13 +171,15 @@ export default function EditCourseLessonPage() {
             </div>
 
             <div>
-              <label className="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Lesson Type</label>
+              <label className="block text-xs font-semibold text-slate-300 uppercase mb-1.5">Lesson Type *</label>
               <select
                 name="lessonType"
-                defaultValue={lesson?.lesson_type || 'video'}
+                value={lessonType}
+                onChange={(e) => setLessonType(e.target.value)}
                 className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500"
               >
-                <option value="video">Video Lesson</option>
+                <option value="video">Recorded Video Lesson (Google Drive)</option>
+                <option value="live_class">Live Class (Zoom + Drive Recording)</option>
                 <option value="reading">Reading / Article</option>
                 <option value="practice">Guided Practice</option>
                 <option value="assignment">Assignment</option>
@@ -215,15 +223,81 @@ export default function EditCourseLessonPage() {
           </div>
         </div>
 
-        {/* Video Source */}
+        {/* Live Class Configuration (Shown if Live Class is selected) */}
+        {lessonType === 'live_class' && (
+          <div className="glass-panel p-6 rounded-2xl border border-purple-800/80 bg-gradient-to-r from-purple-950/20 to-slate-950/80 space-y-4">
+            <div className="flex items-center justify-between">
+              <h3 className="text-base font-bold text-white flex items-center gap-2">
+                <Radio className="w-5 h-5 text-purple-400 animate-pulse" /> Live Class & Zoom Configuration
+              </h3>
+              <span className="text-[11px] font-mono px-2.5 py-0.5 rounded-full bg-purple-950 border border-purple-800 text-purple-300">
+                Interactive Session
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 uppercase mb-1.5">
+                  Zoom Meeting Link *
+                </label>
+                <input
+                  type="url"
+                  name="zoomLink"
+                  value={zoomLink}
+                  onChange={(e) => setZoomLink(e.target.value)}
+                  required={lessonType === 'live_class'}
+                  placeholder="https://zoom.us/j/1234567890?pwd=..."
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-purple-500"
+                />
+                <p className="text-[11px] text-slate-400 mt-1">
+                  Students will see a &quot;Join Live Class on Zoom&quot; button with this link.
+                </p>
+              </div>
+
+              <div>
+                <label className="block text-xs font-semibold text-slate-300 uppercase mb-1.5">
+                  Scheduled Date & Time (Optional)
+                </label>
+                <input
+                  type="datetime-local"
+                  name="liveMeetingDate"
+                  value={liveMeetingDate}
+                  onChange={(e) => setLiveMeetingDate(e.target.value)}
+                  className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-purple-500"
+                />
+                <p className="text-[11px] text-slate-400 mt-1">
+                  When the live session will take place.
+                </p>
+              </div>
+            </div>
+          </div>
+        )}
+
+        {/* Video Source (Always available for recorded videos, or for uploading live class recording from Drive) */}
         <div className="glass-panel p-6 rounded-2xl border border-slate-800 space-y-4">
-          <h3 className="text-base font-bold text-white flex items-center gap-2">
-            <Video className="w-5 h-5 text-cyan-400" /> Google Drive Video Source
-          </h3>
+          <div className="flex items-center justify-between">
+            <h3 className="text-base font-bold text-white flex items-center gap-2">
+              <Video className="w-5 h-5 text-cyan-400" />
+              {lessonType === 'live_class'
+                ? 'Live Class Recording (Google Drive) — Optional'
+                : 'Google Drive Video Source'}
+            </h3>
+            {lessonType === 'live_class' && (
+              <span className="text-[11px] text-slate-400">
+                {videoInput ? 'Recording Available' : 'Upload when session finishes'}
+              </span>
+            )}
+          </div>
+
+          {lessonType === 'live_class' && (
+            <p className="text-xs text-slate-400 leading-relaxed">
+              Once the live session has concluded, enter the Google Drive video link or File ID here. The lesson player will automatically play the recorded video for students!
+            </p>
+          )}
 
           <div>
             <label className="block text-xs font-semibold text-slate-300 uppercase mb-1.5">
-              Google Drive File ID or Share URL *
+              Google Drive File ID or Share URL {lessonType === 'live_class' ? '(Optional)' : '*'}
             </label>
             <div className="flex gap-2">
               <input
@@ -231,6 +305,7 @@ export default function EditCourseLessonPage() {
                 name="videoExternalId"
                 value={videoInput}
                 onChange={(e) => setVideoInput(e.target.value)}
+                required={lessonType === 'video'}
                 placeholder="https://drive.google.com/file/d/1A2B3C4D.../view or 1A2B3C4D..."
                 className="flex-1 px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white font-mono text-xs focus:outline-none focus:border-cyan-500"
               />

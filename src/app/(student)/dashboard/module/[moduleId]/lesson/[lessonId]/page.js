@@ -34,6 +34,8 @@ import {
   XCircle,
   ExternalLink,
   Edit3,
+  Radio,
+  Video,
 } from 'lucide-react';
 import GithubIcon from '@/components/ui/GithubIcon';
 
@@ -659,8 +661,75 @@ export default function StudentLessonViewerPage() {
 
         {/* RIGHT MAIN CONTENT AREA */}
         <main className="flex-1 overflow-y-auto">
-          {/* Video Player */}
-          {lesson.lesson_type === 'video' && lesson.video_external_id && (
+          {/* Live Class Session Join Portal (Shown if live class has no recorded video uploaded yet) */}
+          {lesson.lesson_type === 'live_class' && !lesson.video_external_id && (
+            <div className="relative bg-gradient-to-b from-slate-900 via-slate-950 to-[#090d16] w-full p-8 sm:p-14 border-b border-slate-800 flex flex-col items-center justify-center text-center">
+              <div className="max-w-2xl mx-auto space-y-6">
+                <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-red-950/80 border border-red-800/80 text-red-400 text-xs font-semibold">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-500 animate-ping" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-500 -ml-4.5" />
+                  <span>LIVE CLASS SESSION</span>
+                </div>
+
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                    {lesson.title}
+                  </h2>
+                  {lesson.live_meeting_date && (
+                    <p className="text-xs text-cyan-400 font-mono mt-2">
+                      Scheduled Time: {new Date(lesson.live_meeting_date).toLocaleString('en-US', {
+                        weekday: 'short',
+                        month: 'short',
+                        day: 'numeric',
+                        year: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </p>
+                  )}
+                </div>
+
+                <p className="text-sm text-slate-300 max-w-lg mx-auto leading-relaxed">
+                  {lesson.summary || 'Join our live interactive class on Zoom to code along with mentors and ask questions directly.'}
+                </p>
+
+                {lesson.zoom_link ? (
+                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-center gap-3">
+                    <a
+                      href={lesson.zoom_link}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-8 py-3.5 rounded-2xl bg-gradient-to-r from-blue-600 via-cyan-500 to-teal-400 text-slate-950 font-extrabold text-sm hover:shadow-xl hover:shadow-cyan-500/25 hover:scale-105 transition-all flex items-center gap-2"
+                    >
+                      <Video className="w-5 h-5" /> Join Live Class on Zoom ↗
+                    </a>
+                    <button
+                      type="button"
+                      onClick={() => {
+                        navigator.clipboard.writeText(lesson.zoom_link);
+                        toast.success('Zoom meeting link copied to clipboard!');
+                      }}
+                      className="px-4 py-3.5 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-300 hover:text-white text-xs font-semibold transition-all flex items-center gap-1.5"
+                    >
+                      Copy Link
+                    </button>
+                  </div>
+                ) : (
+                  <div className="p-4 rounded-xl bg-slate-900 border border-slate-800 text-slate-400 text-xs">
+                    Zoom meeting link will be posted here shortly before class starts.
+                  </div>
+                )}
+
+                <div className="pt-4 border-t border-slate-800/80 text-xs text-slate-400 flex items-center justify-center gap-2">
+                  <Clock className="w-4 h-4 text-slate-500" />
+                  <span>Can&apos;t attend live? The full recorded session will be uploaded here after the class concludes.</span>
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Video Player (Standard video or Recorded Live Class from Google Drive) */}
+          {(lesson.lesson_type === 'video' || (lesson.lesson_type === 'live_class' && lesson.video_external_id)) && lesson.video_external_id && (
             <div
               id="video-container"
               className="relative bg-black w-full aspect-video group"
@@ -856,10 +925,41 @@ export default function StudentLessonViewerPage() {
           <div className="p-6 max-w-4xl">
             {/* Header */}
             <div className="mb-6">
-              <div className="text-xs font-mono font-medium text-red-400 uppercase tracking-wider mb-1">
-                {moduleData?.title ? `${moduleData.title.toUpperCase()} / LESSON ${lesson.position}` : `LESSON ${lesson.position}`}
+              <div className="flex items-center gap-2 mb-1 flex-wrap">
+                <span className="text-xs font-mono font-medium text-red-400 uppercase tracking-wider">
+                  {moduleData?.title ? `${moduleData.title.toUpperCase()} / LESSON ${lesson.position}` : `LESSON ${lesson.position}`}
+                </span>
+                {lesson.lesson_type === 'live_class' && (
+                  <span className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-purple-950/80 border border-purple-800 text-purple-300 font-semibold text-xs font-mono">
+                    <Radio className="w-3 h-3 text-purple-400 animate-pulse" />
+                    Live Class {lesson.video_external_id ? '(Recorded Video)' : ''}
+                  </span>
+                )}
               </div>
               <h1 className="text-2xl sm:text-3xl font-semibold text-white tracking-tight">{lesson.title}</h1>
+
+              {lesson.lesson_type === 'live_class' && lesson.zoom_link && (
+                <div className="mt-3 flex items-center gap-2 flex-wrap">
+                  <a
+                    href={lesson.zoom_link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-xl bg-purple-950 hover:bg-purple-900 border border-purple-800 text-purple-300 hover:text-white text-xs font-semibold transition-all"
+                  >
+                    <Video className="w-3.5 h-3.5" /> Join Live Class on Zoom ↗
+                  </a>
+                  {lesson.live_meeting_date && (
+                    <span className="text-xs text-slate-400 font-mono">
+                      Scheduled: {new Date(lesson.live_meeting_date).toLocaleString('en-US', {
+                        month: 'short',
+                        day: 'numeric',
+                        hour: '2-digit',
+                        minute: '2-digit',
+                      })}
+                    </span>
+                  )}
+                </div>
+              )}
             </div>
 
             {/* Dynamic Tabs */}

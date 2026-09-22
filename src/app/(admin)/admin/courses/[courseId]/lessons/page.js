@@ -1,7 +1,7 @@
 import { createAdminClient } from '@/lib/supabase/server';
 import { requireAdminRole } from '@/lib/auth/server';
 import Link from 'next/link';
-import { BookOpen, Plus, Edit, Video, FileText, ShieldCheck } from 'lucide-react';
+import { BookOpen, Plus, Edit, Video, FileText, ShieldCheck, Radio } from 'lucide-react';
 import LessonDeleteButton from '@/app/(admin)/admin/course/lessons/LessonDeleteButton';
 
 export const metadata = {
@@ -125,10 +125,17 @@ export default async function CourseLessonsPage({ params, searchParams }) {
                         : 'Unassigned'}
                     </td>
                     <td className="p-4">
-                      <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-slate-800 text-cyan-400 font-semibold text-[11px] capitalize">
-                        {lsn.lesson_type === 'video' ? <Video className="w-3 h-3" /> : <FileText className="w-3 h-3" />}
-                        {lsn.lesson_type}
-                      </span>
+                      {lsn.lesson_type === 'live_class' ? (
+                        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-purple-950/80 border border-purple-800 text-purple-300 font-semibold text-[11px]">
+                          <Radio className="w-3 h-3 text-purple-400 animate-pulse" />
+                          Live Class {lsn.video_external_id ? '• Recorded' : ''}
+                        </span>
+                      ) : (
+                        <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded bg-slate-800 text-cyan-400 font-semibold text-[11px] capitalize">
+                          {lsn.lesson_type === 'video' ? <Video className="w-3 h-3" /> : <FileText className="w-3 h-3" />}
+                          {lsn.lesson_type}
+                        </span>
+                      )}
                     </td>
                     <td className="p-4 font-mono text-xs text-pink-400">
                       {lsn.video_external_id || 'N/A'}

@@ -141,12 +141,14 @@ export async function saveLessonAction(formData) {
   const taskInstructions = formData.get('taskInstructions') || null;
   const taskMarks = parseInt(formData.get('taskMarks') || '100', 10);
   const taskDueDate = formData.get('taskDueDate') || null;
+  const zoomLink = formData.get('zoomLink')?.trim() || null;
+  const liveMeetingDate = formData.get('liveMeetingDate') || null;
   const referencesJson = formData.get('referencesJson');
 
   if (!title || !moduleId) return { error: 'Lesson title and Module selection are required' };
 
-  // Normalize Drive Video ID
-  const videoExternalId = normalizeDriveId(rawVideoSource);
+  // Normalize Drive Video ID (if provided)
+  const videoExternalId = rawVideoSource ? normalizeDriveId(rawVideoSource) : null;
 
   const payload = {
     module_id: moduleId,
@@ -164,6 +166,8 @@ export async function saveLessonAction(formData) {
     task_instructions: taskInstructions,
     task_marks: taskMarks,
     task_due_date: taskDueDate || null,
+    zoom_link: zoomLink,
+    live_meeting_date: liveMeetingDate || null,
     updated_at: new Date().toISOString(),
   };
 
@@ -179,6 +183,25 @@ export async function saveLessonAction(formData) {
       .single();
     error = insertError;
     savedLessonId = newLesson?.id;
+  }
+
+  // Graceful fallback if zoom_link or live_meeting_date columns are not yet created in Supabase
+  if (error && (error.message?.includes('zoom_link') || error.message?.includes('live_meeting_date'))) {
+    console.warn('Live class columns not found, retrying with fallback payload...');
+    const fallbackPayload = { ...payload };
+    delete fallbackPayload.zoom_link;
+    delete fallbackPayload.live_meeting_date;
+    if (id) {
+      ({ error } = await supabase.from('lessons').update(fallbackPayload).eq('id', id));
+    } else {
+      const { data: newLesson, error: insertError } = await supabase
+        .from('lessons')
+        .insert(fallbackPayload)
+        .select('id')
+        .single();
+      error = insertError;
+      savedLessonId = newLesson?.id;
+    }
   }
 
   if (error) {

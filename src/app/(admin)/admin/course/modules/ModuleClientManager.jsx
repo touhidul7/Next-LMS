@@ -11,7 +11,7 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
   const [isPending, startTransition] = useTransition();
 
   const [editingModule, setEditingModule] = useState(null);
-  const [monthNumber, setMonthNumber] = useState(1);
+  const [monthNumber, setMonthNumber] = useState(initialModules?.length ? initialModules.length + 1 : 1);
   const [title, setTitle] = useState('');
   const [description, setDescription] = useState('');
   const [deletingId, setDeletingId] = useState(null);
@@ -25,7 +25,7 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
 
   const cancelEdit = () => {
     setEditingModule(null);
-    setMonthNumber(initialModules.length ? initialModules.length + 1 : 1);
+    setMonthNumber(initialModules?.length ? initialModules.length + 1 : 1);
     setTitle('');
     setDescription('');
   };
@@ -37,6 +37,8 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
       return;
     }
 
+    const finalMonthNumber = parseInt(monthNumber, 10) || 1;
+
     const formData = new FormData();
     if (editingModule?.id) {
       formData.append('id', editingModule.id);
@@ -44,8 +46,8 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
     if (courseId) {
       formData.append('courseId', courseId);
     }
-    formData.append('monthNumber', monthNumber);
-    formData.append('position', monthNumber);
+    formData.append('monthNumber', finalMonthNumber);
+    formData.append('position', finalMonthNumber);
     formData.append('title', title);
     formData.append('description', description);
 
@@ -122,8 +124,9 @@ export default function ModuleClientManager({ courseId, initialModules = [] }) {
                   type="number"
                   min="1"
                   value={monthNumber}
-                  onChange={(e) => setMonthNumber(parseInt(e.target.value || '1', 10))}
+                  onChange={(e) => setMonthNumber(e.target.value === '' ? '' : Math.max(1, parseInt(e.target.value, 10) || 1))}
                   required
+                  placeholder="e.g. 2"
                   className="w-full px-4 py-2.5 rounded-lg bg-slate-950 border border-slate-800 text-white text-sm focus:outline-none focus:border-cyan-500 font-mono"
                 />
               </div>
